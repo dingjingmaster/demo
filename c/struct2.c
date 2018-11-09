@@ -32,12 +32,13 @@ struct ks {
     char a:1;
     char :2;                // this 2 bit can't use because of no name
     char b:3;
-    char c:8;
+    char c:6;
     char d:6;
     char e:6;
-    char f:6;
-    char g:6;
-}k; // 38bit total, can't over 4byte + 2 byte
+    char f:8;
+    char g:8;
+    char m:8;
+}k; // max is 8 * 8(bit)
 
 
 int main() {
@@ -45,7 +46,7 @@ int main() {
     pack.f1 = 0x1;
 
     printf("f1: %d\n", pack.f1);
-    printf("k: %d\n", sizeof(k));               // result: 6 (max 4 + 2)
+    printf("k: %d\n", sizeof(k));               // result: 6
     printf("pack: %d\n", sizeof(pack));         // result: 4
     printf("int: %d\n", sizeof(int));           // result: 4
     printf("char: %d\n", sizeof(char));         // result: 1
