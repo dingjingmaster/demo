@@ -1,0 +1,15 @@
+# phpstorm project files
+.idea/
+vendor/
+runtime/
+assets/*
+assets/*.{!php}
+
+# composer itself is not needed
+composer.phar
+
+tests/_output/*
+tests/_support/_generated
+
+#vagrant folder
+/.vagrant
