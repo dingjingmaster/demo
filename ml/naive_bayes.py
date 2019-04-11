@@ -211,6 +211,9 @@ if __name__ == '__main__':
 
 	# 计算预测的正确率
 	print()
+	print("数据集总数:" + str(dataSetLen))
+	print("训练集:" + str(len(trainingSet)))
+	print("测试集:" + str(len(testSet)))
 	print("正确率:" + str(float(right) / total))
 	print("错误率:" + str(float(wrong) / total))
 
