@@ -2,6 +2,7 @@ resource/
 __pycache__/
 venv/
 .idea/
+target/
 
 *.py[cod]
 *$py.class
