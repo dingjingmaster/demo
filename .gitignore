@@ -3,6 +3,7 @@ __pycache__/
 venv/
 .idea/
 target/
+node_modules/
 
 *.py[cod]
 *$py.class
