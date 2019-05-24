@@ -17,33 +17,26 @@ class Counter extends Component {
             count: CounterStore.getCounterValues()[props.caption]
         }
     }
-
     shouldComponentUpdate(nextProps, nextState) {
         return (nextProps.caption !== this.props.caption) ||
             (nextState.count !== this.state.count);
     }
-
     componentDidMount() {
         CounterStore.addChangeListener(this.onChange);
     }
-
     componentWillUnmount() {
         CounterStore.removeChangeListener(this.onChange);
     }
-
     onChange() {
         const newCount = CounterStore.getCounterValues()[this.props.caption];
         this.setState({count: newCount});
     }
-
     onClickIncrementButton() {
         Actions.increment(this.props.caption);
     }
-
     onClickDecrementButton() {
         Actions.decrement(this.props.caption);
     }
-
     render() {
         const {caption} = this.props;
         return (
@@ -58,5 +51,4 @@ class Counter extends Component {
 Counter.propTypes = {
     caption: PropTypes.string.isRequired
 };
-
 export default Counter;

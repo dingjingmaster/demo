@@ -7,7 +7,6 @@ export const increment = (counterCaption) => {
       counterCaption: counterCaption
   });
 };
-
 export const decrement = (counterCaption) => {
     AppDispatcher.dispatch({
         type: ActionType.DECREMENT,

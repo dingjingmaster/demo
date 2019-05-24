@@ -3,7 +3,6 @@ import * as ActionTypes from './ActionTypes.js';
 import {EventEmitter} from 'events';
 
 const CHANGE_EVENT = 'changed';
-
 const counterValues = {
     'First': 0,
     'Second': 10,
@@ -24,7 +23,6 @@ const CounterStore = Object.assign({}, EventEmitter.prototype, {
         this.removeChangeListener(CHANGE_EVENT, callback)
     }
 });
-
 CounterStore.dispatchToken = AppDispatcher.register((action) => {
     if(action.type === ActionTypes.INCREMENT) {
         counterValues[action.counterCaption] ++;
