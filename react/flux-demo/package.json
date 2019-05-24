@@ -1,11 +1,13 @@
 {
-  "name": "flux",
+  "name": "flux-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "flux": "^3.1.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "prop-types": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
