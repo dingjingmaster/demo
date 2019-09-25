@@ -83,6 +83,7 @@ MENU_XML="""
 </interface>
 """
 
+
 class AppWindow(Gtk.ApplicationWindow):
 
     def __init__(self, *args, **kwargs):
@@ -120,6 +121,7 @@ class AppWindow(Gtk.ApplicationWindow):
             self.maximize()
         else:
             self.unmaximize()
+
 
 class Application(Gtk.Application):
 
@@ -173,6 +175,7 @@ class Application(Gtk.Application):
 
     def on_quit(self, action, param):
         self.quit()
+
 
 if __name__ == "__main__":
     app = Application()
