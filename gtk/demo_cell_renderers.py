@@ -347,12 +347,13 @@ def cell_render_accel():
     sw.set_min_content_height(30)
     column = Gtk.TreeViewColumn()
     renderer = Gtk.CellRendererAccel(accel_mode=Gtk.CellRendererAccelMode.OTHER,
+                                     accel_mods=Gdk.KEY_Shift_L,
                                      editable=True)
     renderer.connect('accel-edited', __accel_edited_cb)
     column.pack_start(renderer, True)
-    column.add_attribute(renderer, 'accel-mods', 0)
-    column.add_attribute(renderer, 'accel-key', 1)
-    column.add_attribute(renderer, 'keycode', 2)
+    # column.add_attribute(renderer, 'accel-mods', 0)
+    # column.add_attribute(renderer, 'accel-key', 1)
+    # column.add_attribute(renderer, 'keycode', 2)
     accel_view.append_column(column)
     it = model.append(None)
     area = dlg.get_message_area()
@@ -375,10 +376,10 @@ if __name__ == '__main__':
     # cell_render_text()
     # cell_render_toggle()
     # cell_render_pixbuf()
-    # cell_render_combo()
+    cell_render_combo()
     # cell_render_progress()
     # cell_render_spin()
-    cell_render_accel()
+    # cell_render_accel()
     exit(0)
 
 
