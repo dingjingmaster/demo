@@ -23,5 +23,6 @@ QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
 SOURCES += \
 #    demo1_window.c \
-    demo2_button.c
+#    demo2_button.c \
+    demo3_packing.c
 
