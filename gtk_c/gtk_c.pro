@@ -12,10 +12,16 @@ INCLUDEPATH += /usr/include/gtk-3.0/ \
                 /usr/include/gdk-pixbuf-2.0/ \
                 /usr/include/atk-1.0/
 
-LIBS += -L /usr/lib64 -lgtk-3 -lgobject-2.0 -lgio-2.0
+LIBS += -L /usr/lib64 \
+             -lgtk-3 \
+             -lgobject-2.0 \
+             -lgio-2.0 \
+             -lglib-2.0\
+#             -lglibutil
 
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
 SOURCES += \
-    demo1_window.c
+#    demo1_window.c \
+    demo2_button.c
 
