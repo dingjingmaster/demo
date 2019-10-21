@@ -24,11 +24,13 @@ LIBS += -L /usr/lib64 \
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
 SOURCES += \
+    demo6_focus.cpp
 #    demo1_window.c \
 #    demo2_button.c \
 #    demo3_packing.c \
-    demo4_ui.c
+#    demo4_ui.c \
+#    demo5_keyboard.c \
 
 FORMS += \
-    build.ui
+#    build.ui
 
