@@ -27,7 +27,7 @@ int main (int argc, char* argv[]) {
     button = gtk_builder_get_object(builder, "button1");
     g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
 
-    button = gtk_build_get_object(builder, "button2");
+    button = gtk_builder_get_object(builder, "button2");
 
     return 0;
 }

@@ -14,10 +14,12 @@ INCLUDEPATH += /usr/include/gtk-3.0/ \
 
 LIBS += -L /usr/lib64 \
              -lgtk-3 \
+             -lavahi-ui-gtk3 \
+             -lgtkmm-3.0 \
              -lgobject-2.0 \
              -lgio-2.0 \
              -lglib-2.0\
-#             -lglibutil
+             -lglibutil
 
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
