@@ -11,3 +11,4 @@ node_modules/
 *$py.class
 *.log
 *.so
+*.run
