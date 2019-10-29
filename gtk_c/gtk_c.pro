@@ -18,18 +18,21 @@ LIBS += -L /usr/lib64 \
              -lgtkmm-3.0 \
              -lgobject-2.0 \
              -lgio-2.0 \
-             -lglib-2.0\
-             -lglibutil
+             -lglib-2.0 \
+             -lglibutil \
+             -ldjctools
 
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
 SOURCES += \
-    demo6_focus.cpp
 #    demo1_window.c \
 #    demo2_button.c \
 #    demo3_packing.c \
 #    demo4_ui.c \
 #    demo5_keyboard.c \
+#    demo6_focus.c \
+#    demo7_dialog.c \
+    demo8_shutdown_dialog.c
 
 FORMS += \
 #    build.ui

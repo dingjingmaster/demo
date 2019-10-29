@@ -5,7 +5,7 @@
 // 键盘按下事件处理函数
 gboolean deal_key_press(GtkWidget* widget, GdkEventKey* event, gpointer data) {
     switch (event->keyval) {
-    case GDK_KEY_Up:
+    case GDK_KEY_Right:
         g_print("Up\n");
         break;
     case GDK_KEY_Left:
