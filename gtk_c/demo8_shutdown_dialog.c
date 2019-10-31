@@ -1,40 +1,65 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-#include <stdio.h>
+#include <cairo.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <string.h>
 #include <djctool/clib_syslog.h>
 
-static int  te_connect_dialog(void* session)
-{
-    GtkWidget *dialog;
-    int retval;
+
+
+static gboolean prompt_dialog (gchar* action) {
+    int ret = FALSE;
+    int logged_user = 2;
+    gchar* prompt = NULL;
+    GtkWidget* dialog = NULL;
+    const GList *items, *item;
+
+//    items = lightdm_user_list_get_users (lightdm_user_list_get_instance ());
+//    for (item = items; item; item = item->next) {
+//        LightDMUser *user = item->data;
+//        if (lightdm_user_get_logged_in (user))logged_user++;
+//    }
+
+    if (logged_user > 1) {
+        prompt = g_strdup_printf ("\n\nThere are still %d users logged in. Confirm %s", logged_user, action);
+    } else if (logged_user == 1) {
+        prompt = g_strdup_printf ("\n\nThere is still %d users logged in. Confirm %s", logged_user, action);
+    } else {
+        prompt = g_strdup_printf ("\n\nConfirm %s", action);
+    }
+
     dialog = gtk_message_dialog_new(NULL,
                 GTK_DIALOG_DESTROY_WITH_PARENT,
                 GTK_MESSAGE_INFO,
-                GTK_BUTTONS_OK,
-                "\n虚拟机连接异常，请重启虚拟机\n");
+                GTK_BUTTONS_OK_CANCEL,
+                prompt);
+//    gtk_widget_set_app_paintable(dialog, TRUE);
+    GtkWidget* image=gtk_image_new_from_file("../warning_bg.png");
+    gtk_window_set_decorated(GTK_WINDOW(dialog), FALSE);
+    gtk_window_set_default_size(dialog, 300, 200);
 
-    gtk_window_set_title(GTK_WINDOW(dialog), "Warning");
+    gtk_message_dialog_set_image (dialog, image);
 
-    // 窗体大小不可调整
-    gtk_window_set_resizable(GTK_WINDOW(dialog),FALSE);
 
-    // 设置背景图片
-    GtkWidget* bg = gtk_image_new_from_file("warning_bg.png");
-    gtk_container_add (GTK_CONTAINER (dialog), bg);
-    gtk_container_set_border_width(GTK_CONTAINER(dialog), 0);
+//    gtk_widget_hide (GTK_WIDGET (panel_window));
+    gtk_widget_show_all (dialog);
+//    center_window (GTK_WINDOW (dialog), NULL, &CENTERED_WINDOW_POS);
 
-    gtk_dialog_run(GTK_DIALOG(dialog));
-    retval=-1;
+    ret = gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK ? TRUE : FALSE;
+    g_free(prompt);
     gtk_widget_destroy(dialog);
-    return retval;
+//    gtk_widget_show (GTK_WIDGET (panel_window));
+    return ret;
 }
 
 int main(int argc,char *argv[])
 {
     gtk_init(&argc, &argv);
 
-    if (te_connect_dialog(NULL)) {
-        CT_SYSLOG(LOG_INFO, "asdasdasd");
+    if (prompt_dialog("是否关机?")) {
+        CT_SYSLOG(LOG_INFO, "关机");
+    } else {
+        CT_SYSLOG(LOG_INFO, "取消");
     }
 
     gtk_main();

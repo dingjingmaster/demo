@@ -10,7 +10,9 @@ INCLUDEPATH += /usr/include/gtk-3.0/ \
                 /usr/include/harfbuzz/ \
                 /usr/include/cairo/ \
                 /usr/include/gdk-pixbuf-2.0/ \
-                /usr/include/atk-1.0/
+                /usr/include/atk-1.0/ \
+                /usr/include/gdkmm-2.4/ \
+                /usr/include/gtk-2.0/ \
 
 LIBS += -L /usr/lib64 \
              -lgtk-3 \
@@ -20,7 +22,8 @@ LIBS += -L /usr/lib64 \
              -lgio-2.0 \
              -lglib-2.0 \
              -lglibutil \
-             -ldjctools
+             -ldjctools \
+             -lgdk_pixbuf-2.0
 
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
@@ -32,8 +35,13 @@ SOURCES += \
 #    demo5_keyboard.c \
 #    demo6_focus.c \
 #    demo7_dialog.c \
-    demo8_shutdown_dialog.c
+#    demo8_shutdown_dialog.c \
+#    demo9_widget_bg.c \
+#    demo9_widget.c \
 
 FORMS += \
 #    build.ui
+
+HEADERS += \
+    demo-common.h
 

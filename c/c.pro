@@ -5,4 +5,6 @@ CONFIG -= qt
 LIBS += -lpam
 
 SOURCES += \
-        main.c
+#        main.c \
+#        who.c \
+        who_file.c
