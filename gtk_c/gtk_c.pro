@@ -38,10 +38,12 @@ SOURCES += \
 #    demo8_shutdown_dialog.c \
 #    demo9_widget_bg.c \
 #    demo9_widget.c \
+    demo10_dialog_bg.c \
+    demo12_dm.c
 
 FORMS += \
 #    build.ui
 
 HEADERS += \
-    demo-common.h
+#    demo-common.h
 
