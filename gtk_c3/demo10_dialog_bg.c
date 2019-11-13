@@ -10,7 +10,7 @@
 
 static char* user_num_tmp = "/tmp/user_num";
 
-static int user_num() {
+static int logged_user_num() {
     char buf[32] = {0};
     int usernum = 0;
 
@@ -43,7 +43,7 @@ static int user_num() {
 
 static gboolean prompt_dialog (gchar* action) {
     int ret = FALSE;
-    int logged_user = 2;
+    int logged_user = 0;
     gchar* prompt = NULL;
     GtkWidget* dialog = NULL;
     GtkWidget* content = NULL;
@@ -51,7 +51,7 @@ static gboolean prompt_dialog (gchar* action) {
     GtkWidget* cancel = NULL;
     GtkWidget* ok = NULL;
 
-    logged_user = user_num();
+    logged_user = logged_user_num();
 
     if (logged_user > 1) {
         prompt = g_markup_printf_escaped ("\n\nThere are still %d users logged in.\n\nConfirm %s", logged_user, action);

@@ -12,7 +12,7 @@ static char* user_num_tmp = "/tmp/user_num";
 int main(int argc, char* argv[]) {
     char buf[32] = {0};
 
-    int fd = open(user_num_tmp, O_RDWR | O_CREAT);
+    int fd = open(user_num_tmp, O_RDWR | O_CREAT, 0777);
     if (fd < 0) {
         puts("error1");
         return -1;

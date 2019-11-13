@@ -28,6 +28,7 @@ LIBS += -L /usr/lib64 \
 QMAKE_CFLAGS = `pkg-config --cflags glib-3.0 -libs gtk+-3.0`
 
 SOURCES += \
+    gsm_shutdown_dialog.c
 #    demo1_window.c \
 #    demo2_button.c \
 #    demo3_packing.c \
@@ -38,12 +39,13 @@ SOURCES += \
 #    demo8_shutdown_dialog.c \
 #    demo9_widget_bg.c \
 #    demo9_widget.c \
-    demo10_dialog_bg.c \
-    demo12_dm.c
+#    demo10_dialog_bg.c \
+#    demo12_dm.c \
 
 FORMS += \
 #    build.ui
 
 HEADERS += \
-#    demo-common.h
+    gsm_shutdown_dialog.h
+ #    demo-common.h
 
