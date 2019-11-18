@@ -23,7 +23,7 @@ int main(void)
     printf("*(p[1]): %c\n", *(p[1]));       // no value
 
 
-    *(*p + 1) = NULL; //right: --- result: h|
+    //*(*p + 1) = (char*)NULL; //right: --- result: h|
     while (*buf)
     printf("%c ", *(buf++));
     printf("|\n");
