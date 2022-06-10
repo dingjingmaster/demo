@@ -1,5 +1,14 @@
-- demo1.py  創建窗口
-- demo2.py  点击事件
-- demo3.py  gtk 属性、主循环、事件和处理函数的连接与断开
-- demo4.py  gtk 与python2和python3的字符编码
-- demo7.py  GObject 属性创建和时间创建
+# gtk3
+
+### gtk3 空间
+
+#### 顶层
+
+#### 容器
+
+- GtkOverlay 上层可以覆盖下层，比如两个图片
+- GtkMenuBar 窗口中右键显示的菜单
+
+#### 控制
+
+#### 显示

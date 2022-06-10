@@ -1,0 +1,160 @@
+
+class RecentDom
+{
+public:
+    RecentDom (QString path)
+    {
+        xmlPath = path;
+        QFile file (path);
+        if (!file.exists()) {
+            QXmlStreamWriter xmlWritter;
+            xmlWritter.setAutoFormatting(true);
+            file.open(QIODevice::WriteOnly | QIODevice::Text);
+            xmlWritter.setDevice(&file);
+
+            xmlWritter.writeStartDocument();
+            xmlWritter.writeStartElement("xbel");
+            xmlWritter.writeAttribute("version", "1.0");
+            xmlWritter.writeAttribute("xmlns:bookmark", "http://www.freedesktop.org/standards/desktop-bookmarks");
+            xmlWritter.writeAttribute("xmlns:mime", "http://www.freedesktop.org/standards/shared-mime-info");
+            xmlWritter.writeEndElement();
+            xmlWritter.writeEndDocument();
+        }
+
+        file.close();
+    }
+
+    bool read ()
+    {
+        QString errorStr;
+        int errorLine;
+        int errorColumn;
+
+        QFile file (xmlPath);
+        if (!file.exists()) {
+            return false;
+        }
+
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        if (!domDocument.setContent(&file, true, &errorStr, &errorLine, &errorColumn)) {
+            qDebug() << "line:" << errorLine << " column:" << errorColumn << " info:" << errorStr;
+            return false;
+        }
+
+        QDomElement root = domDocument.documentElement();
+        if ("xbel" != root.tagName()) {
+            qDebug () << "not xbel document";
+            return false;
+        } else if (root.hasAttribute("version") && "1.0" != root.attribute("version")) {
+            qDebug() << "xbel version is not 1.0";
+            return false;
+        }
+
+        return true;
+    }
+
+    bool write ()
+    {
+        QFile file (xmlPath);
+        file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
+
+        file.write(domDocument.toByteArray());
+
+        file.flush();
+        file.close();
+
+        return true;
+    }
+
+    bool elementExists (QString uri)
+    {
+        if (!read()) {
+            qDebug() << "read error";
+            return false;
+        }
+
+        QDomElement rootElement = domDocument.firstChildElement().firstChildElement();
+        while (!rootElement.isNull()) {
+            if (rootElement.hasAttribute("href") && rootElement.attribute("href") == uri) {
+                qDebug() << "existed!";
+                return true;
+            }
+            rootElement = rootElement.nextSiblingElement();
+        }
+
+        return false;
+    }
+
+    bool createNode (QString uri, QString mimetype, QString name, QString exec)
+    {
+        QString dataTime = QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ssZ");
+        QDomElement rootElement = domDocument.firstChildElement();
+        rootElement.setAttribute("version", "1.0");
+        rootElement.setAttribute("xmlns:bookmark", "http://www.freedesktop.org/standards/desktop-bookmarks");
+        rootElement.setAttribute("xmlns:mime", "http://www.freedesktop.org/standards/shared-mime-info");
+
+        QDomElement child = domDocument.createElement("bookmark");
+        child.setAttribute("href", uri);
+        child.setAttribute("added", dataTime);
+        child.setAttribute("modified", dataTime);
+        child.setAttribute("visited", dataTime);
+
+        QDomElement childInfo = domDocument.createElement("info");
+
+        QDomElement childInfoMeta = domDocument.createElement("metadata");
+        childInfoMeta.setAttribute("owner", "http://freedesktop.org");
+
+        QDomElement childInfoMetaMime = domDocument.createElement("mime:mime-type");
+        childInfoMetaMime.setAttribute("type", mimetype);
+
+        QDomElement childInfoMetaApp = domDocument.createElement("bookmark:applications");
+
+        // not only one application
+        QDomElement app = domDocument.createElement("bookmark:application");
+        app.setAttribute("name", name);
+        app.setAttribute("exec", QString("&apos;%1 %u&apos;").arg(exec));
+        app.setAttribute("modified", dataTime);
+        app.setAttribute("count", "1");
+
+
+        childInfoMetaApp.appendChild(app);
+        childInfoMeta.appendChild(childInfoMetaMime);
+        childInfoMeta.appendChild(childInfoMetaApp);
+        childInfo.appendChild(childInfoMeta);
+        child.appendChild(childInfo);
+        rootElement.appendChild(child);
+
+        return true;
+    }
+
+    //
+    void insert (QString uri, QString mimetype, QString name, QString exec)
+    {
+        if (!elementExists(uri)) {
+            createNode(uri, mimetype, name, exec);
+        }
+
+        write();
+    }
+
+private:
+    QString xmlPath;
+    QDomDocument domDocument;
+};
+
+
+
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    QString path = "/home/dingjing/.local/share/recently-used.xbel";
+
+    RecentDom dom(path);
+
+    dom.insert("file:///home/dingjing/a", "application/text", "a", "gedit");
+
+
+    return a.exec();
+}

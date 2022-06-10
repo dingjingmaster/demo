@@ -1,0 +1,4 @@
+[D-BUS Service]
+User=root
+Name=com.polkit.qt.example.dbus
+Exec=/data/code/c_library/demo/qt/polkit/build/polkit-qt-example-daemon
