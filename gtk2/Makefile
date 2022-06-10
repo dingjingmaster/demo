@@ -8,7 +8,7 @@ target = $(patsubst %.c, %.run, $(src))
 all:$(target)
 
 %.run:%.c 
-	$(CC) -o $@ $^ $(cflag) -ldjctools
+	$(CC) -o $@ $^ $(cflag)
 
 clean:
-	rm ./*.run
+	rm -f *.run
