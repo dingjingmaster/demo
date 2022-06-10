@@ -1,0 +1,691 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/data/code/c_library/demo/qt/modelview-changemodel/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+/usr/lib/qt/mkspecs/common/gcc-base-unix.conf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/common\/gcc-base-unix.conf:$/;"	t
+/usr/lib/qt/mkspecs/common/gcc-base.conf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/common\/gcc-base.conf:$/;"	t
+/usr/lib/qt/mkspecs/common/linux.conf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/common\/linux.conf:$/;"	t
+/usr/lib/qt/mkspecs/common/sanitize.conf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/common\/sanitize.conf:$/;"	t
+/usr/lib/qt/mkspecs/common/unix.conf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/common\/unix.conf:$/;"	t
+/usr/lib/qt/mkspecs/features/default_post.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/default_post.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/default_pre.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/default_pre.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/exceptions.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/exceptions.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/exclusive_builds.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/exclusive_builds.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/file_copies.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/file_copies.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/lex.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/lex.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/moc.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/moc.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/qmake_use.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/qmake_use.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/qt.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/qt.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/qt_config.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/qt_config.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/qt_functions.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/qt_functions.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/resolve_config.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/resolve_config.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/resources.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/resources.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/resources_functions.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/resources_functions.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/spec_post.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/spec_post.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/spec_pre.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/spec_pre.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/testcase_targets.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/testcase_targets.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/toolchain.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/toolchain.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/uic.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/uic.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/unix/opengl.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/unix\/opengl.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/unix/thread.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/unix\/thread.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/warn_on.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/warn_on.prf:$/;"	t
+/usr/lib/qt/mkspecs/features/yacc.prf	Makefile	/^\/usr\/lib\/qt\/mkspecs\/features\/yacc.prf:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_Attica.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_Attica.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KArchive.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KArchive.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KAuth.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KAuth.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KAuthCore.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KAuthCore.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KCodecs.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KCompletion.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KConfigCore.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KConfigGui.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KConfigWidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KCoreAddons.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KCrash.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KCrash.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KDBusAddons.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KGlobalAccel.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KGuiAddons.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KI18n.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KI18n.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KIconThemes.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KIdleTime.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KItemModels.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KItemModels.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KItemViews.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KNotifications.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KScreen.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KScreen.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KService.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KService.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KWaylandClient.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KWaylandClient.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KWaylandServer.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KWaylandServer.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KWidgetsAddons.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KWindowSystem.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_KXmlGui.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_Kirigami2.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_Kirigami2.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_Solid.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_Solid.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_accessibility_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_accessibility_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_bootstrap_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_charts.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_charts.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_charts_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_charts_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_concurrent.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_concurrent.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_concurrent_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_concurrent_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_core.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_core.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_core_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_core_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_datavisualization.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_datavisualization.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_datavisualization_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_datavisualization_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_dbus.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_dbus.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_dbus_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_dbus_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_designer.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_designer.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_designer_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_designer_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_designercomponents_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_designercomponents_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_devicediscovery_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_devicediscovery_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_edid_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_edid_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_egl_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_egl_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_eglfs_kms_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_eglfsdeviceintegration_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_eventdispatcher_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_fb_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_fb_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_fontdatabase_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_fontdatabase_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_glx_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_glx_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_gui.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_gui.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_gui_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_gui_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_help.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_help.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_help_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_help_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_input_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_input_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_kms_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_kms_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_linuxaccessibility_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_location.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_location.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_location_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_location_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_multimedia.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_multimedia.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_multimedia_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_multimedia_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediagsttools_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_multimediagsttools_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_multimediawidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_multimediawidgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_network.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_network.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_network_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_network_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_opengl.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_opengl.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_opengl_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_opengl_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_openglextensions.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_openglextensions.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_openglextensions_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_openglextensions_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_packetprotocol_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_packetprotocol_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_pdf.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_pdf.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_pdf_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_pdf_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_pdfwidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_pdfwidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_pdfwidgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_pdfwidgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_platformcompositor_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_platformcompositor_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_positioning.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_positioning.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_positioning_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_positioning_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_positioningquick.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_positioningquick.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_positioningquick_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_positioningquick_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_printsupport.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_printsupport.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_printsupport_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_printsupport_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qml.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qml.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qml_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qml_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmldebug_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmldebug_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmldevtools_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmldevtools_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmlmodels.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmlmodels.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmlmodels_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmlmodels_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmltest.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmltest.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmltest_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmltest_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmlworkerscript.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmlworkerscript.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qmlworkerscript_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qmlworkerscript_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_qtmultimediaquicktools_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3d.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3d.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3d_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3d_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3dassetimport.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3dassetimport.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3dassetimport_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3dassetimport_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3drender.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3drender.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3drender_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3drender_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3druntimerender.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3druntimerender.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3druntimerender_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3druntimerender_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3dutils.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3dutils.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick3dutils_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick3dutils_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quick_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quick_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickcontrols2.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickcontrols2.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickcontrols2_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickcontrols2_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickparticles_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickparticles_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickshapes_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickshapes_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quicktemplates2.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quicktemplates2.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quicktemplates2_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quicktemplates2_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickwidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickwidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_quickwidgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_quickwidgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_remoteobjects.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_remoteobjects.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_remoteobjects_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_remoteobjects_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_repparser.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_repparser.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_repparser_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_repparser_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_sensors.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_sensors.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_sensors_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_sensors_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_service_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_service_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_sql.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_sql.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_sql_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_sql_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_svg.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_svg.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_svg_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_svg_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_testlib.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_testlib.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_testlib_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_testlib_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_texttospeech.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_texttospeech_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_theme_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_theme_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_uiplugin.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_uiplugin.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_uitools.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_uitools.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_uitools_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_uitools_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_vulkan_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_vulkan_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_waylandclient.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_waylandclient.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_waylandclient_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_waylandclient_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_waylandcompositor.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_waylandcompositor.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_waylandcompositor_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_waylandcompositor_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webchannel.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webchannel.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webchannel_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webchannel_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webengine.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webengine.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webengine_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webengine_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webenginecore.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webenginecore.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webenginecore_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webenginecore_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webenginecoreheaders_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webenginewidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webenginewidgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webkit.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webkit.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webkit_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webkit_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webkitwidgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webkitwidgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_webkitwidgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_webkitwidgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_widgets.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_widgets_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_x11extras.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_x11extras_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_x11extras_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_xcb_qpa_lib_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_xkbcommon_support_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_xkbcommon_support_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_xml.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_xml.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_lib_xml_private.pri:$/;"	t
+/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/modules\/qt_phonon4qt5.pri:$/;"	t
+/usr/lib/qt/mkspecs/qconfig.pri	Makefile	/^\/usr\/lib\/qt\/mkspecs\/qconfig.pri:$/;"	t
+AR	Makefile	/^AR            = ar cqs$/;"	m
+CC	Makefile	/^CC            = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)$/;"	m
+CHK_DIR_EXISTS	Makefile	/^CHK_DIR_EXISTS= test -d$/;"	m
+COMPRESS	Makefile	/^COMPRESS      = gzip -9f$/;"	m
+COPY	Makefile	/^COPY          = cp -f$/;"	m
+COPY_DIR	Makefile	/^COPY_DIR      = cp -f -R$/;"	m
+COPY_FILE	Makefile	/^COPY_FILE     = cp -f$/;"	m
+CXX	Makefile	/^CXX           = g++$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)$/;"	m
+DEL_DIR	Makefile	/^DEL_DIR       = rmdir$/;"	m
+DEL_FILE	Makefile	/^DEL_FILE      = rm -f$/;"	m
+DESTDIR	Makefile	/^DESTDIR       = $/;"	m
+DIST	Makefile	/^DIST          = \/usr\/lib\/qt\/mkspecs\/features\/spec_pre.prf \\$/;"	m
+DISTDIR	Makefile	/^DISTDIR = \/data\/code\/c_library\/demo\/qt\/modelview-changemodel\/.tmp\/modelview-changemodel1/;"	m
+DISTNAME	Makefile	/^DISTNAME      = modelview-changemodel1.0.0$/;"	m
+EQ	Makefile	/^EQ            = =$/;"	m
+FORCE	Makefile	/^FORCE:$/;"	t
+INCPATH	Makefile	/^INCPATH       = -I. -I\/usr\/include\/qt -I\/usr\/include\/qt\/QtWidgets -I\/usr\/include\/qt\/Q/;"	m
+INSTALL_DIR	Makefile	/^INSTALL_DIR   = cp -f -R$/;"	m
+INSTALL_FILE	Makefile	/^INSTALL_FILE  = install -m 644 -p$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = install -m 755 -p$/;"	m
+LIBS	Makefile	/^LIBS          = $(SUBLIBS) \/usr\/lib\/libQt5Widgets.so \/usr\/lib\/libQt5Gui.so \/usr\/lib\/lib/;"	m
+LINK	Makefile	/^LINK          = g++$/;"	m
+MAKEFILE	Makefile	/^MAKEFILE      = Makefile$/;"	m
+MKDIR	Makefile	/^MKDIR         = mkdir -p$/;"	m
+MOVE	Makefile	/^MOVE          = mv -f$/;"	m
+MYMODEL_H	mymodel.h	/^#define MYMODEL_H$/;"	d
+Makefile	Makefile	/^Makefile: modelview-changemodel.pro \/usr\/lib\/qt\/mkspecs\/linux-g++\/qmake.conf \/usr\/lib\/q/;"	t
+MyModel	mymodel.cpp	/^MyModel::MyModel(QObject *parent) : QAbstractTableModel(parent), timer(new QTimer(this))$/;"	f	class:MyModel
+MyModel	mymodel.h	/^class MyModel : public QAbstractTableModel$/;"	c
+OBJECTS	Makefile	/^OBJECTS       = main.o \\$/;"	m
+OBJECTS_DIR	Makefile	/^OBJECTS_DIR   = .\/$/;"	m
+QINSTALL	Makefile	/^QINSTALL      = \/usr\/bin\/qmake -install qinstall$/;"	m
+QINSTALL_PROGRAM	Makefile	/^QINSTALL_PROGRAM = \/usr\/bin\/qmake -install qinstall -exe$/;"	m
+QT_MOC_LITERAL	moc_mymodel.cpp	/^#define QT_MOC_LITERAL(/;"	d	file:
+RANLIB	Makefile	/^RANLIB        = $/;"	m
+SED	Makefile	/^SED           = sed$/;"	m
+SOURCES	Makefile	/^SOURCES       = main.cpp \\$/;"	m
+STRIP	Makefile	/^STRIP         = strip$/;"	m
+SYMLINK	Makefile	/^SYMLINK       = ln -f -s$/;"	m
+TAR	Makefile	/^TAR           = tar -cf$/;"	m
+TARGET	Makefile	/^TARGET        = modelview-changemodel$/;"	m
+_GNU_SOURCE	moc_predefs.h	/^#define _GNU_SOURCE /;"	d
+_LP64	moc_predefs.h	/^#define _LP64 /;"	d
+_STDC_PREDEF_H	moc_predefs.h	/^#define _STDC_PREDEF_H /;"	d
+__ATOMIC_ACQUIRE	moc_predefs.h	/^#define __ATOMIC_ACQUIRE /;"	d
+__ATOMIC_ACQ_REL	moc_predefs.h	/^#define __ATOMIC_ACQ_REL /;"	d
+__ATOMIC_CONSUME	moc_predefs.h	/^#define __ATOMIC_CONSUME /;"	d
+__ATOMIC_HLE_ACQUIRE	moc_predefs.h	/^#define __ATOMIC_HLE_ACQUIRE /;"	d
+__ATOMIC_HLE_RELEASE	moc_predefs.h	/^#define __ATOMIC_HLE_RELEASE /;"	d
+__ATOMIC_RELAXED	moc_predefs.h	/^#define __ATOMIC_RELAXED /;"	d
+__ATOMIC_RELEASE	moc_predefs.h	/^#define __ATOMIC_RELEASE /;"	d
+__ATOMIC_SEQ_CST	moc_predefs.h	/^#define __ATOMIC_SEQ_CST /;"	d
+__BIGGEST_ALIGNMENT__	moc_predefs.h	/^#define __BIGGEST_ALIGNMENT__ /;"	d
+__BYTE_ORDER__	moc_predefs.h	/^#define __BYTE_ORDER__ /;"	d
+__CHAR16_TYPE__	moc_predefs.h	/^#define __CHAR16_TYPE__ /;"	d
+__CHAR32_TYPE__	moc_predefs.h	/^#define __CHAR32_TYPE__ /;"	d
+__CHAR_BIT__	moc_predefs.h	/^#define __CHAR_BIT__ /;"	d
+__DBL_DECIMAL_DIG__	moc_predefs.h	/^#define __DBL_DECIMAL_DIG__ /;"	d
+__DBL_DENORM_MIN__	moc_predefs.h	/^#define __DBL_DENORM_MIN__ /;"	d
+__DBL_DIG__	moc_predefs.h	/^#define __DBL_DIG__ /;"	d
+__DBL_EPSILON__	moc_predefs.h	/^#define __DBL_EPSILON__ /;"	d
+__DBL_HAS_DENORM__	moc_predefs.h	/^#define __DBL_HAS_DENORM__ /;"	d
+__DBL_HAS_INFINITY__	moc_predefs.h	/^#define __DBL_HAS_INFINITY__ /;"	d
+__DBL_HAS_QUIET_NAN__	moc_predefs.h	/^#define __DBL_HAS_QUIET_NAN__ /;"	d
+__DBL_MANT_DIG__	moc_predefs.h	/^#define __DBL_MANT_DIG__ /;"	d
+__DBL_MAX_10_EXP__	moc_predefs.h	/^#define __DBL_MAX_10_EXP__ /;"	d
+__DBL_MAX_EXP__	moc_predefs.h	/^#define __DBL_MAX_EXP__ /;"	d
+__DBL_MAX__	moc_predefs.h	/^#define __DBL_MAX__ /;"	d
+__DBL_MIN_10_EXP__	moc_predefs.h	/^#define __DBL_MIN_10_EXP__ /;"	d
+__DBL_MIN_EXP__	moc_predefs.h	/^#define __DBL_MIN_EXP__ /;"	d
+__DBL_MIN__	moc_predefs.h	/^#define __DBL_MIN__ /;"	d
+__DBL_NORM_MAX__	moc_predefs.h	/^#define __DBL_NORM_MAX__ /;"	d
+__DEC128_EPSILON__	moc_predefs.h	/^#define __DEC128_EPSILON__ /;"	d
+__DEC128_MANT_DIG__	moc_predefs.h	/^#define __DEC128_MANT_DIG__ /;"	d
+__DEC128_MAX_EXP__	moc_predefs.h	/^#define __DEC128_MAX_EXP__ /;"	d
+__DEC128_MAX__	moc_predefs.h	/^#define __DEC128_MAX__ /;"	d
+__DEC128_MIN_EXP__	moc_predefs.h	/^#define __DEC128_MIN_EXP__ /;"	d
+__DEC128_MIN__	moc_predefs.h	/^#define __DEC128_MIN__ /;"	d
+__DEC128_SUBNORMAL_MIN__	moc_predefs.h	/^#define __DEC128_SUBNORMAL_MIN__ /;"	d
+__DEC32_EPSILON__	moc_predefs.h	/^#define __DEC32_EPSILON__ /;"	d
+__DEC32_MANT_DIG__	moc_predefs.h	/^#define __DEC32_MANT_DIG__ /;"	d
+__DEC32_MAX_EXP__	moc_predefs.h	/^#define __DEC32_MAX_EXP__ /;"	d
+__DEC32_MAX__	moc_predefs.h	/^#define __DEC32_MAX__ /;"	d
+__DEC32_MIN_EXP__	moc_predefs.h	/^#define __DEC32_MIN_EXP__ /;"	d
+__DEC32_MIN__	moc_predefs.h	/^#define __DEC32_MIN__ /;"	d
+__DEC32_SUBNORMAL_MIN__	moc_predefs.h	/^#define __DEC32_SUBNORMAL_MIN__ /;"	d
+__DEC64_EPSILON__	moc_predefs.h	/^#define __DEC64_EPSILON__ /;"	d
+__DEC64_MANT_DIG__	moc_predefs.h	/^#define __DEC64_MANT_DIG__ /;"	d
+__DEC64_MAX_EXP__	moc_predefs.h	/^#define __DEC64_MAX_EXP__ /;"	d
+__DEC64_MAX__	moc_predefs.h	/^#define __DEC64_MAX__ /;"	d
+__DEC64_MIN_EXP__	moc_predefs.h	/^#define __DEC64_MIN_EXP__ /;"	d
+__DEC64_MIN__	moc_predefs.h	/^#define __DEC64_MIN__ /;"	d
+__DEC64_SUBNORMAL_MIN__	moc_predefs.h	/^#define __DEC64_SUBNORMAL_MIN__ /;"	d
+__DECIMAL_BID_FORMAT__	moc_predefs.h	/^#define __DECIMAL_BID_FORMAT__ /;"	d
+__DECIMAL_DIG__	moc_predefs.h	/^#define __DECIMAL_DIG__ /;"	d
+__DEC_EVAL_METHOD__	moc_predefs.h	/^#define __DEC_EVAL_METHOD__ /;"	d
+__DEPRECATED	moc_predefs.h	/^#define __DEPRECATED /;"	d
+__ELF__	moc_predefs.h	/^#define __ELF__ /;"	d
+__EXCEPTIONS	moc_predefs.h	/^#define __EXCEPTIONS /;"	d
+__FINITE_MATH_ONLY__	moc_predefs.h	/^#define __FINITE_MATH_ONLY__ /;"	d
+__FLOAT_WORD_ORDER__	moc_predefs.h	/^#define __FLOAT_WORD_ORDER__ /;"	d
+__FLT128_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT128_DECIMAL_DIG__ /;"	d
+__FLT128_DENORM_MIN__	moc_predefs.h	/^#define __FLT128_DENORM_MIN__ /;"	d
+__FLT128_DIG__	moc_predefs.h	/^#define __FLT128_DIG__ /;"	d
+__FLT128_EPSILON__	moc_predefs.h	/^#define __FLT128_EPSILON__ /;"	d
+__FLT128_HAS_DENORM__	moc_predefs.h	/^#define __FLT128_HAS_DENORM__ /;"	d
+__FLT128_HAS_INFINITY__	moc_predefs.h	/^#define __FLT128_HAS_INFINITY__ /;"	d
+__FLT128_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT128_HAS_QUIET_NAN__ /;"	d
+__FLT128_MANT_DIG__	moc_predefs.h	/^#define __FLT128_MANT_DIG__ /;"	d
+__FLT128_MAX_10_EXP__	moc_predefs.h	/^#define __FLT128_MAX_10_EXP__ /;"	d
+__FLT128_MAX_EXP__	moc_predefs.h	/^#define __FLT128_MAX_EXP__ /;"	d
+__FLT128_MAX__	moc_predefs.h	/^#define __FLT128_MAX__ /;"	d
+__FLT128_MIN_10_EXP__	moc_predefs.h	/^#define __FLT128_MIN_10_EXP__ /;"	d
+__FLT128_MIN_EXP__	moc_predefs.h	/^#define __FLT128_MIN_EXP__ /;"	d
+__FLT128_MIN__	moc_predefs.h	/^#define __FLT128_MIN__ /;"	d
+__FLT128_NORM_MAX__	moc_predefs.h	/^#define __FLT128_NORM_MAX__ /;"	d
+__FLT32X_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT32X_DECIMAL_DIG__ /;"	d
+__FLT32X_DENORM_MIN__	moc_predefs.h	/^#define __FLT32X_DENORM_MIN__ /;"	d
+__FLT32X_DIG__	moc_predefs.h	/^#define __FLT32X_DIG__ /;"	d
+__FLT32X_EPSILON__	moc_predefs.h	/^#define __FLT32X_EPSILON__ /;"	d
+__FLT32X_HAS_DENORM__	moc_predefs.h	/^#define __FLT32X_HAS_DENORM__ /;"	d
+__FLT32X_HAS_INFINITY__	moc_predefs.h	/^#define __FLT32X_HAS_INFINITY__ /;"	d
+__FLT32X_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT32X_HAS_QUIET_NAN__ /;"	d
+__FLT32X_MANT_DIG__	moc_predefs.h	/^#define __FLT32X_MANT_DIG__ /;"	d
+__FLT32X_MAX_10_EXP__	moc_predefs.h	/^#define __FLT32X_MAX_10_EXP__ /;"	d
+__FLT32X_MAX_EXP__	moc_predefs.h	/^#define __FLT32X_MAX_EXP__ /;"	d
+__FLT32X_MAX__	moc_predefs.h	/^#define __FLT32X_MAX__ /;"	d
+__FLT32X_MIN_10_EXP__	moc_predefs.h	/^#define __FLT32X_MIN_10_EXP__ /;"	d
+__FLT32X_MIN_EXP__	moc_predefs.h	/^#define __FLT32X_MIN_EXP__ /;"	d
+__FLT32X_MIN__	moc_predefs.h	/^#define __FLT32X_MIN__ /;"	d
+__FLT32X_NORM_MAX__	moc_predefs.h	/^#define __FLT32X_NORM_MAX__ /;"	d
+__FLT32_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT32_DECIMAL_DIG__ /;"	d
+__FLT32_DENORM_MIN__	moc_predefs.h	/^#define __FLT32_DENORM_MIN__ /;"	d
+__FLT32_DIG__	moc_predefs.h	/^#define __FLT32_DIG__ /;"	d
+__FLT32_EPSILON__	moc_predefs.h	/^#define __FLT32_EPSILON__ /;"	d
+__FLT32_HAS_DENORM__	moc_predefs.h	/^#define __FLT32_HAS_DENORM__ /;"	d
+__FLT32_HAS_INFINITY__	moc_predefs.h	/^#define __FLT32_HAS_INFINITY__ /;"	d
+__FLT32_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT32_HAS_QUIET_NAN__ /;"	d
+__FLT32_MANT_DIG__	moc_predefs.h	/^#define __FLT32_MANT_DIG__ /;"	d
+__FLT32_MAX_10_EXP__	moc_predefs.h	/^#define __FLT32_MAX_10_EXP__ /;"	d
+__FLT32_MAX_EXP__	moc_predefs.h	/^#define __FLT32_MAX_EXP__ /;"	d
+__FLT32_MAX__	moc_predefs.h	/^#define __FLT32_MAX__ /;"	d
+__FLT32_MIN_10_EXP__	moc_predefs.h	/^#define __FLT32_MIN_10_EXP__ /;"	d
+__FLT32_MIN_EXP__	moc_predefs.h	/^#define __FLT32_MIN_EXP__ /;"	d
+__FLT32_MIN__	moc_predefs.h	/^#define __FLT32_MIN__ /;"	d
+__FLT32_NORM_MAX__	moc_predefs.h	/^#define __FLT32_NORM_MAX__ /;"	d
+__FLT64X_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT64X_DECIMAL_DIG__ /;"	d
+__FLT64X_DENORM_MIN__	moc_predefs.h	/^#define __FLT64X_DENORM_MIN__ /;"	d
+__FLT64X_DIG__	moc_predefs.h	/^#define __FLT64X_DIG__ /;"	d
+__FLT64X_EPSILON__	moc_predefs.h	/^#define __FLT64X_EPSILON__ /;"	d
+__FLT64X_HAS_DENORM__	moc_predefs.h	/^#define __FLT64X_HAS_DENORM__ /;"	d
+__FLT64X_HAS_INFINITY__	moc_predefs.h	/^#define __FLT64X_HAS_INFINITY__ /;"	d
+__FLT64X_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT64X_HAS_QUIET_NAN__ /;"	d
+__FLT64X_MANT_DIG__	moc_predefs.h	/^#define __FLT64X_MANT_DIG__ /;"	d
+__FLT64X_MAX_10_EXP__	moc_predefs.h	/^#define __FLT64X_MAX_10_EXP__ /;"	d
+__FLT64X_MAX_EXP__	moc_predefs.h	/^#define __FLT64X_MAX_EXP__ /;"	d
+__FLT64X_MAX__	moc_predefs.h	/^#define __FLT64X_MAX__ /;"	d
+__FLT64X_MIN_10_EXP__	moc_predefs.h	/^#define __FLT64X_MIN_10_EXP__ /;"	d
+__FLT64X_MIN_EXP__	moc_predefs.h	/^#define __FLT64X_MIN_EXP__ /;"	d
+__FLT64X_MIN__	moc_predefs.h	/^#define __FLT64X_MIN__ /;"	d
+__FLT64X_NORM_MAX__	moc_predefs.h	/^#define __FLT64X_NORM_MAX__ /;"	d
+__FLT64_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT64_DECIMAL_DIG__ /;"	d
+__FLT64_DENORM_MIN__	moc_predefs.h	/^#define __FLT64_DENORM_MIN__ /;"	d
+__FLT64_DIG__	moc_predefs.h	/^#define __FLT64_DIG__ /;"	d
+__FLT64_EPSILON__	moc_predefs.h	/^#define __FLT64_EPSILON__ /;"	d
+__FLT64_HAS_DENORM__	moc_predefs.h	/^#define __FLT64_HAS_DENORM__ /;"	d
+__FLT64_HAS_INFINITY__	moc_predefs.h	/^#define __FLT64_HAS_INFINITY__ /;"	d
+__FLT64_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT64_HAS_QUIET_NAN__ /;"	d
+__FLT64_MANT_DIG__	moc_predefs.h	/^#define __FLT64_MANT_DIG__ /;"	d
+__FLT64_MAX_10_EXP__	moc_predefs.h	/^#define __FLT64_MAX_10_EXP__ /;"	d
+__FLT64_MAX_EXP__	moc_predefs.h	/^#define __FLT64_MAX_EXP__ /;"	d
+__FLT64_MAX__	moc_predefs.h	/^#define __FLT64_MAX__ /;"	d
+__FLT64_MIN_10_EXP__	moc_predefs.h	/^#define __FLT64_MIN_10_EXP__ /;"	d
+__FLT64_MIN_EXP__	moc_predefs.h	/^#define __FLT64_MIN_EXP__ /;"	d
+__FLT64_MIN__	moc_predefs.h	/^#define __FLT64_MIN__ /;"	d
+__FLT64_NORM_MAX__	moc_predefs.h	/^#define __FLT64_NORM_MAX__ /;"	d
+__FLT_DECIMAL_DIG__	moc_predefs.h	/^#define __FLT_DECIMAL_DIG__ /;"	d
+__FLT_DENORM_MIN__	moc_predefs.h	/^#define __FLT_DENORM_MIN__ /;"	d
+__FLT_DIG__	moc_predefs.h	/^#define __FLT_DIG__ /;"	d
+__FLT_EPSILON__	moc_predefs.h	/^#define __FLT_EPSILON__ /;"	d
+__FLT_EVAL_METHOD_TS_18661_3__	moc_predefs.h	/^#define __FLT_EVAL_METHOD_TS_18661_3__ /;"	d
+__FLT_EVAL_METHOD__	moc_predefs.h	/^#define __FLT_EVAL_METHOD__ /;"	d
+__FLT_HAS_DENORM__	moc_predefs.h	/^#define __FLT_HAS_DENORM__ /;"	d
+__FLT_HAS_INFINITY__	moc_predefs.h	/^#define __FLT_HAS_INFINITY__ /;"	d
+__FLT_HAS_QUIET_NAN__	moc_predefs.h	/^#define __FLT_HAS_QUIET_NAN__ /;"	d
+__FLT_MANT_DIG__	moc_predefs.h	/^#define __FLT_MANT_DIG__ /;"	d
+__FLT_MAX_10_EXP__	moc_predefs.h	/^#define __FLT_MAX_10_EXP__ /;"	d
+__FLT_MAX_EXP__	moc_predefs.h	/^#define __FLT_MAX_EXP__ /;"	d
+__FLT_MAX__	moc_predefs.h	/^#define __FLT_MAX__ /;"	d
+__FLT_MIN_10_EXP__	moc_predefs.h	/^#define __FLT_MIN_10_EXP__ /;"	d
+__FLT_MIN_EXP__	moc_predefs.h	/^#define __FLT_MIN_EXP__ /;"	d
+__FLT_MIN__	moc_predefs.h	/^#define __FLT_MIN__ /;"	d
+__FLT_NORM_MAX__	moc_predefs.h	/^#define __FLT_NORM_MAX__ /;"	d
+__FLT_RADIX__	moc_predefs.h	/^#define __FLT_RADIX__ /;"	d
+__FXSR__	moc_predefs.h	/^#define __FXSR__ /;"	d
+__GCC_ASM_FLAG_OUTPUTS__	moc_predefs.h	/^#define __GCC_ASM_FLAG_OUTPUTS__ /;"	d
+__GCC_ATOMIC_BOOL_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_BOOL_LOCK_FREE /;"	d
+__GCC_ATOMIC_CHAR16_T_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE /;"	d
+__GCC_ATOMIC_CHAR32_T_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE /;"	d
+__GCC_ATOMIC_CHAR_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_CHAR_LOCK_FREE /;"	d
+__GCC_ATOMIC_INT_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_INT_LOCK_FREE /;"	d
+__GCC_ATOMIC_LLONG_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_LLONG_LOCK_FREE /;"	d
+__GCC_ATOMIC_LONG_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_LONG_LOCK_FREE /;"	d
+__GCC_ATOMIC_POINTER_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_POINTER_LOCK_FREE /;"	d
+__GCC_ATOMIC_SHORT_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_SHORT_LOCK_FREE /;"	d
+__GCC_ATOMIC_TEST_AND_SET_TRUEVAL	moc_predefs.h	/^#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL /;"	d
+__GCC_ATOMIC_WCHAR_T_LOCK_FREE	moc_predefs.h	/^#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE /;"	d
+__GCC_HAVE_DWARF2_CFI_ASM	moc_predefs.h	/^#define __GCC_HAVE_DWARF2_CFI_ASM /;"	d
+__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1	moc_predefs.h	/^#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 /;"	d
+__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2	moc_predefs.h	/^#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 /;"	d
+__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4	moc_predefs.h	/^#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 /;"	d
+__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8	moc_predefs.h	/^#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 /;"	d
+__GCC_IEC_559	moc_predefs.h	/^#define __GCC_IEC_559 /;"	d
+__GCC_IEC_559_COMPLEX	moc_predefs.h	/^#define __GCC_IEC_559_COMPLEX /;"	d
+__GLIBCXX_BITSIZE_INT_N_0	moc_predefs.h	/^#define __GLIBCXX_BITSIZE_INT_N_0 /;"	d
+__GLIBCXX_TYPE_INT_N_0	moc_predefs.h	/^#define __GLIBCXX_TYPE_INT_N_0 /;"	d
+__GNUC_MINOR__	moc_predefs.h	/^#define __GNUC_MINOR__ /;"	d
+__GNUC_PATCHLEVEL__	moc_predefs.h	/^#define __GNUC_PATCHLEVEL__ /;"	d
+__GNUC_STDC_INLINE__	moc_predefs.h	/^#define __GNUC_STDC_INLINE__ /;"	d
+__GNUC__	moc_predefs.h	/^#define __GNUC__ /;"	d
+__GNUG__	moc_predefs.h	/^#define __GNUG__ /;"	d
+__GXX_ABI_VERSION	moc_predefs.h	/^#define __GXX_ABI_VERSION /;"	d
+__GXX_EXPERIMENTAL_CXX0X__	moc_predefs.h	/^#define __GXX_EXPERIMENTAL_CXX0X__ /;"	d
+__GXX_RTTI	moc_predefs.h	/^#define __GXX_RTTI /;"	d
+__GXX_WEAK__	moc_predefs.h	/^#define __GXX_WEAK__ /;"	d
+__HAVE_SPECULATION_SAFE_VALUE	moc_predefs.h	/^#define __HAVE_SPECULATION_SAFE_VALUE /;"	d
+__INT16_C	moc_predefs.h	/^#define __INT16_C(/;"	d
+__INT16_MAX__	moc_predefs.h	/^#define __INT16_MAX__ /;"	d
+__INT16_TYPE__	moc_predefs.h	/^#define __INT16_TYPE__ /;"	d
+__INT32_C	moc_predefs.h	/^#define __INT32_C(/;"	d
+__INT32_MAX__	moc_predefs.h	/^#define __INT32_MAX__ /;"	d
+__INT32_TYPE__	moc_predefs.h	/^#define __INT32_TYPE__ /;"	d
+__INT64_C	moc_predefs.h	/^#define __INT64_C(/;"	d
+__INT64_MAX__	moc_predefs.h	/^#define __INT64_MAX__ /;"	d
+__INT64_TYPE__	moc_predefs.h	/^#define __INT64_TYPE__ /;"	d
+__INT8_C	moc_predefs.h	/^#define __INT8_C(/;"	d
+__INT8_MAX__	moc_predefs.h	/^#define __INT8_MAX__ /;"	d
+__INT8_TYPE__	moc_predefs.h	/^#define __INT8_TYPE__ /;"	d
+__INTMAX_C	moc_predefs.h	/^#define __INTMAX_C(/;"	d
+__INTMAX_MAX__	moc_predefs.h	/^#define __INTMAX_MAX__ /;"	d
+__INTMAX_TYPE__	moc_predefs.h	/^#define __INTMAX_TYPE__ /;"	d
+__INTMAX_WIDTH__	moc_predefs.h	/^#define __INTMAX_WIDTH__ /;"	d
+__INTPTR_MAX__	moc_predefs.h	/^#define __INTPTR_MAX__ /;"	d
+__INTPTR_TYPE__	moc_predefs.h	/^#define __INTPTR_TYPE__ /;"	d
+__INTPTR_WIDTH__	moc_predefs.h	/^#define __INTPTR_WIDTH__ /;"	d
+__INT_FAST16_MAX__	moc_predefs.h	/^#define __INT_FAST16_MAX__ /;"	d
+__INT_FAST16_TYPE__	moc_predefs.h	/^#define __INT_FAST16_TYPE__ /;"	d
+__INT_FAST16_WIDTH__	moc_predefs.h	/^#define __INT_FAST16_WIDTH__ /;"	d
+__INT_FAST32_MAX__	moc_predefs.h	/^#define __INT_FAST32_MAX__ /;"	d
+__INT_FAST32_TYPE__	moc_predefs.h	/^#define __INT_FAST32_TYPE__ /;"	d
+__INT_FAST32_WIDTH__	moc_predefs.h	/^#define __INT_FAST32_WIDTH__ /;"	d
+__INT_FAST64_MAX__	moc_predefs.h	/^#define __INT_FAST64_MAX__ /;"	d
+__INT_FAST64_TYPE__	moc_predefs.h	/^#define __INT_FAST64_TYPE__ /;"	d
+__INT_FAST64_WIDTH__	moc_predefs.h	/^#define __INT_FAST64_WIDTH__ /;"	d
+__INT_FAST8_MAX__	moc_predefs.h	/^#define __INT_FAST8_MAX__ /;"	d
+__INT_FAST8_TYPE__	moc_predefs.h	/^#define __INT_FAST8_TYPE__ /;"	d
+__INT_FAST8_WIDTH__	moc_predefs.h	/^#define __INT_FAST8_WIDTH__ /;"	d
+__INT_LEAST16_MAX__	moc_predefs.h	/^#define __INT_LEAST16_MAX__ /;"	d
+__INT_LEAST16_TYPE__	moc_predefs.h	/^#define __INT_LEAST16_TYPE__ /;"	d
+__INT_LEAST16_WIDTH__	moc_predefs.h	/^#define __INT_LEAST16_WIDTH__ /;"	d
+__INT_LEAST32_MAX__	moc_predefs.h	/^#define __INT_LEAST32_MAX__ /;"	d
+__INT_LEAST32_TYPE__	moc_predefs.h	/^#define __INT_LEAST32_TYPE__ /;"	d
+__INT_LEAST32_WIDTH__	moc_predefs.h	/^#define __INT_LEAST32_WIDTH__ /;"	d
+__INT_LEAST64_MAX__	moc_predefs.h	/^#define __INT_LEAST64_MAX__ /;"	d
+__INT_LEAST64_TYPE__	moc_predefs.h	/^#define __INT_LEAST64_TYPE__ /;"	d
+__INT_LEAST64_WIDTH__	moc_predefs.h	/^#define __INT_LEAST64_WIDTH__ /;"	d
+__INT_LEAST8_MAX__	moc_predefs.h	/^#define __INT_LEAST8_MAX__ /;"	d
+__INT_LEAST8_TYPE__	moc_predefs.h	/^#define __INT_LEAST8_TYPE__ /;"	d
+__INT_LEAST8_WIDTH__	moc_predefs.h	/^#define __INT_LEAST8_WIDTH__ /;"	d
+__INT_MAX__	moc_predefs.h	/^#define __INT_MAX__ /;"	d
+__INT_WIDTH__	moc_predefs.h	/^#define __INT_WIDTH__ /;"	d
+__LDBL_DECIMAL_DIG__	moc_predefs.h	/^#define __LDBL_DECIMAL_DIG__ /;"	d
+__LDBL_DENORM_MIN__	moc_predefs.h	/^#define __LDBL_DENORM_MIN__ /;"	d
+__LDBL_DIG__	moc_predefs.h	/^#define __LDBL_DIG__ /;"	d
+__LDBL_EPSILON__	moc_predefs.h	/^#define __LDBL_EPSILON__ /;"	d
+__LDBL_HAS_DENORM__	moc_predefs.h	/^#define __LDBL_HAS_DENORM__ /;"	d
+__LDBL_HAS_INFINITY__	moc_predefs.h	/^#define __LDBL_HAS_INFINITY__ /;"	d
+__LDBL_HAS_QUIET_NAN__	moc_predefs.h	/^#define __LDBL_HAS_QUIET_NAN__ /;"	d
+__LDBL_MANT_DIG__	moc_predefs.h	/^#define __LDBL_MANT_DIG__ /;"	d
+__LDBL_MAX_10_EXP__	moc_predefs.h	/^#define __LDBL_MAX_10_EXP__ /;"	d
+__LDBL_MAX_EXP__	moc_predefs.h	/^#define __LDBL_MAX_EXP__ /;"	d
+__LDBL_MAX__	moc_predefs.h	/^#define __LDBL_MAX__ /;"	d
+__LDBL_MIN_10_EXP__	moc_predefs.h	/^#define __LDBL_MIN_10_EXP__ /;"	d
+__LDBL_MIN_EXP__	moc_predefs.h	/^#define __LDBL_MIN_EXP__ /;"	d
+__LDBL_MIN__	moc_predefs.h	/^#define __LDBL_MIN__ /;"	d
+__LDBL_NORM_MAX__	moc_predefs.h	/^#define __LDBL_NORM_MAX__ /;"	d
+__LONG_LONG_MAX__	moc_predefs.h	/^#define __LONG_LONG_MAX__ /;"	d
+__LONG_LONG_WIDTH__	moc_predefs.h	/^#define __LONG_LONG_WIDTH__ /;"	d
+__LONG_MAX__	moc_predefs.h	/^#define __LONG_MAX__ /;"	d
+__LONG_WIDTH__	moc_predefs.h	/^#define __LONG_WIDTH__ /;"	d
+__LP64__	moc_predefs.h	/^#define __LP64__ /;"	d
+__MMX_WITH_SSE__	moc_predefs.h	/^#define __MMX_WITH_SSE__ /;"	d
+__MMX__	moc_predefs.h	/^#define __MMX__ /;"	d
+__OPTIMIZE__	moc_predefs.h	/^#define __OPTIMIZE__ /;"	d
+__ORDER_BIG_ENDIAN__	moc_predefs.h	/^#define __ORDER_BIG_ENDIAN__ /;"	d
+__ORDER_LITTLE_ENDIAN__	moc_predefs.h	/^#define __ORDER_LITTLE_ENDIAN__ /;"	d
+__ORDER_PDP_ENDIAN__	moc_predefs.h	/^#define __ORDER_PDP_ENDIAN__ /;"	d
+__PIC__	moc_predefs.h	/^#define __PIC__ /;"	d
+__PIE__	moc_predefs.h	/^#define __PIE__ /;"	d
+__PRAGMA_REDEFINE_EXTNAME	moc_predefs.h	/^#define __PRAGMA_REDEFINE_EXTNAME /;"	d
+__PTRDIFF_MAX__	moc_predefs.h	/^#define __PTRDIFF_MAX__ /;"	d
+__PTRDIFF_TYPE__	moc_predefs.h	/^#define __PTRDIFF_TYPE__ /;"	d
+__PTRDIFF_WIDTH__	moc_predefs.h	/^#define __PTRDIFF_WIDTH__ /;"	d
+__REGISTER_PREFIX__	moc_predefs.h	/^#define __REGISTER_PREFIX__ /;"	d
+__SCHAR_MAX__	moc_predefs.h	/^#define __SCHAR_MAX__ /;"	d
+__SCHAR_WIDTH__	moc_predefs.h	/^#define __SCHAR_WIDTH__ /;"	d
+__SEG_FS	moc_predefs.h	/^#define __SEG_FS /;"	d
+__SEG_GS	moc_predefs.h	/^#define __SEG_GS /;"	d
+__SHRT_MAX__	moc_predefs.h	/^#define __SHRT_MAX__ /;"	d
+__SHRT_WIDTH__	moc_predefs.h	/^#define __SHRT_WIDTH__ /;"	d
+__SIG_ATOMIC_MAX__	moc_predefs.h	/^#define __SIG_ATOMIC_MAX__ /;"	d
+__SIG_ATOMIC_MIN__	moc_predefs.h	/^#define __SIG_ATOMIC_MIN__ /;"	d
+__SIG_ATOMIC_TYPE__	moc_predefs.h	/^#define __SIG_ATOMIC_TYPE__ /;"	d
+__SIG_ATOMIC_WIDTH__	moc_predefs.h	/^#define __SIG_ATOMIC_WIDTH__ /;"	d
+__SIZEOF_DOUBLE__	moc_predefs.h	/^#define __SIZEOF_DOUBLE__ /;"	d
+__SIZEOF_FLOAT128__	moc_predefs.h	/^#define __SIZEOF_FLOAT128__ /;"	d
+__SIZEOF_FLOAT80__	moc_predefs.h	/^#define __SIZEOF_FLOAT80__ /;"	d
+__SIZEOF_FLOAT__	moc_predefs.h	/^#define __SIZEOF_FLOAT__ /;"	d
+__SIZEOF_INT128__	moc_predefs.h	/^#define __SIZEOF_INT128__ /;"	d
+__SIZEOF_INT__	moc_predefs.h	/^#define __SIZEOF_INT__ /;"	d
+__SIZEOF_LONG_DOUBLE__	moc_predefs.h	/^#define __SIZEOF_LONG_DOUBLE__ /;"	d
+__SIZEOF_LONG_LONG__	moc_predefs.h	/^#define __SIZEOF_LONG_LONG__ /;"	d
+__SIZEOF_LONG__	moc_predefs.h	/^#define __SIZEOF_LONG__ /;"	d
+__SIZEOF_POINTER__	moc_predefs.h	/^#define __SIZEOF_POINTER__ /;"	d
+__SIZEOF_PTRDIFF_T__	moc_predefs.h	/^#define __SIZEOF_PTRDIFF_T__ /;"	d
+__SIZEOF_SHORT__	moc_predefs.h	/^#define __SIZEOF_SHORT__ /;"	d
+__SIZEOF_SIZE_T__	moc_predefs.h	/^#define __SIZEOF_SIZE_T__ /;"	d
+__SIZEOF_WCHAR_T__	moc_predefs.h	/^#define __SIZEOF_WCHAR_T__ /;"	d
+__SIZEOF_WINT_T__	moc_predefs.h	/^#define __SIZEOF_WINT_T__ /;"	d
+__SIZE_MAX__	moc_predefs.h	/^#define __SIZE_MAX__ /;"	d
+__SIZE_TYPE__	moc_predefs.h	/^#define __SIZE_TYPE__ /;"	d
+__SIZE_WIDTH__	moc_predefs.h	/^#define __SIZE_WIDTH__ /;"	d
+__SSE2_MATH__	moc_predefs.h	/^#define __SSE2_MATH__ /;"	d
+__SSE2__	moc_predefs.h	/^#define __SSE2__ /;"	d
+__SSE_MATH__	moc_predefs.h	/^#define __SSE_MATH__ /;"	d
+__SSE__	moc_predefs.h	/^#define __SSE__ /;"	d
+__SSP_STRONG__	moc_predefs.h	/^#define __SSP_STRONG__ /;"	d
+__STDC_HOSTED__	moc_predefs.h	/^#define __STDC_HOSTED__ /;"	d
+__STDC_IEC_559_COMPLEX__	moc_predefs.h	/^#define __STDC_IEC_559_COMPLEX__ /;"	d
+__STDC_IEC_559__	moc_predefs.h	/^#define __STDC_IEC_559__ /;"	d
+__STDC_ISO_10646__	moc_predefs.h	/^#define __STDC_ISO_10646__ /;"	d
+__STDC_UTF_16__	moc_predefs.h	/^#define __STDC_UTF_16__ /;"	d
+__STDC_UTF_32__	moc_predefs.h	/^#define __STDC_UTF_32__ /;"	d
+__STDC__	moc_predefs.h	/^#define __STDC__ /;"	d
+__UINT16_C	moc_predefs.h	/^#define __UINT16_C(/;"	d
+__UINT16_MAX__	moc_predefs.h	/^#define __UINT16_MAX__ /;"	d
+__UINT16_TYPE__	moc_predefs.h	/^#define __UINT16_TYPE__ /;"	d
+__UINT32_C	moc_predefs.h	/^#define __UINT32_C(/;"	d
+__UINT32_MAX__	moc_predefs.h	/^#define __UINT32_MAX__ /;"	d
+__UINT32_TYPE__	moc_predefs.h	/^#define __UINT32_TYPE__ /;"	d
+__UINT64_C	moc_predefs.h	/^#define __UINT64_C(/;"	d
+__UINT64_MAX__	moc_predefs.h	/^#define __UINT64_MAX__ /;"	d
+__UINT64_TYPE__	moc_predefs.h	/^#define __UINT64_TYPE__ /;"	d
+__UINT8_C	moc_predefs.h	/^#define __UINT8_C(/;"	d
+__UINT8_MAX__	moc_predefs.h	/^#define __UINT8_MAX__ /;"	d
+__UINT8_TYPE__	moc_predefs.h	/^#define __UINT8_TYPE__ /;"	d
+__UINTMAX_C	moc_predefs.h	/^#define __UINTMAX_C(/;"	d
+__UINTMAX_MAX__	moc_predefs.h	/^#define __UINTMAX_MAX__ /;"	d
+__UINTMAX_TYPE__	moc_predefs.h	/^#define __UINTMAX_TYPE__ /;"	d
+__UINTPTR_MAX__	moc_predefs.h	/^#define __UINTPTR_MAX__ /;"	d
+__UINTPTR_TYPE__	moc_predefs.h	/^#define __UINTPTR_TYPE__ /;"	d
+__UINT_FAST16_MAX__	moc_predefs.h	/^#define __UINT_FAST16_MAX__ /;"	d
+__UINT_FAST16_TYPE__	moc_predefs.h	/^#define __UINT_FAST16_TYPE__ /;"	d
+__UINT_FAST32_MAX__	moc_predefs.h	/^#define __UINT_FAST32_MAX__ /;"	d
+__UINT_FAST32_TYPE__	moc_predefs.h	/^#define __UINT_FAST32_TYPE__ /;"	d
+__UINT_FAST64_MAX__	moc_predefs.h	/^#define __UINT_FAST64_MAX__ /;"	d
+__UINT_FAST64_TYPE__	moc_predefs.h	/^#define __UINT_FAST64_TYPE__ /;"	d
+__UINT_FAST8_MAX__	moc_predefs.h	/^#define __UINT_FAST8_MAX__ /;"	d
+__UINT_FAST8_TYPE__	moc_predefs.h	/^#define __UINT_FAST8_TYPE__ /;"	d
+__UINT_LEAST16_MAX__	moc_predefs.h	/^#define __UINT_LEAST16_MAX__ /;"	d
+__UINT_LEAST16_TYPE__	moc_predefs.h	/^#define __UINT_LEAST16_TYPE__ /;"	d
+__UINT_LEAST32_MAX__	moc_predefs.h	/^#define __UINT_LEAST32_MAX__ /;"	d
+__UINT_LEAST32_TYPE__	moc_predefs.h	/^#define __UINT_LEAST32_TYPE__ /;"	d
+__UINT_LEAST64_MAX__	moc_predefs.h	/^#define __UINT_LEAST64_MAX__ /;"	d
+__UINT_LEAST64_TYPE__	moc_predefs.h	/^#define __UINT_LEAST64_TYPE__ /;"	d
+__UINT_LEAST8_MAX__	moc_predefs.h	/^#define __UINT_LEAST8_MAX__ /;"	d
+__UINT_LEAST8_TYPE__	moc_predefs.h	/^#define __UINT_LEAST8_TYPE__ /;"	d
+__USER_LABEL_PREFIX__	moc_predefs.h	/^#define __USER_LABEL_PREFIX__ /;"	d
+__VERSION__	moc_predefs.h	/^#define __VERSION__ /;"	d
+__WCHAR_MAX__	moc_predefs.h	/^#define __WCHAR_MAX__ /;"	d
+__WCHAR_MIN__	moc_predefs.h	/^#define __WCHAR_MIN__ /;"	d
+__WCHAR_TYPE__	moc_predefs.h	/^#define __WCHAR_TYPE__ /;"	d
+__WCHAR_WIDTH__	moc_predefs.h	/^#define __WCHAR_WIDTH__ /;"	d
+__WINT_MAX__	moc_predefs.h	/^#define __WINT_MAX__ /;"	d
+__WINT_MIN__	moc_predefs.h	/^#define __WINT_MIN__ /;"	d
+__WINT_TYPE__	moc_predefs.h	/^#define __WINT_TYPE__ /;"	d
+__WINT_WIDTH__	moc_predefs.h	/^#define __WINT_WIDTH__ /;"	d
+__amd64	moc_predefs.h	/^#define __amd64 /;"	d
+__amd64__	moc_predefs.h	/^#define __amd64__ /;"	d
+__code_model_small__	moc_predefs.h	/^#define __code_model_small__ /;"	d
+__cplusplus	moc_predefs.h	/^#define __cplusplus /;"	d
+__cpp_alias_templates	moc_predefs.h	/^#define __cpp_alias_templates /;"	d
+__cpp_attributes	moc_predefs.h	/^#define __cpp_attributes /;"	d
+__cpp_binary_literals	moc_predefs.h	/^#define __cpp_binary_literals /;"	d
+__cpp_constexpr	moc_predefs.h	/^#define __cpp_constexpr /;"	d
+__cpp_decltype	moc_predefs.h	/^#define __cpp_decltype /;"	d
+__cpp_delegating_constructors	moc_predefs.h	/^#define __cpp_delegating_constructors /;"	d
+__cpp_exceptions	moc_predefs.h	/^#define __cpp_exceptions /;"	d
+__cpp_hex_float	moc_predefs.h	/^#define __cpp_hex_float /;"	d
+__cpp_inheriting_constructors	moc_predefs.h	/^#define __cpp_inheriting_constructors /;"	d
+__cpp_initializer_lists	moc_predefs.h	/^#define __cpp_initializer_lists /;"	d
+__cpp_lambdas	moc_predefs.h	/^#define __cpp_lambdas /;"	d
+__cpp_nsdmi	moc_predefs.h	/^#define __cpp_nsdmi /;"	d
+__cpp_range_based_for	moc_predefs.h	/^#define __cpp_range_based_for /;"	d
+__cpp_raw_strings	moc_predefs.h	/^#define __cpp_raw_strings /;"	d
+__cpp_ref_qualifiers	moc_predefs.h	/^#define __cpp_ref_qualifiers /;"	d
+__cpp_rtti	moc_predefs.h	/^#define __cpp_rtti /;"	d
+__cpp_runtime_arrays	moc_predefs.h	/^#define __cpp_runtime_arrays /;"	d
+__cpp_rvalue_reference	moc_predefs.h	/^#define __cpp_rvalue_reference /;"	d
+__cpp_rvalue_references	moc_predefs.h	/^#define __cpp_rvalue_references /;"	d
+__cpp_static_assert	moc_predefs.h	/^#define __cpp_static_assert /;"	d
+__cpp_threadsafe_static_init	moc_predefs.h	/^#define __cpp_threadsafe_static_init /;"	d
+__cpp_unicode_characters	moc_predefs.h	/^#define __cpp_unicode_characters /;"	d
+__cpp_unicode_literals	moc_predefs.h	/^#define __cpp_unicode_literals /;"	d
+__cpp_user_defined_literals	moc_predefs.h	/^#define __cpp_user_defined_literals /;"	d
+__cpp_variadic_templates	moc_predefs.h	/^#define __cpp_variadic_templates /;"	d
+__gnu_linux__	moc_predefs.h	/^#define __gnu_linux__ /;"	d
+__k8	moc_predefs.h	/^#define __k8 /;"	d
+__k8__	moc_predefs.h	/^#define __k8__ /;"	d
+__linux	moc_predefs.h	/^#define __linux /;"	d
+__linux__	moc_predefs.h	/^#define __linux__ /;"	d
+__pic__	moc_predefs.h	/^#define __pic__ /;"	d
+__pie__	moc_predefs.h	/^#define __pie__ /;"	d
+__unix	moc_predefs.h	/^#define __unix /;"	d
+__unix__	moc_predefs.h	/^#define __unix__ /;"	d
+__x86_64	moc_predefs.h	/^#define __x86_64 /;"	d
+__x86_64__	moc_predefs.h	/^#define __x86_64__ /;"	d
+all	Makefile	/^all: Makefile modelview-changemodel$/;"	t
+benchmark	Makefile	/^benchmark: first$/;"	t
+check	Makefile	/^check: first$/;"	t
+clean	Makefile	/^clean: compiler_clean $/;"	t
+columnCount	mymodel.cpp	/^int MyModel::columnCount(const QModelIndex & \/*parent *\/) const$/;"	f	class:MyModel	typeref:typename:int
+compiler_clean	Makefile	/^compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean $/;"	t
+compiler_lex_clean	Makefile	/^compiler_lex_clean:$/;"	t
+compiler_lex_make_all	Makefile	/^compiler_lex_make_all:$/;"	t
+compiler_moc_header_clean	Makefile	/^compiler_moc_header_clean:$/;"	t
+compiler_moc_header_make_all	Makefile	/^compiler_moc_header_make_all: moc_mymodel.cpp$/;"	t
+compiler_moc_objc_header_clean	Makefile	/^compiler_moc_objc_header_clean:$/;"	t
+compiler_moc_objc_header_make_all	Makefile	/^compiler_moc_objc_header_make_all:$/;"	t
+compiler_moc_predefs_clean	Makefile	/^compiler_moc_predefs_clean:$/;"	t
+compiler_moc_predefs_make_all	Makefile	/^compiler_moc_predefs_make_all: moc_predefs.h$/;"	t
+compiler_moc_source_clean	Makefile	/^compiler_moc_source_clean:$/;"	t
+compiler_moc_source_make_all	Makefile	/^compiler_moc_source_make_all:$/;"	t
+compiler_rcc_clean	Makefile	/^compiler_rcc_clean:$/;"	t
+compiler_rcc_make_all	Makefile	/^compiler_rcc_make_all:$/;"	t
+compiler_uic_clean	Makefile	/^compiler_uic_clean:$/;"	t
+compiler_uic_make_all	Makefile	/^compiler_uic_make_all:$/;"	t
+compiler_yacc_decl_clean	Makefile	/^compiler_yacc_decl_clean:$/;"	t
+compiler_yacc_decl_make_all	Makefile	/^compiler_yacc_decl_make_all:$/;"	t
+compiler_yacc_impl_clean	Makefile	/^compiler_yacc_impl_clean:$/;"	t
+compiler_yacc_impl_make_all	Makefile	/^compiler_yacc_impl_make_all:$/;"	t
+data	moc_mymodel.cpp	/^    QByteArrayData data[3];$/;"	m	struct:qt_meta_stringdata_MyModel_t	typeref:typename:QByteArrayData[3]	file:
+data	mymodel.cpp	/^QVariant MyModel::data(const QModelIndex &index, int role) const$/;"	f	class:MyModel	typeref:typename:QVariant
+dist	Makefile	/^dist: distdir FORCE$/;"	t
+distclean	Makefile	/^distclean: clean $/;"	t
+distdir	Makefile	/^distdir: FORCE$/;"	t
+first	Makefile	/^first: all$/;"	t
+install	Makefile	/^install: install_target  FORCE$/;"	t
+install_target	Makefile	/^install_target: first FORCE$/;"	t
+linux	moc_predefs.h	/^#define linux /;"	d
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+main.o	Makefile	/^main.o: main.cpp mymodel.h$/;"	t
+metaObject	moc_mymodel.cpp	/^const QMetaObject *MyModel::metaObject() const$/;"	f	class:MyModel	typeref:typename:const QMetaObject *
+moc_mymodel.cpp	Makefile	/^moc_mymodel.cpp: mymodel.h \\$/;"	t
+moc_mymodel.o	Makefile	/^moc_mymodel.o: moc_mymodel.cpp $/;"	t
+moc_predefs.h	Makefile	/^moc_predefs.h: \/usr\/lib\/qt\/mkspecs\/features\/data\/dummy.cpp$/;"	t
+mocables	Makefile	/^mocables: compiler_moc_header_make_all compiler_moc_objc_header_make_all compiler_moc_source_mak/;"	t
+mocclean	Makefile	/^mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean$/;"	t
+modelview-changemodel	Makefile	/^modelview-changemodel:  $(OBJECTS)  $/;"	t
+modelview-changemodel.pro	Makefile	/^modelview-changemodel.pro:$/;"	t
+mymodel.o	Makefile	/^mymodel.o: mymodel.cpp mymodel.h$/;"	t
+qmake	Makefile	/^qmake: FORCE$/;"	t
+qmake_all	Makefile	/^qmake_all: FORCE$/;"	t
+qt_meta_data_MyModel	moc_mymodel.cpp	/^static const uint qt_meta_data_MyModel[] = {$/;"	v	typeref:typename:const uint[]	file:
+qt_meta_stringdata_MyModel	moc_mymodel.cpp	/^static const qt_meta_stringdata_MyModel_t qt_meta_stringdata_MyModel = {$/;"	v	typeref:typename:const qt_meta_stringdata_MyModel_t	file:
+qt_meta_stringdata_MyModel_t	moc_mymodel.cpp	/^struct qt_meta_stringdata_MyModel_t {$/;"	s	file:
+qt_metacall	moc_mymodel.cpp	/^int MyModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)$/;"	f	class:MyModel	typeref:typename:int
+qt_metacast	moc_mymodel.cpp	/^void *MyModel::qt_metacast(const char *_clname)$/;"	f	class:MyModel	typeref:typename:void *
+qt_static_metacall	moc_mymodel.cpp	/^void MyModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)$/;"	f	class:MyModel	typeref:typename:void
+rowCount	mymodel.cpp	/^int MyModel::rowCount(const QModelIndex & \/*parent *\/) const$/;"	f	class:MyModel	typeref:typename:int
+staticMetaObject	moc_mymodel.cpp	/^QT_INIT_METAOBJECT const QMetaObject MyModel::staticMetaObject = { {$/;"	m	class:MyModel	typeref:typename:QT_INIT_METAOBJECT const QMetaObject
+stringdata0	moc_mymodel.cpp	/^    char stringdata0[18];$/;"	m	struct:qt_meta_stringdata_MyModel_t	typeref:typename:char[18]	file:
+timer	mymodel.h	/^    QTimer *timer;$/;"	m	class:MyModel	typeref:typename:QTimer *
+timerHit	mymodel.cpp	/^void MyModel::timerHit()$/;"	f	class:MyModel	typeref:typename:void
+uninstall	Makefile	/^uninstall: uninstall_target  FORCE$/;"	t
+uninstall_target	Makefile	/^uninstall_target: FORCE$/;"	t
+unix	moc_predefs.h	/^#define unix /;"	d

@@ -1,0 +1,39 @@
+style "widgets" 
+{
+    fg[ACTIVE] = "#FF0000"
+    fg[SELECTED] = "#003366"
+    fg[NORMAL] = "#FFFFFF"
+    fg[PRELIGHT] = "#FFFFFF"
+    fg[INSENSITIVE] = "#999999"
+                                
+    bg[ACTIVE] = "#003366"
+    bg[SELECTED] = "#FFFFFF"
+    bg[NORMAL] = "#000000"
+    bg[PRELIGHT] = "#003366"
+    bg[INSENSITIVE] = "#666666"
+}
+
+style "labels" = "widgets" 
+{
+    font_name = "Algerian 14"
+}
+style "buttons" = "widgets" 
+{
+    GtkButton::inner-border = { 10, 10, 10, 10 }
+}
+
+style "radios" = "buttons" 
+{
+    GtkCheckButton::indicator-size = 10
+}
+
+style "checks" = "buttons" 
+{
+    GtkCheckButton::indicator-size = 25
+}
+
+class "GtkWindow" style "widgets"
+class "GtkLabel" style "labels"
+class "GtkCheckButton" style "checks"
+class "GtkRadioButton" style "radios"
+class "Gtk*Button" style "buttons"
