@@ -2,26 +2,19 @@ cflag = -w
 
 CUR_DIR = $(shell pwd)
 
-special = ./demo-func1.c  ./demo-func1-p.c
+src_p = $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/demo2-*-p.c)))
+src2 = $(filter-out $(src_p), $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/demo2-*.c))))
+src = $(filter-out $(src2) $(src_p), $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/demo-*.c))))
 
-src1 = $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/demo-*.c)))
-src = $(filter-out $(special), $(src1))
-
-
+target2 = $(strip $(patsubst %.c, %.run, $(src2)))
 target = $(strip $(patsubst %.c, %.run, $(src)))
 
-# 重定义
-#target += demo-func1.run
+all:$(target) $(target2)
 
-#tt:
-#	echo $(src)
-
-all:$(target)
-
-demo-func1.run:demo-func1.c demo-func1-p.c
+demo2-%.run:demo2-%.c $(CUR_DIR)/demo2-%-p.c
 	cc -o $@ $^ $(cflag) 
 
-%.run:%.c
+demo-%.run:demo-%.c
 	cc -o $@ $< $(cflag) 
 
 .PHONY:clean all

@@ -6,14 +6,14 @@
  ************************************************************************/
 #include <stdio.h>
 
-int i;
-
-extern void print (void);
+void print (void);
+//int i;
 
 int main (void)
 {
     // 链接时候报错: 重定义
-    printf ("%d\n", sizeof(i));
+    //printf ("%d\n", sizeof(i));
+    
     print();
 
     return 0;
