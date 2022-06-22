@@ -12,3 +12,7 @@ node_modules/
 *.log
 *.so
 *.run
+*.ko
+*.cmd
+module/\.*
+*.mod

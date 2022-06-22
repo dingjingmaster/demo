@@ -1,23 +1,71 @@
 all:
+	@cd c/ && make all
+	@cd core/ && make all
+	@cd cppbase/ && make all
+	@cd cbase/ && make all
+	@cd cairo/ && make all
+	@cd dbus/ && make all
+	@cd dconf/ && make all
+	@cd device/ && make all
+	@cd function/ && make all
+	@cd gdk3/ && make all
+	@cd gtk/ && make all
+	@cd gudev/ && make all
+	@cd gvfs/ && make all
+	@cd gio/ && make all
+	@cd glib/ && make all
+	@cd gsettings/ && make all
+	@cd gstreamer/ && make all
+	@cd gio-channel/ && make all
 	@cd gobject/ && make all
 	@cd gtk/ && make all
 	@cd ipc/ && make all
-	@cd glib/ && make all
-	@cd gio/ && make all
-	@cd dbus/ && make all
-	@cd cairo/ && make all
+	@cd lightdm/ && make all
+	@cd localization/ && make all
+	@cd libblocked/ && make all
+	@cd module/ && make all
 	@cd pam/ && make all
+	@cd polkit/ && make all
 	@cd sl/ && make all
+	@cd str/ && make all
+	@cd vala/ && make all
+	@cd vte/ && make all
+	@cd x/ && make all
+	@cd xcb/ && make all
 
 .PHONY:clean 
 
 clean:
+	@cd c/ && make clean
+	@cd core/ && make clean
+	@cd cppbase/ && make clean
+	@cd cbase/ && make clean
+	@cd cairo/ && make clean
+	@cd dbus/ && make clean
+	@cd dconf/ && make clean
+	@cd device/ && make clean
+	@cd function/ && make clean
+	@cd gdk3/ && make clean
+	@cd gtk/ && make clean
+	@cd gudev/ && make clean
+	@cd gvfs/ && make clean
+	@cd gio/ && make clean
+	@cd gstreamer/ && make clean
+	@cd gio-channel/ && make clean
+	@cd glib/ && make clean
+	@cd gsettings/ && make clean
 	@cd gobject/ && make clean
 	@cd gtk/ && make clean
 	@cd ipc/ && make clean
-	@cd glib/ && make clean
-	@cd gio/ && make clean
-	@cd dbus/ && make clean
-	@cd cairo/ && make clean
+	@cd lightdm/ && make clean
+	@cd localization/ && make clean
+	@cd libblocked/ && make clean
+	@cd module/ && make clean
 	@cd pam/ && make clean
+	@cd polkit/ && make clean
 	@cd sl/ && make clean
+	@cd str/ && make clean
+	@cd vala/ && make clean
+	@cd vte/ && make clean
+	@cd x/ && make clean
+	@cd xcb/ && make clean

@@ -6,7 +6,7 @@ target = $(patsubst %.c, %.run, $(src))
 all:$(target)
 
 %.run:%.c
-	gcc -o $@ $^ $(cflag) `pkg-config --cflags --libs vte-2.91`
+	gcc -o $@ $^ $(cflag) -lX11 `pkg-config --cflags --libs vte-2.91`
 
 
 .PHONY:clean all
