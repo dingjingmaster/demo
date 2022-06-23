@@ -7,6 +7,6 @@ public class JavaMain {
     // native 声明非 java 方法
     public native void show();
     static {
-        System.loadLibrary("test");
+        System.loadLibrary("jni1");
     }
 }

@@ -12,7 +12,7 @@ all:test1
 
 
 test1:
-	gcc -o $(cur_dir)/libtest.so $(cflags) -fPIC -shared $(cur_dir)/jni1/test.c $(cur_dir)/jni1/test.h
+	gcc -o $(cur_dir)/libjni1.so $(cflags) -fPIC -shared $(cur_dir)/jni1/test.c $(cur_dir)/jni1/test.h
 	javac -d $(cur_dir) $(cur_dir)/jni1/JavaMain.java
 	@echo -e "run command for test: \033[33;34m java -Djava.library.path='.' JavaMain \033[0m"
 
