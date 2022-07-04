@@ -32,6 +32,7 @@ all:
 	@cd vte/ && make all
 	@cd x/ && make all
 	@cd xcb/ && make all
+	@cd syscall/ && make all
 
 .PHONY:clean 
 
@@ -69,3 +70,4 @@ clean:
 	@cd vte/ && make clean
 	@cd x/ && make clean
 	@cd xcb/ && make clean
+	@cd syscall/ && make clean
