@@ -11,7 +11,7 @@ test:
 	LD_PRELOAD=$(my_libc_path)/dlopen-shared-lib.so && export LD_PRELOAD && uptime
 
 
-.PHONY: clean
+.PHONY: clean libs all
 
 clean:
 	@rm -f `find -name "*.o"`
