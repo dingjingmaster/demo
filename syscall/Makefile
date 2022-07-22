@@ -1,15 +1,16 @@
-subdirs= dlopen
+workdir=$(shell pwd)
+subdirs= dlopen module
 
 all:
 	@for subdir in $(subdirs);\
 		do\
-		cd $$subdir && make;\
+		cd $(workdir)/$$subdir && make;\
 		done
 
 clean:
 	@for subdir in $(subdirs);\
 		do\
-		cd $$subdir && make clean;\
+		cd $(workdir)/$$subdir && make clean;\
 		done
 
 .PHONY: clean all
