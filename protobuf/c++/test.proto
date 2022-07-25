@@ -1,0 +1,8 @@
+syntax="proto2";
+
+package test1;
+
+message Response {
+    optional string  data = 1;
+    optional int32   status = 2;
+}
