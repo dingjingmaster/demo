@@ -7,7 +7,7 @@ subdirs= \
 		 ipc \
 		 lightdm localization libblocked \
 		 module \
-		 pam polkit \
+		 pam polkit protobuf\
 		 sl \
 		 str \
 		 vala vte \
