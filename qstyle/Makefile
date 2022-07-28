@@ -1,6 +1,6 @@
 pwd=$(shell pwd)
 
-subdirs = combox
+subdirs = combox all-widgets style-tool
 
 all:
 	@for subdir in $(subdirs);\

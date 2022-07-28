@@ -1,0 +1,16 @@
+all:
+	qmake && make -j8
+
+clean:
+	make clean
+	rm -rf build-*
+	rm -f all-widgets
+	rm -f *.pro.user
+	rm -f `find -name *.o`
+	rm -f .qmake.stash
+	rm -f `find -name moc_*.cpp`
+	rm -f Makefile
+
+
+.PHONY:clean 
+
