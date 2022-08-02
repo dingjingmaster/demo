@@ -6,7 +6,10 @@ src = $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/*.c)))
 
 target = $(strip $(patsubst %.c, %.run, $(src)))
 
-all:prepare $(target)
+all:$(target)
+
+prepare:
+	sqlite3 -init $(CUR_DIR)/sqlite.sql
 
 %.run:%.o
 	cc -o $@ $< -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
