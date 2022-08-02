@@ -20,6 +20,7 @@ prepare:
 .PHONY:clean all
 
 clean:
+	@rm -f .lock
 	@rm -fr *.o
 	@rm -fr */*.o
 	@rm -fr *.run
