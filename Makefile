@@ -8,7 +8,7 @@ subdirs= \
 		 lightdm localization libblocked \
 		 module \
 		 pam polkit protobuf\
-		 sl \
+		 sl sqlite\
 		 str \
 		 vala vte \
 		 x xcb \

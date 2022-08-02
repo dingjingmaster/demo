@@ -9,71 +9,21 @@
 
 #define LOG     qDebug() << " "
 
-QDebug operator<< (QDebug debug, QStyle::StyleHint sh)
-{
-    return debug;
-}
-
-QDebug operator<< (QDebug debug, const QSize size)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QPalette pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QIcon::Mode pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyleOption pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const Qt::Orientation pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::StyleHint pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::ContentsType)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::SubControl pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::SubElement pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyleOptionComplex pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::PixelMetric pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::ComplexControl cc)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::ControlElement ce)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QStyle::PrimitiveElement pe)
-{
-    return debug;
-}
-QDebug operator<< (QDebug debug, const QSizePolicy::ControlType pe)
-{
-    return debug;
-}
+QDebug operator<< (QDebug debug, const QSize size);
+QDebug operator<< (QDebug debug, const QPalette pe);
+QDebug operator<< (QDebug debug, const QIcon::Mode pe);
+QDebug operator<< (QDebug debug, QStyle::StyleHint sh);
+QDebug operator<< (QDebug debug, const QStyleOption pe);
+QDebug operator<< (QDebug debug, const Qt::Orientation pe);
+QDebug operator<< (QDebug debug, const QStyle::ContentsType);
+QDebug operator<< (QDebug debug, const QStyle::SubControl pe);
+QDebug operator<< (QDebug debug, const QStyle::SubElement pe);
+QDebug operator<< (QDebug debug, const QStyleOptionComplex pe);
+QDebug operator<< (QDebug debug, const QStyle::PixelMetric pe);
+QDebug operator<< (QDebug debug, const QStyle::ComplexControl cc);
+QDebug operator<< (QDebug debug, const QStyle::ControlElement ce);
+QDebug operator<< (QDebug debug, const QStyle::PrimitiveElement pe);
+QDebug operator<< (QDebug debug, const QSizePolicy::ControlType pe);
 
 /**
  * @brief QCommonStyle <- QStyle <- QObject

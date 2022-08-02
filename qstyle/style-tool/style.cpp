@@ -123,7 +123,7 @@ QPalette Style::standardPalette() const
 
 int Style::styleHint(QStyle::StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *returnData) const
 {
-    LOG << "StyleHint: " << hit << "QStyleHintReturn: " << returnData;
+    LOG << "StyleHint: " << hint << "QStyleHintReturn: " << returnData;
     
     return QCommonStyle::styleHint(hint, option, widget, returnData); 
 }
@@ -151,4 +151,162 @@ void Style::unpolish(QApplication *application)
 {
     LOG << "app name: " << application->applicationName();
     QCommonStyle::unpolish(application);
+}
+
+QDebug operator<<(QDebug debug, QStyle::StyleHint sh) 
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QSize size)
+{
+    debug << "[width: " << size.width () << " height: " << size.height () << "]";  
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QPalette pe)
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QIcon::Mode pe)
+{
+    switch (pe) {
+    case QIcon::Normal:
+        debug << "[IconMode: " << "Normal]";
+        break;
+    case QIcon::Active:
+        debug << "[IconMode: " << "Active]";
+        break;
+    case QIcon::Disabled:
+        debug << "[IconMode: " << "Disable]";
+        break;
+    case QIcon::Selected:
+        debug << "[IconMode: " << "Selected]";
+        break;
+    }
+    
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyleOption pe)
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const Qt::Orientation pe)
+{
+    switch (pe) {
+    case Qt::Horizontal:
+        debug << "[orientation: " << "Horizontal]";
+        break;
+    case Qt::Vertical:
+        debug << "[orientation: " << "Vertical]";
+        break;
+    }
+        
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::ContentsType pe)
+{
+    switch (pe) {
+    case QStyle::CT_PushButton:
+        LOG << "[ContentsType: CT_PushButton]";
+        break;
+    case QStyle::CT_CheckBox:
+        LOG << "[ContentsType: CT_CheckBox]";
+        break;
+    case QStyle::CT_RadioButton:
+        break;
+    case QStyle::CT_ToolButton:
+        break;
+    case QStyle::CT_ComboBox:
+        break;
+    case QStyle::CT_Splitter:
+        break;
+    case QStyle::CT_ProgressBar:
+        break;
+    case QStyle::CT_MenuItem:
+        break;
+    case QStyle::CT_MenuBarItem:
+        break;
+    case QStyle::CT_MenuBar:
+        break;
+    case QStyle::CT_Menu:
+        break;
+    case QStyle::CT_TabBarTab:
+        break;
+    case QStyle::CT_Slider:
+        break;
+    case QStyle::CT_ScrollBar:
+        break;
+    case QStyle::CT_LineEdit:
+        break;
+    case QStyle::CT_SpinBox:
+        break;
+    case QStyle::CT_SizeGrip:
+        break;
+    case QStyle::CT_TabWidget:
+        break;
+    case QStyle::CT_DialogButtons:
+        break;
+    case QStyle::CT_HeaderSection:
+        break;
+    case QStyle::CT_GroupBox:
+        break;
+    case QStyle::CT_MdiControls:
+        break;
+    case QStyle::CT_ItemViewItem:
+        break;
+    case QStyle::CT_CustomBase:
+        break;
+    }
+
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::SubControl pe)
+{
+	
+    return debug;
+    
+}
+
+QDebug operator<<(QDebug debug, const QStyle::SubElement pe)
+{
+
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyleOptionComplex pe)
+{
+
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::PixelMetric pe)
+{
+
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::ComplexControl cc)
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::ControlElement ce)
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QStyle::PrimitiveElement pe)
+{
+    return debug;
+}
+
+QDebug operator<<(QDebug debug, const QSizePolicy::ControlType pe)
+{
+    return debug;
 }
