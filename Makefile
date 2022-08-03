@@ -2,7 +2,7 @@ pwd=$(shell pwd)
 subdirs= \
 		 c core cppbase cbase cairo \
 		 dbus dconf device \
-		 function \
+		 file function \
 		 gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk \
 		 ipc \
 		 lightdm localization libblocked \
