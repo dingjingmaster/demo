@@ -1,12 +1,14 @@
 cur_dir = $(shell pwd)
 pkg_path = $(shell dirname $(shell find /usr/local -name "grpc.pc"))
 
-all:gen server.run
+all:gen server.run client.run
 
 
 server.run : server.cpp msg.grpc.pb.cc msg.pb.cc
 	g++ $^ -L/usr/local/lib `pkg-config --with-path=$(pkg_path) --cflags --libs grpc++ protobuf` -lpthread -lgrpc++_reflection -ldl -o $@
 
+client.run : client.cpp msg.grpc.pb.cc msg.pb.cc
+	g++ $^ -L/usr/local/lib `pkg-config --with-path=$(pkg_path) --cflags --libs grpc++ protobuf` -lpthread -lgrpc++_reflection -ldl -o $@
 
 
 gen:
