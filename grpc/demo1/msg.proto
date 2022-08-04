@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+service MsgService {
+    rpc GetMsg (MsgRequest) returns (MsgResponse) {}
+}
+
+message MsgRequest {
+    string name = 1;
+    int32 num1 = 2;
+    double num2 = 3;
+}
+
+message MsgResponse {
+    string msg = 1;
+    int32 num1 = 2;
+    double num2 = 3;
+}
