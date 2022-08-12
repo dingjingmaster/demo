@@ -1,9 +1,18 @@
-QT -= gui
+QT -= gui core
 
-CONFIG += c++17 console
+CONFIG += console no_keywords link_pkgconfig c++11
 CONFIG -= app_bundle
 
-CONFIG += -D""
+DEFINES     += PYTHON_HOME='\\"/data/env/python2.7\\"'
+
+QMAKE_CXXFLAGS  +=  \
+    -I/data/env/python2.7/include/python2.7  \
+    -Wl,-rpath,/data/env/python2.7/lib/      \
+
+
+INCLUDEPATH += /data/env/python2.7/include/python2.7
+
+LIBS        += -L/data/env/python2.7/lib -lpython2.7 -lpthread
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

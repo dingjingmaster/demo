@@ -6,7 +6,7 @@ flags = \
 
 	  
 
-all:demo3.run
+all:demo4.run
 
 
 %.run:%.c

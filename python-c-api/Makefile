@@ -1,6 +1,6 @@
 pwd=$(shell pwd)
 
-subdirs= c++
+subdirs = demo1 demo2 demo3
 
 all:
 	@for subdir in $(subdirs);\
