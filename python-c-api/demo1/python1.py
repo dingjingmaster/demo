@@ -2,7 +2,6 @@
 # -*- coding=utf-8 -*-
 
 dict1 = locals()
-dict1['p1'] = '01945678'
 strInfos = dict1['p1']
             
 PhoneNumberHead = (

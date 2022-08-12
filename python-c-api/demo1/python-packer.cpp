@@ -105,6 +105,7 @@ void* PythonPacker::thread_run_python_string(void *param)
 
     puts("4");
 
+#if 0
     if (0 != PyLong_AsLong(pRet)) {
         Py_XDECREF(pRet);
         mLocker.unlock ();
@@ -112,7 +113,7 @@ void* PythonPacker::thread_run_python_string(void *param)
         return (void*)false;
     }
     puts("5");
-
+#endif
     Py_XDECREF(pRet);
     mLocker.unlock ();
 

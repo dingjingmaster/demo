@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 dict1 = locals()
-dict1['p1'] = '01945678'
 strInfos = dict1['p1']
             
 PhoneNumberHead = (
@@ -18,7 +17,6 @@ PhoneNumberHead = (
     '089', '090', '091', '093', '094',
     '095', '097', '099')
 
-exit (3)
 
 if (strInfos[0] == '('): 
     strPhoneNumberHead = strInfos[1:4]

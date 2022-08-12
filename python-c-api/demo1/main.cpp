@@ -1,5 +1,8 @@
 #include "python-packer.h"
+
+#include <fstream>
 #include <iostream>
+#include <string>
 
 int main(int argc, char *argv[])
 {
@@ -69,11 +72,15 @@ if (False == bRet):\n\
 ";
 
 #endif
+    std::ifstream in;
+    in.open("/data/code/demo/python-c-api/demo1/python2.py");
+    std::string s ((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
 
-    pythonStr = "#-*- coding:utf-8 -*-\nprint 1";
+    pythonStr = s; //"#-*- coding:utf-8 -*-\nprint 1";
 
     std::string pythonParam1 = "09981889123";       // 正确
     std::string pythonParam2 = "09881889123";       // 错误
+    std::string pythonParam3 = "09781889123";       // 正确
 
     //std::cout << true << std::endl;
     //std::cout << false << std::endl;
@@ -82,6 +89,7 @@ if (False == bRet):\n\
 
     std::cout << (py->RunPythonString (pythonStr, pythonParam1) ? "true" : "false") << std::endl;
     std::cout << (py->RunPythonString (pythonStr, pythonParam2) ? "true" : "false") << std::endl;
+    std::cout << (py->RunPythonString (pythonStr, pythonParam3) ? "true" : "false") << std::endl;
 
     return 0;
 }
