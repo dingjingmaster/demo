@@ -1,7 +1,10 @@
 flags = \
-	  -I/data/env/python/include/python3.10 \
-	  -L/data/env/python/lib/libpython3.10.a \
-	  -lpython3.10
+	  -I/data/env/python2.7/include/python2.7 \
+	  -L/data/env/python2.7/lib/ \
+	  -lpython2.7 \
+	  -Wl,-rpath,/data/env/python2.7/lib/
+
+	  
 
 all:demo2.run
 

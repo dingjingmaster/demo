@@ -14,6 +14,9 @@ int main(int argc, char* argv[])
     // Initialize the Python interpreter.
     Py_Initialize();
 
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('.')");
+
     printf("init ok\n");
 
     // Create some Python objects that will later be assigned values.
