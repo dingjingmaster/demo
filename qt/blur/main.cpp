@@ -104,12 +104,15 @@ public:
 int main(int argc, char *argv[])
 {
     QApplication a{argc, argv};
-    ContainerWidget base;
+    //ContainerWidget base;
+    QWidget base;
+    base.setFixedSize (600, 300);
     QLabel label("Dewey, Cheatem and Howe, LLC.", &base);
     label.setFont({"times,times new roman", 32});
     label.setAlignment(Qt::AlignCenter);
     label.setGraphicsEffect(new QGraphicsBlurEffect);
     LoadingOverlay overlay(&base);
+    //OverlayWidget overlay(&base);
     base.show();
     compat::QTimer::singleShot(2000, [&]{
         overlay.hide();

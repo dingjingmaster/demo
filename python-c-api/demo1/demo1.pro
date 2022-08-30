@@ -3,14 +3,16 @@ QT -= gui core
 CONFIG += console no_keywords link_pkgconfig c++11
 CONFIG -= app_bundle
 
-DEFINES     += PYTHON_HOME='\\"/data/env/python2.7\\"'
+#DEFINES     += PYTHON_HOME='\\"/data/env/python2.7\\"'
+DEFINES     += PYTHON_HOME='\\"/data/env/python2.7-bak1\\"'
 
-QMAKE_CXXFLAGS  +=  \
-    -I/data/env/python2.7/include/python2.7  \
-    -Wl,-rpath,/data/env/python2.7/lib/      \
+#QMAKE_CXXFLAGS  +=  \
+#    -I/data/env/python2.7/include/python2.7  \
+#    -Wl,-rpath,/data/env/python2.7/lib/      \
 
 
-INCLUDEPATH += /data/env/python2.7/include/python2.7
+#INCLUDEPATH += /data/env/python2.7/include/python2.7
+INCLUDEPATH += /usr/include/python2.7
 
 LIBS        += -L/data/env/python2.7/lib -lpython2.7 -lpthread
 
