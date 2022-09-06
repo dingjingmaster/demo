@@ -17,3 +17,6 @@ MESSAGE(STATUS "OS NAME: ${R1}")
 
 cmake_host_system_information(RESULT R2 QUERY OS_RELEASE) 
 MESSAGE(STATUS "OS RELEASE: ${R2}") 
+
+cmake_host_system_information(RESULT R3 QUERY DISTRIB_NAME) 
+MESSAGE(STATUS "OS name: ${R3}") 
