@@ -34,6 +34,8 @@ class SqliteUtils : public QObject
     Q_OBJECT
     Q_DECLARE_PRIVATE(SqliteUtils);
 public:
+    enum Channel { CHANNEL_USB=1, CHANNEL_PRINTER, CHANNEL_EMAIL };
+
     explicit SqliteUtils(QObject *parent = nullptr);
 
     /**
@@ -51,6 +53,11 @@ public:
      * @brief 根据文件 md5 值删除数据库中相应记录
      */
     void deleteByMD5 (QString& md5);
+
+    /**
+     * @brief 检查是否包含指定文件的 MD5 值
+     */
+    bool contains (QString& md5, Channel channel);
 
 private:
     SqliteUtilsPrivate*         d_ptr;

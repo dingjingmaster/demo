@@ -5,8 +5,10 @@
 #include <sqlite3.h>
 #include <sys/file.h>
 
+#include <QFile>
 #include <QDebug>
 #include <QProcess>
+#include <QDateTime>
 
 #define LOCK_FILE1                      "/usr/local/ultrasec/dat/.est.eoa.db.lock"
 #define DB_TABLE_EOA_PATH               "/usr/local/ultrasec/dat/db_task/EstDlpEoa.db"
@@ -31,6 +33,7 @@ class SqliteUtilsPrivate
     friend SqliteUtils;
 public:
     SqliteUtilsPrivate();
+    ~SqliteUtilsPrivate();
 
     void lock ();
     void unlock ();
@@ -52,7 +55,7 @@ bool SqliteUtils::insert(FileInfo &fileInfo)
 
     char* errorMsg = nullptr;
 
-    QString sql = QString("INSERT INTO `eoa_file_info` (md5, start_time, stop_time, channel) VALUES (%1, %2, %3, %4);")
+    QString sql = QString("INSERT INTO `eoa_file_info` (`md5`, `start_time`, `stop_time`, `channel`) VALUES ('%1', %2, %3, '%4');")
             .arg(fileInfo.mMD5).arg(fileInfo.mStartTime).arg(fileInfo.mStopTime).arg(fileInfo.mChannel);
 
     qInfo() << "sql: " << sql;
@@ -105,7 +108,7 @@ void SqliteUtils::deleteByMD5(QString &md5)
     Q_D(SqliteUtils);
 
     char* errorMsg = nullptr;
-    QString sql = QString("DELETE FROM TABLE `eoa_file_info` WHERE md5=%1;").arg(md5);
+    QString sql = QString("DELETE FROM TABLE `eoa_file_info` WHERE md5='%1';").arg(md5);
 
     qInfo() << "sql: " << sql;
 
@@ -116,6 +119,51 @@ void SqliteUtils::deleteByMD5(QString &md5)
         sqlite3_free(errorMsg);
     }
     d->unlock();
+}
+
+bool SqliteUtils::contains(QString &md5, Channel c)
+{
+    Q_D(SqliteUtils);
+
+    bool isOK = false;
+    sqlite3_stmt* stmt = nullptr;
+    qint64 time = QDateTime::currentDateTime().toMSecsSinceEpoch();
+    QString sql = QString("SELECT `start_time`, `stop_time`, `channel` FROM `eoa_file_info` WHERE md5='%1';").arg(md5);
+
+    qInfo() << "sql: " << sql;
+
+    d->lock();
+    int ret = sqlite3_prepare_v2(d->mDB, sql.toUtf8().constData(), -1, &stmt, nullptr);
+    if (SQLITE_OK != ret) {
+        qWarning() << "execute sql error";
+        goto end;
+    }
+
+    while (SQLITE_DONE != sqlite3_step(stmt)) {
+        qint64 startTime = sqlite3_column_int64(stmt, 0);
+        qint64 stopTime = sqlite3_column_int64(stmt, 1);
+        QString channel = QString(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)));
+
+        QStringList channels = channel.split("|");
+
+        qDebug() << startTime;
+        qDebug() << stopTime;
+        qDebug() << channel;
+        qDebug() << time;
+
+        if (time >= startTime && time <= stopTime && channels.contains(QString("%1").arg(c))) {
+            isOK = true;
+            break;
+        }
+    }
+
+end:
+
+    if (stmt)           { sqlite3_finalize(stmt); stmt = nullptr;}
+
+    d->unlock();
+
+    return isOK;
 }
 
 FileInfo::FileInfo(QString &md5, qint64 startTime, qint64 stopTime, QString& channel)
@@ -138,13 +186,21 @@ SqliteUtilsPrivate::SqliteUtilsPrivate()
         exit(-1);
     }
 
-    QProcess::startDetached(DB_SQLITE3, QStringList() << DB_TABLE_EOA_PATH << DB_TABLE_EOA_FILE_INFO);
+    if (!QFile::exists(DB_TABLE_EOA_PATH)) {
+        QProcess::execute(DB_SQLITE3, QStringList() << DB_TABLE_EOA_PATH << DB_TABLE_EOA_FILE_INFO);
+    }
 
     int rc = sqlite3_open (DB_TABLE_EOA_PATH, &mDB);
     if (SQLITE_OK != rc) {
         qCritical() << "connect to database: " << DB_TABLE_EOA_PATH << " failed!";
         exit(-1);
     }
+}
+
+SqliteUtilsPrivate::~SqliteUtilsPrivate()
+{
+    if (mDB)            { sqlite3_close(mDB); mDB = nullptr;}
+    if (mLocker)        { fclose(mLocker); mLocker = nullptr;}
 }
 
 void SqliteUtilsPrivate::lock()
