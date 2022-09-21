@@ -12,7 +12,7 @@
 
 #define LOCK_FILE1                      "/usr/local/ultrasec/dat/.est.eoa.db.lock"
 #define DB_TABLE_EOA_PATH               "/usr/local/ultrasec/dat/db_task/EstDlpEoa.db"
-#if 0
+#if 1
 #define DB_SQLITE3                      "/usr/local/ultrasec/policyfilter/bin/sqlite3"
 #else
 #define DB_SQLITE3                      "/usr/bin/sqlite3"
