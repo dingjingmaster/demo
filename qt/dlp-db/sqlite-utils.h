@@ -20,6 +20,16 @@ public:
      */
     FileInfo (QString& md5, qint64 startTime, qint64 stopTime, QString& channel);
 
+    /**
+     * @brief 要保存的数据
+     *
+     * @param md5: 外发文件的 MD5 值
+     * @param startTime: 文件审批时间的时间戳——开始有效时间,格式："2018-09-21 01:00:00"
+     * @param stopTime: 文件审批时间的天数
+     * @param channel: 通道标识，标识以 '|' 分割，1: USB；2: 打印机； 3:邮件
+     */
+    FileInfo (QString& md5, QString startTime, int days, QString& channel);
+
 private:
     QString             mMD5;
     qint64              mStartTime;
