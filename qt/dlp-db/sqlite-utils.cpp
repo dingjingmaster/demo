@@ -167,12 +167,12 @@ end:
 }
 
 FileInfo::FileInfo(QString &md5, qint64 startTime, qint64 stopTime, QString& channel)
-    : mMD5(md5), mStartTime(startTime), mStopTime(stopTime), mChannel(channel)
+    : mMD5(md5.toUpper()), mStartTime(startTime), mStopTime(stopTime), mChannel(channel)
 {
 }
 
 FileInfo::FileInfo(QString &md5, QString startTime, int days, QString &channel)
-    : mMD5(md5), mChannel(channel)
+    : mMD5(md5.toUpper()), mChannel(channel)
 {
     // mStartTime = QDateTime::fromString("2022-08-18 16:06:18", "yyyy-MM-dd hh:mm:ss").toSecsSinceEpoch();
     mStartTime = QDateTime::fromString(startTime, "yyyy-MM-dd hh:mm:ss").toSecsSinceEpoch();
