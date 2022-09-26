@@ -1,4 +1,4 @@
-cflag = -w 
+cflag = -w #-std=gnu11
 
 CUR_DIR = $(shell pwd)
 
@@ -9,10 +9,10 @@ target = $(strip $(patsubst %.c, %.run, $(src)))
 all:$(target)
 
 %.run:%.o
-	cc -o $@ $< -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
+	gcc -o $@ $< -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
 
 %.o:%.c
-	cc `pkg-config --cflags --libs glib-2.0 gio-2.0` -o $@ -c $< $(cflag)
+	gcc `pkg-config --cflags --libs glib-2.0 gio-2.0` -o $@ -c $< $(cflag)
 
 .PHONY:clean all
 
