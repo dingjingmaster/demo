@@ -1,8 +1,8 @@
 /*************************************************************************
-> FileName: glib-is-symbolic-link.c
+> FileName: glib-resolve-symbolic-link.c
 > Author  : DingJing
 > Mail    : dingjing@live.cn
-> Created Time: Mon 24 Oct 2022 03:15:14 PM CST
+> Created Time: Tue 25 Oct 2022 04:07:27 PM CST
  ************************************************************************/
 #include <glib.h>
 #include <stdio.h>
@@ -34,11 +34,9 @@ bool is_symbolic_link (const char* file)
 {
     g_autofree char* path = g_canonicalize_filename(file, NULL);
     if (path) {
-        //printf ("path: %s\n", path);
         g_autoptr(GFile) file1 = g_file_new_for_path(path);
         if (G_IS_FILE(file1)) {
             GFileType fileType = g_file_query_file_type (file1, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL);
-            //printf ("fileType: %s\n", get_file_type(fileType) ? get_file_type(fileType) : "null");
             return fileType == G_FILE_TYPE_SYMBOLIC_LINK;
         }
     }
@@ -46,39 +44,15 @@ bool is_symbolic_link (const char* file)
     return false;
 }
 
-// 只有一层软连接的情况
-char* get_symbolic_link (const char* path)
-{
-    g_autofree char* path1 = g_canonicalize_filename(path, NULL);
-    if (is_symbolic_link(path)) {
-        g_autoptr(GFile) file = g_file_new_for_path (path1);
-        if (G_IS_FILE(file)) {
-            g_autoptr(GFileInfo) fileInfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET, G_FILE_QUERY_INFO_NONE, NULL, NULL);
-            g_autofree char* symbolicLink = g_file_info_get_attribute_as_string (fileInfo, G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET);
-            g_autoptr(GFile) parent = g_file_get_parent(file);
-            if (G_IS_FILE(parent)) {
-                g_autofree char* parentPath = g_file_get_path(parent);
-                if (parentPath) {
-                    g_autofree char* realSymbolicLink = g_canonicalize_filename(symbolicLink, parentPath);
-                    printf ("path:%s\n", symbolicLink);
-                    printf ("path:%s\n", realSymbolicLink);
-                }
-            }
-        }
-    }
-
-    return NULL;
-}
-
 // 多层软连接的情况
-char* get_symbolic_link2 (const char* path)
+char* get_symbolic_link (const char* path)
 {
     // 最多处理十次软连接的情况
     int linkNum = 10;
     g_autofree char* dirTmp = NULL;
     g_autofree char* pathTmp = NULL;
 
-    if (!g_str_has_prefix(path, "/")) {
+    if (!g_str_has_prefix(path, "/") && !g_str_has_prefix(path, "~")) {
         dirTmp = g_strdup(g_get_current_dir());
     }
 
@@ -122,10 +96,65 @@ char* get_symbolic_link2 (const char* path)
         }
     }
 
-    return NULL;
+    return g_strdup(pathTmp);
 }
 
+/**
+ * @brief
+ *  如果是软连接，则解析出原始的路径并做替换；
+ *  如果不是软连接，则找它的父目录，直到父目录变为根目录
+ */
+char* resolve_symbolic_link (const char* path)
+{
+    g_autofree char* pathTmp = NULL;
+    GString* pathResolved = NULL;
 
+    if (!g_str_has_prefix(path, "/") && !g_str_has_prefix(path, "~")) {
+        pathTmp = g_canonicalize_filename(path, g_get_current_dir());
+    } else {
+        pathTmp = g_canonicalize_filename(path, NULL);
+    }
+
+    pathResolved = g_string_new (pathTmp);
+
+    do {
+        g_autoptr(GFile) file = g_file_new_for_path (pathTmp);
+        if (G_IS_FILE(file)) {
+            g_autoptr(GFile) parent = g_file_get_parent (file);
+            if (G_IS_FILE(parent)) {
+                g_autofree char* pathParent = g_file_get_path(parent);
+                if (is_symbolic_link(pathTmp)) {
+                    g_autofree char* tmp = get_symbolic_link(pathTmp);
+                    if (tmp) {
+                        // tmp 是最终的路径, pathTmp 是包含软连接部分
+                        pathResolved = g_string_erase (pathResolved, 0, strlen(pathTmp));
+                        pathResolved = g_string_prepend_c (pathResolved, '/');
+                        pathResolved = g_string_prepend (pathResolved, tmp);
+
+                        // 等价于
+                        // g_string_replace (pathResolved, pathTmp, tmp, 1);
+                    } else {
+                        break;
+                    }
+                } else if (!g_strcmp0("/", pathParent)) {
+                    g_autofree char* mpath = g_string_free (pathResolved, false);
+                    g_autoptr(GFile) mfile = g_file_new_for_path(mpath);
+                    return g_file_get_path(mfile);
+                }
+                
+                printf ("path:%s, parent: %s\n", pathTmp, pathParent);
+                pathTmp = g_strdup(pathParent);
+                
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    } while (1);
+
+    return g_strdup(path);
+}
 
 
 int main (int argc, char* argv[])
@@ -136,8 +165,7 @@ int main (int argc, char* argv[])
     }
 
     for (int i = 1; i < argc; ++i) {
-        //printf("%s\n", is_symbolic_link(argv[i]) ? "true" : "false");
-        g_autofree char* pp = get_symbolic_link2(argv[i]);
+        g_autofree char* pp = resolve_symbolic_link(argv[i]);
         printf ("%s\n", pp ? pp : "null");
     }
 
