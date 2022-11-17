@@ -23,6 +23,10 @@ public:
     Test();
     ~Test();
     void run() override;
+    static int getA();
+
+public:
+    int mA = 11;
 };
 }
 

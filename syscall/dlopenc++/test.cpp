@@ -8,6 +8,8 @@
 
 namespace aa
 {
+    struct A {int a; float b;};
+static struct A aa = {1, 2};
 Base::Base ()
 {
     printf ("base 构造\n");
@@ -28,6 +30,12 @@ Test::~Test ()
 {
     printf ("test 析构\n");
 }
+
+int Test::getA ()
+{
+    return 1;
+}
+
 
 void Test::run ()
 {

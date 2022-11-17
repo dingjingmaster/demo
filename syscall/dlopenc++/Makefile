@@ -4,16 +4,16 @@ all:libs main hook test
 
 
 libs:
-	g++ -fPIC --shared -Wall -o libtest.so test.cpp -ldl
+	g++ -w -pipe -fPIC --shared -Wall -o libtest.so test.cpp 
 
 main:
-	g++ main.cpp -fpie -Wl,-rpath=$(my_libc_path) -L$(my_libc_path) -ltest -o main.run 
+	g++ -w -pipe main.cpp -Wl,-rpath=$(my_libc_path) -L$(my_libc_path) -ltest -o main.run 
 
 hook:
-	gcc -fpic -shared -Wall -o libhook.so hook.c -ldl
+	gcc -w hook.c -fPIC -shared -Wall -o hook.so -ldl
 
 test:
-	LD_PRELOAD=$(my_libc_path)/libhook.so && export LD_PRELOAD && echo $(LD_PRELOAD) && ./main.run
+	@LD_PRELOAD="$(LD_PRELOAD) $(my_libc_path)/hook.so" && export LD_PRELOAD && echo $(LD_PRELOAD) && ./main.run
 
 
 .PHONY: clean libs all
