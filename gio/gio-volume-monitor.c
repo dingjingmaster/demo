@@ -5,6 +5,7 @@
 > Created Time: 2019年12月14日 星期六 20时05分04秒
  ************************************************************************/
 #include <glib.h>
+#include <stdio.h>
 #include <gio/gio.h>
 
 static void do_action(char* cmd)
@@ -34,24 +35,38 @@ static void handle_volume_changed(GVolumeMonitor* monitor, GVolume* volume, gpoi
     do_action(cmd);
 }
 
+static void print_standard_info (GFile* file)
+{
+    g_autoptr(GFileInfo) fileInfo = g_file_query_info (file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+
+    printf ("target-uri: %s\n", g_file_info_get_attribute_string(fileInfo, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI));
+}
+
 static void handle_mount_changed(GVolumeMonitor* monitor, GMount* mount, gpointer data)
 {
     char* ev = (char*)data;
     g_print("[handle_mount_changed] event: %s\n", ev);
-    return;
 
-    if (g_strcmp0(ev, "mount-removed") == 0) {
-        return;
-    }
+    //if (g_strcmp0(ev, "mount-removed") == 0) {
+    //    return;
+    //}
  
     GFile* root = g_mount_get_root(mount);
     char* path = g_file_get_path(root);
-    g_object_unref(G_OBJECT(root));
     char* cmd = g_strdup_printf("gvfs-open %s", path);
 
+    g_autoptr(GFile) dRoot = g_mount_get_default_location(mount);
+    g_autofree char* path1 = g_file_get_path(dRoot);
+    printf ("root: %s\n", path);
+    print_standard_info(root);
+
+    printf ("default: %s\n", path1);
+    print_standard_info(dRoot);
+
     g_free(path);
-    do_action(cmd);
+    //do_action(cmd);
     g_free(cmd);
+    g_object_unref(G_OBJECT(root));
 }
 
  

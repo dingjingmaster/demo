@@ -19,10 +19,12 @@ int main (int argc, char* argv[])
 
     bool ret = false;
     for (int i = 2; i < argc; ++i) {
-        dir_num_limit(argv[i], atoi(argv[1]));
+        //dir_num_limit(argv[i], atoi(argv[1]));
     }
 
     return 0;
 }
 
-bool dir_num_limit (const char* parent, int limitSize);
+bool dir_num_limit (const char* parent, int limitSize)
+{
+}
