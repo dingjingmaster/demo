@@ -47,26 +47,18 @@ static void handle_mount_changed(GVolumeMonitor* monitor, GMount* mount, gpointe
     char* ev = (char*)data;
     g_print("[handle_mount_changed] event: %s\n", ev);
 
-    //if (g_strcmp0(ev, "mount-removed") == 0) {
-    //    return;
-    //}
- 
-    GFile* root = g_mount_get_root(mount);
-    char* path = g_file_get_path(root);
-    char* cmd = g_strdup_printf("gvfs-open %s", path);
+    g_autoptr(GFile) file = g_mount_get_default_location(mount);
+    g_autofree char* path = g_file_get_path(file);
 
-    g_autoptr(GFile) dRoot = g_mount_get_default_location(mount);
-    g_autofree char* path1 = g_file_get_path(dRoot);
-    printf ("root: %s\n", path);
-    print_standard_info(root);
+    g_autoptr(GFile) file1 = g_file_new_for_path (path);
+    g_autofree char* uri = g_file_get_uri(file1);
+    g_autofree char* schema = g_file_get_uri_scheme(file1);
 
-    printf ("default: %s\n", path1);
-    print_standard_info(dRoot);
+    printf ("path: %s\n", path);
+    printf ("uri: %s\n", uri);
+    printf ("schema: %s\n", schema);
 
-    g_free(path);
     //do_action(cmd);
-    g_free(cmd);
-    g_object_unref(G_OBJECT(root));
 }
 
  
