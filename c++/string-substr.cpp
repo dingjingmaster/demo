@@ -10,16 +10,6 @@
 #include <list>
 #include <string>
     
-// 扫描路径末尾添加 /
-std::string detail_scan_path (const std::string& s)
-{
-    if (s.empty() || s.length() <= 0) {
-        return s;
-    }
-
-    return ""; //(s[s.length() - 1] == '/') ? s : s.append("/");
-}
-
 void replace_all(std::string& inout, std::string what, std::string with)
 {
     for (std::string::size_type pos = 0; inout.npos != (pos = inout.find(what, pos)); pos += with.length()) {
@@ -36,16 +26,19 @@ bool report_path_valid (std::string& reportPath, std::string& scanDirs, std::str
         return true;
     }
 
+    if (scanDirs[scanDirs.length() - 1] != '|') {
+        scanDirs = scanDirs.append("|");
+    }
 
-    bool finished = false;
+
+    //bool finished = false;
     std::list<std::string> scanDirList;
-    for (int pos = 0, start = 0; !finished && (pos = scanDirs.find("|", pos)); pos += 1, start = pos) {
+    for (int pos = 0, start = 0; scanDirs.npos != (pos = scanDirs.find("|", pos)); ++pos, start = pos) {
         std::string scanDir;
-        if (scanDirs.npos == pos) {
-            scanDir = scanDirs;
-            finished = true;
-        } else {
-            scanDir = scanDirs.substr(start, pos - start);
+        scanDir = scanDirs.substr(start, pos - start);
+
+        if (scanDir[scanDir.length() - 1] == '|') {
+            scanDir = scanDir.erase(scanDir.length() - 1, 1);
         }
 
         if (scanDir[scanDir.length() - 1] != '/') {
@@ -56,14 +49,18 @@ bool report_path_valid (std::string& reportPath, std::string& scanDirs, std::str
 
     std::list<std::string> exceptDirList;
     if (!exceptDirs.empty() && "" != exceptDirs) {
-        finished = false;
-        for (int pos = 0, start = 0; !finished && (pos = exceptDirs.find("|", pos)); pos += 1, start = pos) {
+        //finished = false;
+
+        if (exceptDirs[exceptDirs.length() - 1] != '|') {
+            exceptDirs = exceptDirs.append("|");
+        }
+
+        for (int pos = 0, start = 0; exceptDirs.npos != (pos = exceptDirs.find("|", pos)); ++pos, start = pos) {
             std::string exceptDir;
-            if (exceptDirs.npos == pos) {
-                exceptDir = exceptDirs;
-                finished = true;
-            } else {
-                exceptDir = exceptDirs.substr(start, pos - start);
+            exceptDir = exceptDirs.substr(start, pos - start);
+
+            if (exceptDir[exceptDir.length() - 1] == '|') {
+                exceptDir = exceptDir.erase(exceptDir.length() - 1, 1);
             }
 
             if (exceptDir[exceptDir.length() - 1] != '/') {
@@ -72,6 +69,20 @@ bool report_path_valid (std::string& reportPath, std::string& scanDirs, std::str
             exceptDirList.push_back(exceptDir);
         }
     }
+
+#if 0
+    std::cout << "\n\n扫描路径:\n";
+    for (std::list<std::string>::iterator it = scanDirList.begin(); it != scanDirList.end(); ++it) {
+        std::cout << *it << "\t";
+    }
+    std::cout << "\n";
+
+    std::cout << "\n\n例外路径:\n";
+    for (std::list<std::string>::iterator it = exceptDirList.begin(); it != exceptDirList.end(); ++it) {
+        std::cout << *it << "\t";
+    }
+    std::cout << "\n";
+#endif
 
     // 检查上报文件是否属于扫描路径
     bool ret = false;
@@ -103,9 +114,15 @@ int main (int argc, char* argv[])
                                                                         //
     std::string str111 = "/home//dingjing";                             // 指定扫描路径
     std::string str222 = "";                                            // 例外路径
+                                                                        //
+    std::string str1111 = "/home/abc|/home/ddk|/home/xxx";              // 指定扫描路径
+    std::string str2222 = "/home/abc/|/home/ff";                        // 例外路径
                                                                         
     std::string str3 = "/home/dingjing/aa/bb.txt";                      // 指定上报文件路径
     std::string str4 = "/home/dingjing/aa/cc/bb.txt";                   // 指定上报文件路径
+                                                                        
+    std::string str5 = "/home/xxx/bb.txt";                              // 指定上报文件路径
+    std::string str6 = "/home/abc/cc/bb.txt";                           // 指定上报文件路径
 
 
     // 从这里开始
@@ -147,6 +164,11 @@ int main (int argc, char* argv[])
     // 根据扫描路径和上报路径，判断上报路径是否属于扫描范围内
     std::cout << "res: " << str3 << " -- " << (report_path_valid(str3, str111, str222) ? "true" : "false") << std::endl;
     std::cout << "res: " << str4 << " -- " << (report_path_valid(str4, str111, str222) ? "true" : "false") << std::endl;
+
+    // 根据扫描路径和上报路径，判断上报路径是否属于扫描范围内
+    std::cout << "res: " << str5 << " -- " << (report_path_valid(str5, str1111, str2222) ? "true" : "false") << std::endl;
+    std::cout << "res: " << str6 << " -- " << (report_path_valid(str6, str1111, str2222) ? "true" : "false") << std::endl;
+
 
 
     return 0;
