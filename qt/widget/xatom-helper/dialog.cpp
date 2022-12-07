@@ -2,7 +2,7 @@
 #include "xatom-helper.h"
 
 Dialog::Dialog(QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
 {
     MotifWmHints hints;
     hints.flags = MWM_HINTS_FUNCTIONS | MWM_HINTS_DECORATIONS;
