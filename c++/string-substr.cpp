@@ -22,16 +22,14 @@ bool report_path_valid (std::string& reportPath, std::string& scanDirs, std::str
     if (reportPath.empty() || reportPath.length() <= 0) {
         return false;
     }
-    if (scanDirs.empty() || scanDirs.length() <= 0 || "/" == scanDirs ) {
-        return true;
+    if (scanDirs.empty() || scanDirs.length() <= 0) {
+        scanDirs = "/";
     }
 
     if (scanDirs[scanDirs.length() - 1] != '|') {
         scanDirs = scanDirs.append("|");
     }
 
-
-    //bool finished = false;
     std::list<std::string> scanDirList;
     for (int pos = 0, start = 0; scanDirs.npos != (pos = scanDirs.find("|", pos)); ++pos, start = pos) {
         std::string scanDir;
@@ -49,8 +47,6 @@ bool report_path_valid (std::string& reportPath, std::string& scanDirs, std::str
 
     std::list<std::string> exceptDirList;
     if (!exceptDirs.empty() && "" != exceptDirs) {
-        //finished = false;
-
         if (exceptDirs[exceptDirs.length() - 1] != '|') {
             exceptDirs = exceptDirs.append("|");
         }
@@ -117,6 +113,9 @@ int main (int argc, char* argv[])
                                                                         //
     std::string str1111 = "/home/abc|/home/ddk|/home/xxx";              // 指定扫描路径
     std::string str2222 = "/home/abc/|/home/ff";                        // 例外路径
+                                                                        //
+    std::string str11111 = "/";                     // 指定扫描路径
+    std::string str22222 = "/home/abc/";                                // 例外路径
                                                                         
     std::string str3 = "/home/dingjing/aa/bb.txt";                      // 指定上报文件路径
     std::string str4 = "/home/dingjing/aa/cc/bb.txt";                   // 指定上报文件路径
@@ -168,6 +167,10 @@ int main (int argc, char* argv[])
     // 根据扫描路径和上报路径，判断上报路径是否属于扫描范围内
     std::cout << "res: " << str5 << " -- " << (report_path_valid(str5, str1111, str2222) ? "true" : "false") << std::endl;
     std::cout << "res: " << str6 << " -- " << (report_path_valid(str6, str1111, str2222) ? "true" : "false") << std::endl;
+
+    // 根据扫描路径和上报路径，判断上报路径是否属于扫描范围内
+    std::cout << "res: " << str5 << " -- " << (report_path_valid(str5, str11111, str22222) ? "true" : "false") << std::endl;
+    std::cout << "res: " << str6 << " -- " << (report_path_valid(str6, str11111, str22222) ? "true" : "false") << std::endl;
 
 
 
