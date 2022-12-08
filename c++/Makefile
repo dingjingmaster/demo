@@ -8,8 +8,8 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 
 all:$(target)
 
-%.run:%.o
-	g++ -o $@ $< $(cflag) 
+%.run:%.cpp
+	g++ -std=c++20 -o $@ $< $(cflag) 
 
 %.o:%.cpp
 	g++ -o $@ -c $< $(cflag)
