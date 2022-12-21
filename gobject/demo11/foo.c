@@ -11,5 +11,5 @@
 
 void foo_hello (void)
 {
-    printf ("hello world !!!\n");
+    printf ("hello world 点到点 !!!\n");
 }
