@@ -1,3 +1,9 @@
+*.gir
+*.typelib
+*.lo
+*.so.*
+*.so
+.libs/
 build-*/
 build-Desktop*/
 cmake-build-*/

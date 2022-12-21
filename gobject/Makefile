@@ -30,7 +30,7 @@ demo9_obj = $(patsubst %.c, %.o, $(demo9_src))
 demo10_src = $(wildcard demo10/*.c)
 demo10_obj = $(patsubst %.c, %.o, $(demo10_src))
 
-gobject_target =\
+gobject_target = \
 	demo9.run \
 	demo8.run \
 	demo7.run \
@@ -38,12 +38,30 @@ gobject_target =\
 	demo4.run \
 	demo3.run \
 	demo2.run \
-	demo1.run 
+	demo1.run \
+	demo11 
+
 
 target = $(gobject_target)
 
 all:$(target)
 
+
+demo11:
+	libtool --mode=compile gcc -c demo11/foo.c
+	gcc -fPIC -shared -o .libs/libfoo.so demo11/foo.c
+	#libtool --mode=link gcc -o libfoo.la foo.lo 
+	# 编辑 libfoo.la <我已编辑>
+	g-ir-scanner --namespace=Foo --nsversion=1.0 --library=libfoo.la demo11/foo.h demo11/foo.c -o Foo-1.0.gir
+	g-ir-compiler --includedir=. -o Foo-1.0.typelib Foo-1.0.gir
+	sudo cp .libs/libfoo.so /lib/
+	sudo cp Foo-1.0.gir /usr/share/gir-1.0/
+	sudo cp Foo-1.0.typelib /usr/lib/girepository-1.0/
+	@echo -e "\n\n\n\n"
+	gjs ./demo11/test.js
+
+
+	
 demo10:demo10/demo10.run
 	g-ir-scanner --namespace=Kb --nsversion=1.0\
 		--include=GObject-2.0 --pkg=gobject-2.0\
@@ -84,13 +102,18 @@ demo1.run:demo1.c $(demo1_obj)
 demo10/demo10.run:demo10.c $(demo10_src)
 	cc -o $@ $^ $(cflag) -Idemo10/ `pkg-config --cflags --libs gjs-1.0 gobject-introspection-1.0`
 
-.PHONY:clean all
+.PHONY:clean all demo11
 
 clean:
-	@rm -fr *.o
-	@rm -fr */*.o
 	@rm -fr *.run
-	@rm -fr */*.run
 	@rm -fr *.gir
 	@rm -fr */*.gir
 	@rm -fr */*.ob
+	@rm -fr `find -name ".libs"`
+	@rm -f `find -name "*.o"`
+	@rm -f `find -name "*.gir"`
+	@rm -f `find -name "*.run"`
+	@rm -f `find -name "*.lo"`
+	@rm -f `find -name "*.so"`
+	@rm -f `find -name "*.so.*"`
+	@rm -f `find -name "*.typelib"`
