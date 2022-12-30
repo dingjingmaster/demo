@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <sys/uio.h>
+#include <sys/socket.h>
 
 char* get_process_name ()
 {
@@ -22,18 +23,19 @@ char* get_process_name ()
     g_autofree char* name = (char*) g_malloc0 (BUF_SIZE);
     readlinkat (AT_FDCWD, path, name, BUF_SIZE - 1);
 
-	return g_strdup(name);
+    return g_strdup(name);
 }
 
 int get_ascii_str_start (char* s, int len)
 {
     for (int i = 0; i < len; ++i) {
         if (s[i] >= 32 && s[i] <= 127) {
+            if (s[i] == ' ') continue;
             return i;
         }
     }
 
-    return len;
+    return 0;
 }
 
 
@@ -135,9 +137,31 @@ ssize_t writev (int fd, const struct iovec* iov, int iovcnt)
 
     syslog (LOG_ERR, "[Hook Tools]: writev (%d, %p, %d);", fd, iov, iovcnt);
     for (int i = 0; i < iovcnt; ++i) {
-        syslog (LOG_ERR, "[Hook Tools]: writev - iov[%d]='%s', len=%lu", i, &((char*) iov[i].iov_base)[get_ascii_str_start ((char*)iov[i].iov_base, iov[i].iov_len)], iov[i].iov_len);
+        char* str = (char*) iov[i].iov_base;
+        size_t len = iov[i].iov_len;
+        int sp = get_ascii_str_start (str, len);
+        if ((strlen (&str[sp]) <= 1) || strstr (&str[sp], "limits@openssh.com")) {
+            //syslog (LOG_ERR, "[Hook Tools]: error - (%d)(%ld) writev - iov[%d]='%s', len=%lu", sp, strlen(&str[sp]), i, (char*)&str[sp], len);
+            continue;
+        }
+        syslog (LOG_ERR, "[Hook Tools]: ok writev - iov[%d]='%s', len=%lu", i, (char*)&str[sp], len);
     }
 
     return writePtr (fd, iov, iovcnt);
 }
+
+typedef int (AcceptPtr) (int sockfd, struct sockaddr *restrict addr, socklen_t *restrict addrlen);
+int accept (int sockfd, struct sockaddr *restrict addr, socklen_t *restrict addrlen)
+{
+    AcceptPtr* acceptPtr = (AcceptPtr*) dlsym (RTLD_NEXT, "accept");
+    if (NULL == acceptPtr) {
+        syslog (LOG_ERR, "dlsym open error");
+        return -1;
+    }
+
+    return acceptPtr (sockfd, addr, addrlen);
+
+}
+
+
 
