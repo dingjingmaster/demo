@@ -115,6 +115,54 @@ bool parse_policy_id_times (const std::string& item, std::map<std::string, unsig
     return true;
 }
 
+std::string join_policy_id_times (const std::map<std::string, unsigned long>& p)
+{
+    if (p.size() <= 0) {
+        return "";
+    }
+
+    std::string str = "";
+    for (std::map<std::string, unsigned long>::const_iterator it = p.begin(); it != p.end(); ++it) {
+        if (it->first.empty() && it->second > 0) {
+            str += (std::string(",") + it->first + std::string(":") + std::to_string(it->second) + std::string(","));
+        }
+    }
+
+    return str;
+}
+
+void replace_files_db_item (sqlite3* sqlite, const SensitiveDoc& doc)
+{
+    if (NULL == sqlite || doc.fileFullPath.empty()) {
+        return ;
+    }
+
+    g_autofree char* sql = g_strdup_printf ("DELETE FROM match_files WHERE full_path='%s'", doc.fileFullPath.c_str());
+    if (!sqlite_execute (sqlite, sql)) {
+        printf ("sql: %s, error!", sql);
+        return;
+    }
+
+    sql = g_strdup_printf (INSERT_TABLE, doc.fileFullPath.c_str(), join_policy_id_times(doc.policyIDMTimes).c_str(), doc.fileType.c_str(), doc.fileSize.c_str(), doc.scanResult.c_str(), "");
+    if (!sqlite_execute (sqlite, sql)) {
+        printf ("sql: %s, error!", sql);
+        return;
+    }
+}
+
+void print_doc (const SensitiveDoc& doc)
+{
+
+    printf ("full_path:%s\n", doc.fileFullPath.c_str());
+    printf ("file_type:%s\n", doc.fileType.c_str());
+    printf ("file_size:%s\n", doc.fileSize.c_str());
+    printf ("detect_result:%s\n", doc.scanResult.c_str());
+    printf ("policy_id_tms:\n");
+    for (std::map<std::string, unsigned long>::const_iterator it = doc.policyIDMTimes.begin(); it != doc.policyIDMTimes.end(); ++it) {
+        printf ("\t%s: %lu", it->first.c_str(), it->second);
+    }
+}
+
 int main (int argc, char* argv[])
 {
     sqlite3*        sqlite = NULL;
@@ -216,14 +264,8 @@ int main (int argc, char* argv[])
 
         //
         if (i != 0) {
-            printf ("full_path:%s\n", doc.fileFullPath.c_str());
-            printf ("file_type:%s\n", doc.fileType.c_str());
-            printf ("file_size:%s\n", doc.fileSize.c_str());
-            printf ("detect_result:%s\n", doc.scanResult.c_str());
-            printf ("policy_id_tms:\n");
-            for (std::map<std::string, unsigned long>::iterator it = doc.policyIDMTimes.begin(); it != doc.policyIDMTimes.end(); ++it) {
-                printf ("\t%s: %lu", it->first.c_str(), it->second);
-            }
+            print_doc (doc);
+            replace_files_db_item (sqlite, doc);
         }
 
         printf ("\n\n");
