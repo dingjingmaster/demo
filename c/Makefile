@@ -9,7 +9,7 @@ target = $(strip $(patsubst %.c, %.run, $(src)))
 all:$(target)
 
 %.run:%.o
-	gcc -o $@ $< -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
+	gcc -o $@ $< -lpthread -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
 
 %.o:%.c
 	gcc `pkg-config --cflags --libs glib-2.0 gio-2.0` -o $@ -c $< $(cflag)
