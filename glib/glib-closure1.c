@@ -11,6 +11,7 @@
 static gboolean quit_callback (gpointer udata)
 {
     GMainLoop* loop = udata;
+    sleep (1);
 
     g_main_loop_quit (loop);
 
@@ -23,11 +24,15 @@ static gboolean quit_callback (gpointer udata)
  */
 int main (int argc, char* argv[])
 {
+    // 创建新的空闲 源，可以产生事件...
     GSource* src = g_idle_source_new ();
 
     GMainLoop* loop = g_main_loop_new (NULL, FALSE);
 
+    // 创建闭包 GClosure* g_cclosure_new (GCallback cf, gpointer udata, GClosureNotify dd);
     GClosure* c = g_cclosure_new (quit_callback, loop, NULL);
+    
+    // 给 GSource 设置回调函数
     g_source_set_closure (src, c);
 
     g_source_attach (src, NULL);
