@@ -6,7 +6,7 @@ target = $(patsubst %.c, %.run, $(src))
 all:$(target)
 
 %.run:%.c
-	cc -o $@ $^ $(cflag) dump_window.c -lpanel -lmenu `pkg-config --cflags --libs ncurses glib-2.0`
+	cc -o $@ $^ $(cflag) dump_window.c -lpanel -lmenu -lform `pkg-config --cflags --libs ncurses glib-2.0`
 
 .PHONY:clean all
 
