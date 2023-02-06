@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Test
+Name[zh_CN]=测试
+
+Exec=/bin/xdg-open %F
