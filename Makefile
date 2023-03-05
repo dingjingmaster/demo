@@ -8,6 +8,7 @@ subdirs= \
 		 lightdm localization libblocked \
 		 module \
 		 pam pcre polkit protobuf python-c-api\
+		 qt-tools \
 		 sl sqlite\
 		 str \
 		 vala vte \
