@@ -38,7 +38,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    QTimer::singleShot(200, &a, SLOT(quit()));
+    qDebug() << p;
+
+//    QTimer::singleShot(200, &a, SLOT(quit()));
 
     a.exec();
 

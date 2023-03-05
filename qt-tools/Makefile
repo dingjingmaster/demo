@@ -1,4 +1,4 @@
-cflag = -w `pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets`
+cflag = -w -fPIE -fPIC `pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets`
 
 CUR_DIR = $(shell pwd)
 
@@ -9,7 +9,7 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 all:$(target)
 
 %.run:%.cpp
-	g++ -std=c++20 `pkg-config --libs Qt5Core Qt5Gui Qt5Widgets` -o $@ $< $(cflag) 
+	g++ -std=c++11 `pkg-config --libs Qt5Core Qt5Gui Qt5Widgets` -o $@ $< $(cflag) 
 
 %.o:%.cpp
 	g++ -o $@ -c $< $(cflag)
