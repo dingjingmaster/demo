@@ -3,7 +3,6 @@
 #include <cairo.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <string.h>
-#include <djctool/clib_syslog.h>
 
 
 
@@ -57,9 +56,9 @@ int main(int argc,char *argv[])
     gtk_init(&argc, &argv);
 
     if (prompt_dialog("是否关机?")) {
-        CT_SYSLOG(LOG_INFO, "关机");
+        printf("关机");
     } else {
-        CT_SYSLOG(LOG_INFO, "取消");
+        printf("取消");
     }
 
     gtk_main();
