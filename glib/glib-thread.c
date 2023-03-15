@@ -9,8 +9,7 @@
 
 gpointer signal_thread(gpointer arg) 
 {
-    int i;
-    for(i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; ++i) {
         g_usleep(1000000); // 暫停一秒
         g_signal_emit_by_name(arg, "clicked");
     } 
@@ -40,7 +39,7 @@ int main(int argc, char *argv[])
     gtk_widget_show(window);
     gtk_widget_show(button);
 
-    if(!g_thread_supported()) {
+    if (!g_thread_supported()) {
         g_thread_init(NULL);
     }
 

@@ -127,3 +127,29 @@
 | y   | BYTE 8位无符号整数 |
 | ()  | 定义结构时使用。例如 "(i(ii))" |
 | {}  | 定义键值对时使用。例如 "a{us}" |
+
+### 跨平台编译
+```ini
+[host_machine]
+system = 'windows'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
+
+[properties]
+c_args = []
+c_link_args = []
+
+[binaries]
+c = 'x86_64-w64-mingw32-gcc'
+cpp = 'x86_64-w64-mingw32-g++'
+ar = 'x86_64-w64-mingw32-ar'
+ld = 'x86_64-w64-mingw32-ld'
+objcopy = 'x86_64-w64-mingw32-objcopy'
+strip = 'x86_64-w64-mingw32-strip'
+pkgconfig = 'x86_64-w64-mingw32-pkg-config'
+windres = 'x86_64-w64-mingw32-windres'
+```
+```shell
+meson --cross-file cross_file.txt builddir
+```
