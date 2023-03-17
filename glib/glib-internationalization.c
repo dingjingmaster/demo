@@ -13,7 +13,7 @@ int main (int argc, char* argv[])
     printf ("Q_()   -- 作用\n");
     printf ("N_()   -- 作用\n");
     printf ("NC_()  -- 作用\n");
-    printf ("C_()   -- 作用同_()，可以标出上下文：C_("Navigation", "Back"); C_("b", "Back")，这两个翻译可以不一样\n");
+    printf ("C_()   -- 作用同_()，可以标出上下文：C_(\"Navigation\", \"Back\"); C_(\"b\", \"Back\")，这两个翻译可以不一样\n");
 
     return 0;
 }
