@@ -11,7 +11,10 @@
 int main ()
 {
     g_autofree char* name = g_filename_display_basename ("/aaa/bbbb/ccc/ddd/eee/fff/kkk.txt");
+
+    g_autofree char* dir = g_filename_display_name ("/aaa/bbbb/ccc/ddd/eee/fff/kkk.txt");
     printf ("%s\n", name);
+    printf ("%s\n", dir);
 
     return 0;
 }

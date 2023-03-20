@@ -1,0 +1,20 @@
+
+Thread 1 (Thread 0xffff8864c010 (LWP 12373)):
+#0  0x0000ffff8fb49c3c in __lll_lock_wait (futex=futex@entry=0xffff9240c428, private=0) at lowlevellock.c:46
+#1  0x0000ffff8fb42e10 in __GI___pthread_mutex_lock (mutex=0xffff9240c428) at pthread_mutex_lock.c:80
+#2  0x0000ffff923c9348 in  () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#3  0x0000ffff923981cc in  () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#4  0x0000ffff9239b648 in calloc () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#5  0x0000ffff8fc26858 in _dlerror_run (operate=operate@entry=0xffff8fc261d8 <dlsym_doit>, args=args@entry=0xffffdd30aad8) at dlerror.c:141
+#6  0x0000ffff8fc2626c in __dlsym (handle=<optimized out>, name=<optimized out>) at dlsym.c:70
+#7  0x0000ffff924ba730 in open () at /home/test/code/demo/hook/hook-open.so
+#8  0x0000ffff923c9e20 in  () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#9  0x0000ffff92397f5c in  () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#10 0x0000ffff923980d4 in  () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#11 0x0000ffff92399ee4 in malloc () at /lib/aarch64-linux-gnu/libjemalloc.so.2
+#12 0x0000ffff8fd97898 in __newlocale (category_mask=8127, locale=<optimized out>, base=0xffff8fe90d48 <_nl_C_name>) at newlocale.c:201
+#13 0x0000ffff889570cc in  () at /lib/aarch64-linux-gnu/libp11-kit.so.0
+#14 0x0000ffff924d997c in call_init (l=<optimized out>, argc=argc@entry=1, argv=argv@entry=0xffffdd30b098, env=0xffffdd30b0a8) at dl-init.c:72
+#15 0x0000ffff924d9a80 in call_init (env=0xffffdd30b0a8, argv=0xffffdd30b098, argc=1, l=<optimized out>) at dl-init.c:30
+#16 0x0000ffff924d9a80 in _dl_init (main_map=0xffff924fd1c0, argc=1, argv=0xffffdd30b098, env=0xffffdd30b0a8) at dl-init.c:119
+#17 0x0000ffff924cd0c4 in _dl_start_user () at /lib/ld-linux-aarch64.so.1
