@@ -8,11 +8,14 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 
 all:$(target)
 
-%.run:%.cpp
-	g++ -std=c++11 `pkg-config --libs Qt5Core Qt5Gui Qt5Widgets` -o $@ $< $(cflag) 
+%.run:%.cpp mocs
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
 
 %.o:%.cpp
 	g++ -o $@ -c $< $(cflag)
+
+mocs:
+	moc $(CUR_DIR)/server-header.h > $(CUR_DIR)/server-header.moc
 
 .PHONY:clean all
 
