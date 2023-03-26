@@ -1,24 +1,30 @@
 pwd=$(shell pwd)
-subdirs= \
-		 c core cppbase cbase cairo \
-		 dbus dconf device \
-		 file function \
-		 gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk \
-		 ipc \
-		 lightdm localization libblocked \
-		 module \
-		 pam pcre polkit protobuf python-c-api\
-		 qt-demo qt-tools \
-		 sl sqlite\
-		 str \
-		 vala vte \
-		 x xcb \
-		 syscall
+
+ifeq ($(shell uname -o), Darwin)
+	subdirs = object-c 
+else ifeq ($(shell uname -o), GNU/Linux)
+	subdirs = \
+		c core cppbase cbase cairo \
+		dbus dconf device \
+		file function \
+		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk \
+		ipc \
+		lightdm localization libblocked \
+		module \
+		pam pcre polkit protobuf python-c-api\
+		qt-demo qt-tools \
+		sl sqlite\
+		str \
+		vala vte \
+		x xcb \
+		syscall
+endif
+
 
 all:
-	@for subdir in $(subdirs);\
-		do\
-		cd $(pwd)/$$subdir && make;\
+	@for subdir in $(subdirs); \
+		do \
+		cd $(pwd)/$$subdir && make; \
 		done
 
 clean:
@@ -28,5 +34,4 @@ clean:
 		done
 
 
-.PHONY:clean 
-
+.PHONY:clean all build clean
