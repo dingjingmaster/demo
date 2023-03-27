@@ -375,6 +375,8 @@ alarm_default_init (AlarmIface *iface)
 gboolean 
 alarm_get_activated (Alarm *object)
 {
+  g_return_val_if_fail (IS_ALARM (object), FALSE);
+
   return ALARM_GET_IFACE (object)->get_activated (object);
 }
 
@@ -704,7 +706,7 @@ alarm_proxy_get_activated (Alarm *object)
 {
   AlarmProxy *proxy = ALARM_PROXY (object);
   GVariant *variant;
-  gboolean value = 0;
+  gboolean value = FALSE;
   variant = g_dbus_proxy_get_cached_property (G_DBUS_PROXY (proxy), "Activated");
   if (variant != NULL)
     {
