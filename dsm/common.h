@@ -9,6 +9,9 @@
 #include <string>
 
 #include <stdbool.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 enum CDG_RETVAL
 {
@@ -42,13 +45,13 @@ enum CDG_RETVAL
 };
 
 
-#define CDG_FILEHEAD_ID            	0x12345678
-#define CDG_FILEHEAD_ID_NEW			0x12345688
+//#define CDG_FILEHEAD_ID            	0x12345678
+//#define CDG_FILEHEAD_ID_NEW			0x12345688
 
 #define CDG_FILEHEAD_ID_DSM			0x12345668
 #define CDG_FILEHEAD_PASS           "IOSDFKKLJJKDSDDS"
 
-#define MAX_USER_NAME_LEN          	128
+#define MAX_USER_NAME_LEN          	256
 
 #define TRUE 1
 #define FALSE 0
@@ -97,9 +100,6 @@ typedef struct _CDG_FILE_HEADER
 } CDG_FILE_HEADER;
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 void DecodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
 void EncodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
 #ifdef __cplusplus
