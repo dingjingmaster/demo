@@ -51,7 +51,7 @@ enum CDG_RETVAL
 #define CDG_FILEHEAD_ID_DSM			0x12345668
 #define CDG_FILEHEAD_PASS           "IOSDFKKLJJKDSDDS"
 
-#define MAX_USER_NAME_LEN          	256
+#define MAX_USER_NAME_LEN          	128
 
 #define TRUE 1
 #define FALSE 0

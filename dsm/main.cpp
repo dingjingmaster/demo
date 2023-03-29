@@ -74,9 +74,9 @@ int main(int argc, char* argv[])
     printf("dwentype  : %d\n", pCdgHead->dwentype);
 
     // (5) Decode
-//    DecodeAES((char*)pCdgHead + 12,
-//               sizeof(CDG_FILE_HEADER) - 12,
-//               (unsigned char *)CDG_FILEHEAD_PASS);
+    DecodeAES((char*)pCdgHead + 12,
+               sizeof(CDG_FILE_HEADER) - 12,
+               (unsigned char *)CDG_FILEHEAD_PASS);
 
     // (6) Head
     printf("\n");
