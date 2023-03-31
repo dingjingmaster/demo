@@ -100,8 +100,10 @@ typedef struct _CDG_FILE_HEADER
 } CDG_FILE_HEADER;
 
 
+bool EncryptLockFile(char* pFileName, unsigned char* key, int arith);
 void DecodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
 void EncodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
+bool IsEncryptLockFile(const char* pFileName);
 #ifdef __cplusplus
 }
 #endif
