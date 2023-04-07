@@ -259,4 +259,99 @@ NSLog
 
 只包含空格(可能带有注释)的行称为空行，而Objective-C编译器完全忽略它。
 
-### 数据类型
+### 数据类型(常量、变量)
+
+### 运算符（算术、关系、逻辑、按位、分配<赋值>、其它运算符<取地址、取指针、三目、变量大小>）
+
+### 循环(while、for、do...while、嵌套循环)
+
+### 循环控制语句(break、continue)
+
+### 条件(if、is..else、嵌套if、switch、嵌套switch)
+
+### 函数
+
+函数定义方法
+
+```object-C
+- (返回值类型)  函数名  (参数类型) 参数名
+        连接参数: (参数2类型) 参数名2 ...
+{
+    // 函数体
+}
+```
+
+注意：连接参数是指，让它更易于阅读并在调用时候清楚的表达。
+
+```objectivate-c
+- (int) max (int) num1 secondNumber: (int) num2
+{
+    /* 函数体 */
+}
+```
+
+-- 函数声明
+```ObjectiveC
+- (int) max (int) num1 secondNumber: (int) num2;
+```
+
+-- 调用方法
+
+在创建Objective-C方法时，可以定义函数必须执行的操作。 要使用方法，必须调用该函数来执行定义的任务。当程序调用函数时，程序控制将转移到被调用的方法。 被调用的方法执行已定义的任务，当执行其返回语句或达到其函数结束右括号时，它将程序控制返回给主程序。要调用方法，只需要传递必需的参数和方法名称，如果方法返回值，则可以存储返回的值。 例如 -
+
+```objectivate-C
+#import <Foundation/Foundation.h>
+
+@interface SampleClass:NSObject
+/* 方法声明 */
+- (int)max:(int)num1 andNum2:(int)num2;
+@end
+
+@implementation SampleClass
+
+/* 返回两个数的最大值 */
+- (int)max:(int)num1 andNum2:(int)num2 {
+
+   /* 声明局部变量 */
+   int result;
+
+   if (num1 > num2) {
+      result = num1;
+   } else {
+      result = num2;
+   }
+
+   return result;
+}
+
+@end
+
+int main () {
+
+   /* 定义局部变量 */
+   int a = 119;
+   int b = 199;
+   int ret;
+
+   SampleClass *sampleClass = [[SampleClass alloc]init];
+
+   /* 调用方法来获取最大值 */
+   ret = [sampleClass max:a andNum2:b];
+
+   NSLog(@"Max value is : %d\n", ret );
+   return 0;
+}
+```
+
+#### 函数参数
+
+这些变量称为函数的形式参数。形式参数的行为与函数内部的其他局部变量相似，并在进入函数时创建，并在退出时销毁。在调用函数时，有两种方法可以将参数传递给函数 -
+
+|调用类型|描述|
+|---|---|
+|按值调用|此方法将参数的实际值复制到函数的形式参数中。在这种情况中，对函数内部参数所做的更改不会对参数产生影响。|
+|按引用调用|此方法将参数的地址复制到形式参数中。在函数内部，该地址用于访问调用中使用的实际参数。对参数所做的更改会影响参数。|
+
+默认情况下，Objective-C使用按值调用来传递参数。 所以函数内的代码改变用于调用函数的参数不会反应到函数外部，而上述示例在调用max()函数时使用相同的方法。
+
+

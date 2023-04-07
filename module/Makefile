@@ -5,8 +5,11 @@ all:
 	make -C $(KERNEL_BUILD) M=$(shell pwd) modules
 
 clean:
-	rm -f *.o
-	rm -f *.ko
-	rm -f *.order
-	rm -f *.mod.c
-	rm -f *.symvers
+	@rm -f *.o
+	@rm -f *.ko
+	@rm -f .*.cmd
+	@rm -f .*.mod
+	@rm -f *.order
+	@rm -f *.mod.c
+	@rm -f *.symvers
+	@rm -rf .tmp_versions
