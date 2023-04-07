@@ -1,15 +1,16 @@
 obj-m = hello-world.o
 KERNEL_BUILD := /lib/modules/$(shell uname -r)/build
 
+subdirs = helloWorld device
+
 all:
-	make -C $(KERNEL_BUILD) M=$(shell pwd) modules
+	@for subdir in $(subdirs); \
+		do \
+			cd $(shell pwd)/$$subdir && make; \
+		done
 
 clean:
-	@rm -f *.o
-	@rm -f *.ko
-	@rm -f .*.cmd
-	@rm -f .*.mod
-	@rm -f *.order
-	@rm -f *.mod.c
-	@rm -f *.symvers
-	@rm -rf .tmp_versions
+	@for subdir in $(subdirs); \
+		do \
+			cd $(shell pwd)/$$subdir && make clean; \
+		done
