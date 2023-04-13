@@ -33,6 +33,7 @@ int main (int argc, char* argv[])
 
     struct kvm_userspace_memory_region mem = {
         .slot = 0,
+        .flags = 0,
         .guest_phys_addr = 0,
         .memory_size = 0x1000,
         .userspace_addr = (unsigned long) ram,
@@ -43,6 +44,7 @@ int main (int argc, char* argv[])
 
     // 为虚拟机创建vcpu
     int vcpufd = ioctl (vmFd, KVM_CREATE_VCPU, 0);
+
     int mmap_size = ioctl(kvmFd, KVM_GET_VCPU_MMAP_SIZE, NULL);
     struct kvm_run* run = (struct kvm_run*) mmap (NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, vcpufd, 0);
 
