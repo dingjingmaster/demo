@@ -7,7 +7,7 @@ target = $(patsubst %.c, %.so, $(src))
 all : $(target)
 
 %.so : %.c
-	gcc -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs glib-2.0` -ldl -DLIBC=\"$(libc_path)\"
+	gcc -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs glib-2.0 gdk-2.0` -ldl -DLIBC=\"$(libc_path)\"
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
 
