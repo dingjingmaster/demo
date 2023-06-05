@@ -35,17 +35,17 @@ QStyle* _ZN12QApplication8setStyleERK7QString(const QString& style)
 extern "C"
 QStyle* _ZN13QStyleFactory6createERK7QString (const QString& style)
 {
-    printf ("HOOK create Style HOOK!\n");
+    printf ("HOOK factory create Style HOOK!\n");
 
     QApplicationSetStylePtr st = (QApplicationSetStylePtr) dlsym ((void*) -1, "_ZN12QApplication8setStyleERK7QString");
     if (NULL == st) {
-        printf ("HOOK create Style HOOK error!\n");
+        printf ("HOOK factory create Style HOOK error!\n");
         return NULL;
     }
 
     printf ("style: %s\n", style.toUtf8().constData());
 
-    printf ("HOOK create Style TO hook-qstyle!\n");
+    printf ("HOOK factory create Style TO hook-qstyle!\n");
 
     return st ("HOOK hook-qstyle");
 }

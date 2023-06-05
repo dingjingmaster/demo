@@ -15,6 +15,7 @@
 QStyle *HookPlugin::create(const QString &key)
 {
     return new HookStyle("chameleon");
+    //return new HookStyle("fusion");
 }
 
 HookPlugin::HookPlugin(QObject *parent)
@@ -35,27 +36,17 @@ void HookStyle::polish(QWidget *w)
     qWarning() << w->metaObject()->className();
     printf ("windows name: %s\n", w->metaObject()->className());
 
-    if (QString(w->metaObject()->className()) == "TitleMenu") {
-        printf ("found TitleMenu======\n");
+    if (QString(w->metaObject()->className()) == "QMenu") {
+        printf ("found %s======\n", w->metaObject()->className());
         auto ls = w->children();
         for (auto l : ls) {
             if (auto a = qobject_cast<QAction*>(l)) {
                 printf ("action: %s, icon text: %s\n", a->text().toUtf8().constData(), a->iconText().toUtf8().constData());
-                if ((a->text() == "Save As") || (a->text().contains ("另存为")) || (a->iconText().contains ("另存为"))) {
-                    printf ("Save As .........\n");
+                if ((a->text() == "File(&F)") || (a->text().contains ("文件(&F)")) || (a->iconText().contains("文件(F)"))) {
+                    printf ("======>文件Action：开始禁用!\n");
                     a->setEnabled (false);
-                    a->setVisible (false);
-                    w->removeAction (a);
-                }
-                else if ((a->text() == "Print") || (a->text().contains ("打印"))) {
-                    a->setEnabled (false);
-                    a->setVisible (false);
-                    w->removeAction (a);
-                }
-                else if ((a->text() == "Save") || (a->text().contains ("保存"))) {
-                    a->setEnabled (false);
-                    a->setVisible (false);
-                    w->removeAction (a);
+                    //a->setVisible (false);
+                    //w->removeAction (a);
                 }
             }
         }
