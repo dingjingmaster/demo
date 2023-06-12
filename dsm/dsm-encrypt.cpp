@@ -17,11 +17,11 @@ int main (int argc, char* argv[])
         return -1;
     }
 
-    g_autofree char* str = g_strdup_printf("cp %s ./encode-file.txt", argv[1]);
-    printf ("%s\n", str);
-    system (str);
+    //g_autofree char* str = g_strdup_printf("cp %s ./encode-file.txt", argv[1]);
+    //printf ("%s\n", str);
+    //system (str);
 
-    if (EncryptLockFile((char*) "./encode-file.txt", (unsigned char*) argv[2], 2)) {
+    if (EncryptLockFile((char*) argv[1], (unsigned char*) argv[2], 2)) {
         printf ("加密成功, 密文输出: ./encode-file.txt\n");
         return 0;
     }

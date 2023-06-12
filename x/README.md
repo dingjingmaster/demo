@@ -1,5 +1,7 @@
 # XLib
+
 [Xlib 介绍](#user-content-xlib-介绍)
+[Xlib 显示相关函数](#user-content-显示相关函数)
 
 
 ## Xlib 介绍
@@ -81,3 +83,170 @@ Xlib在函数的命名和语法方面遵循许多约定。假设您记住了函�
 ### 字符集和编码
 
 ### 格式规范
+
+
+## 显示相关函数
+
+在您的程序可以使用显示器之前，您必须建立到X服务器的连接。一旦建立了连接，就可以使用本章讨论的Xlib宏和函数来返回有关显示的信息。本章讨论如何:
+
+- 连接到xserver
+- 获取有关Display、图像格式或屏幕的信息
+- 生成一个NoOperation协议请求
+- 释放xclient创建的数据
+- 关闭到xserver的连接
+- 使用X服务器关闭连接操作
+- 使用带有线程的Xlib
+- 使用内部连接
+
+### 连接到xserver（XOpenDisplay）
+
+```c
+Display* XOpenDisplay(display_name);
+
+
+char* display_name; // 指定硬件显示名称；如果为空则从环境变量中获取
+```
+
+显示名的编码和解释取决于实现。支持主机可移植字符编码中的字符串;对其他字符的支持取决于实现。在符合posix的系统上，显示名称或display环境变量可以是如下格式的字符串:
+```
+protocol/hostname:number.screen_number
+```
+- protocol：
+- hostname：
+- number：
+- screen_number：
+
+`XOpenDisplay`函数返回一个`Display`结构，该结构用作到X服务器的连接，并且包含关于该X服务器的所有信息。`XOpenDisplay`通过`TCP`或`DECnet`通信协议，或通过`某些本地进程间通信协议`，将应用程序连接到X服务器。如果协议指定为“tcp”、“inet”或“inet6”，或者没有指定协议，主机名是主机名，主机名和显示号之间用一个冒号分隔，`XOpenDisplay`使用tcp流连接。(如果指定的协议为“inet”，则使用TCP over IPv4。如果指定协议为inet6，则使用TCP over IPv6。否则，实现将决定使用哪个IP版本。)如果没有指定主机名和协议，Xlib将使用它认为最快的传输方式。如果主机名是主机名，用双冒号(::)分隔主机名和显示号，`XOpenDisplay`使用`DECnet`进行连接。单个X服务器可以同时支持任何或所有这些传输机制。特定的Xlib实现可以支持更多这样的传输机制。
+
+如果成功，`XOpenDisplay`返回一个指向`Display`结构的指针，该结构定义在。如果`XOpenDisplay`不成功，它返回`NULL`。在成功调用XOpenDisplay之后，客户机可以使用显示中的所有屏幕。display_name参数中指定的屏幕编号由DefaultScreen宏(或XDefaultScreen函数)返回。只能通过使用信息宏或函数来访问Display和Screen结构的元素。有关使用宏和函数从Display结构中获取信息的信息。
+
+### 获取有关Display、图像格式或屏幕的信息
+
+Xlib库提供了许多有用的宏和相应的函数，它们从Display结构返回数据。这些宏用于C编程，它们对应的函数等价于其他语言绑定。本节讨论:
+- 显示宏
+- 图像格式函数和宏
+- 屏幕信息宏
+
+Display结构的所有其他成员(即没有为其定义宏的成员)都是Xlib私有的，不能使用。应用程序绝对不能直接修改或检查Display结构的这些私有成员。
+
+#### 显示宏（Display Macros）
+
+应用程序不应该直接修改`Display`和`Screen`结构的任何部分。这些成员应该被认为是只读的，尽管它们可能会由于对显示的其他操作而改变。下面列出了C语言的宏，它们对应的用于其他语言绑定的等价函数，以及它们都可以返回的数据。
+
+##### AllPlanes
+```c
+unsigned long XAllPlanes()
+```
+
+AllPlanes宏返回一个所有位设置为1的值，适合用于过程的plane参数。
+
+##### BlackPixel
+
+```c
+unsigned long XBlackPixel (display, screen_number);
+```
+返回指定屏幕的黑色像素值。
+
+##### WhitePixel
+
+```c
+unsigned long XWhitePixel (display, screen_number)
+```
+
+返回指定屏幕的白色像素值。
+
+##### ConnectionNumber
+```c
+int XConnectionNumber(display)
+```
+返回指定显示的连接号。
+
+##### DefaultColormap
+```c
+Colormap XDefaultColormap (display, screen_number)
+```
+两者都返回在指定屏幕上分配的默认colormap ID。大多数例行的颜色分配都应该从这个颜色图中进行。
+
+##### DefaultDepth
+
+```c
+int XDefaultDepth (display, screen_number)
+```
+两者都返回指定屏幕的默认根窗口的深度。其他深度也可以在这个屏幕上支持(见XMatchVisualInfo)。
+
+##### XListDepths
+```c
+int *XListDepths(display, screen_number, count_return);
+
+Display *display;
+int screen_number;
+int *count_return;
+```
+xlistdepth函数返回指定屏幕上可用的深度数组。如果指定的screen_number是有效的，并且可以为数组分配足够的内存，则xlistdepth将count_return设置为可用深度的数量。否则，它不设置count_return并返回NULL。释放为深度数组分配的内存，使用XFree。
+
+##### DefaultGC
+
+```c
+GC XDefaultGC (display, screen_number);
+
+Display *display;
+int screen_number;
+```
+
+两者都返回指定屏幕的根窗口的默认图形上下文。这个GC是为了方便简单的应用程序而创建的，它包含默认的GC组件，其中前景和背景像素值分别初始化为屏幕的黑色和白色像素。您可以自由地修改它的内容，因为它不在任何Xlib函数中使用。这个GC永远不应该被释放。
+
+##### DefaultRootWindow
+
+```c
+Window XDefaultRootWindow(display);
+```
+
+两者都返回默认屏幕的根窗口。
+
+##### DefaultScreenOfDisplay
+
+```c
+Screen *XDefaultScreenOfDisplay (display);
+```
+
+两者都返回一个指向默认屏幕的指针。
+
+##### ScreenOfDisplay
+
+```c
+Screen *XScreenOfDisplay(display, screen_number);
+
+Display *display;
+int screen_number;
+```
+
+##### DefaultScreen
+```c
+int XDefaultScreen (display);
+
+Display *display;
+```
+
+两者都返回由XOpenDisplay函数引用的默认屏幕数。这个宏或函数应该用于在只使用单个屏幕的应用程序中检索屏幕号。
+
+##### DefaultVisual
+
+```c
+Visual *XDefaultVisual (display, screen_number);
+
+Display *display;
+int screen_number;
+```
+
+两者都返回指定屏幕的默认可视类型。有关视觉的更多信息类型
+
+##### DisplayCells
+
+```c
+int XDisplayCells(display, screen_number);
+
+Display *display;
+int screen_number;
+```
+
+两者都返回默认颜色映射中的条目数。
