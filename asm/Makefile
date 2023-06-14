@@ -1,4 +1,4 @@
-src = $(wildcard *.asm)
+src = hello-world.asm sample-x86.asm sample-x86_64.asm
 obj = $(patsubst %.asm, %.o, $(src))
 run = $(patsubst %.o, %.run, $(obj))
 
