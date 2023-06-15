@@ -6,11 +6,19 @@ src1 = $(wildcard common-*.asm)
 obj1 = $(patsubst %.asm, %.o, $(src1))
 run1 = $(patsubst common-%.asm, common-%.run, $(src1))
 
-all : $(run) $(run1)
+src2 = $(wildcard l-asm*.asm)
+obj2 = $(patsubst %.asm, %.o, $(src2))
+run2 = $(patsubst %.o, %.run, $(obj2))
+
+all : $(run2) $(run) $(run1)
 
 
 common-%.run : common-%.o common.o
 	ld -o $@ $^ -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc
+
+l-asm-%.run : l-asm-%.asm
+	nasm -f bin -o $@ $<
+	@echo -e "\e[35m dd if=./$@ of=image.img bs=512 count=1 conv=notrunc && /.run.sh\e[0m"
 
 %.run : %.o
 	ld -o $@ $< 
