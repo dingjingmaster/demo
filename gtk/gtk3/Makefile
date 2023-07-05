@@ -8,13 +8,13 @@ all:$(gtk3_target)
 gtk3:$(gtk3_target)
 
 gtk3_%.run:gtk3_%.c
-	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 gtk4`
+	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 `
 
 gtk3-%.run:gtk3-%.c
-	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 gtk4`
+	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 `
 
 demo%.run:demo%.c
-	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 gtk4`
+	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs gtk+-3.0 `
 
 .PHONY:clean all
 
