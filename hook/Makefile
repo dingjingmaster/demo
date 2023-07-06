@@ -1,7 +1,7 @@
 libc_path=$(shell find /usr/lib -name "libc.so.6")
 my_libc_path=$(shell pwd)
 
-src1 = $(wildcard *.c)
+src1 = $(wildcard hook-*.c)
 src2 = $(wildcard *.cpp)
 target1 = $(patsubst %.c, %.so,   $(src1))
 target2 = $(patsubst %.cpp, %.so, $(src2))
