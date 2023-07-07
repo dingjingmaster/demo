@@ -6,17 +6,30 @@ src2 = $(wildcard *.cpp)
 target1 = $(patsubst %.c, %.so,   $(src1))
 target2 = $(patsubst %.cpp, %.so, $(src2))
 
-all : $(target1) $(target2)
+all : $(target1) $(target2) 
+
 
 hook-qstyle.so : hook-qstyle.cpp
 	g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Widgets` -ldl
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
+hook-x.so : hook-x.c libcommon-x.so
+	gcc -fpic -shared -Wall -o $@ $< -ldl
+	@echo -e "\n\nLD_PRELOAD='$(my_libc_path)/$@' && export LD_PRELOAD\n\n"
+
+hook-dnd.so : hook-dnd.c libcommon-dnd.so
+	gcc -fpic -shared -Wall -o $@ $< -ldl
+	@echo -e "\n\nLD_PRELOAD='$(my_libc_path)/$@' && export LD_PRELOAD\n\n"
 
 %.so : %.c
 	gcc -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs glib-2.0 gdk-2.0` -ldl -DLIBC=\"$(libc_path)\"
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
+libcommon-x.so : common-x.c c-log.h
+	gcc -fpic -shared -Wall -o $@ $^ `pkg-config --cflags --libs glib-2.0 x11`
+
+libcommon-dnd.so : common-dnd.c c-log.h
+	gcc -fpic -shared -Wall -o $@ $^ `pkg-config --cflags --libs glib-2.0 x11`
 
 
 .PHONY: target src clean all

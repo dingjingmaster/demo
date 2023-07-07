@@ -18,6 +18,7 @@
 #include <sys/types.h>
 
 #include "c-log.h"
+#include "c-log.c"
 
 #ifndef RTLD_NEXT
 #define RTLD_NEXT (void*)-1
