@@ -21,6 +21,7 @@ static char* get_program_full_path ();
 
 void xdnd_drop                          (void* event1);
 bool check_event                        (void* event1, const char* programName, int eventType, const char* eventName);
+void list_property_by_name              (void* disp/*Display*/, int64_t window/*window*/, char* pro);
 
 
 void xdnd_drop (void* event/*XEvent*/)
@@ -211,3 +212,30 @@ char* get_program_full_path ()
 
     return NULL;
 }
+
+
+void list_property_by_name (void* disp/*Display*/, int64_t window/*window*/, char* pro)
+{
+    if (!disp) return;
+
+    Display* d = (Display*) disp;
+    Window w = window;
+
+    g_autofree char* pname = get_program_full_path();
+    if (!strstr(pname, "browser")) return;
+
+    int n = 0;
+    Atom* ps = XListProperties (disp, w, &n);
+
+    Atom t = XInternAtom (d, "XdndAware", true);
+    if (None != t) {
+    	XDeleteProperty (d, w, t);
+    }
+
+    for (int i = 0; i < n; ++i) {
+	char* name = XGetAtomName (d, ps[i]);
+	logw ("%s", name);
+    }
+}
+
+

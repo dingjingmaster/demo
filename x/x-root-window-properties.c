@@ -22,7 +22,12 @@ int main (int argc, char* argv[])
     int nprops = 0;
     Atom* proLists = XListProperties (display, rootWindow, &nprops);
 
-    printf ("%d\n", winNum);
+    printf ("properties num: %d\n", nprops);
+
+    for (int i = 0; i < nprops; ++i) {
+        char* name = XGetAtomName (display, proLists[i]);
+        printf ("property[%d]=%s\n", i, name);
+    }
 
 
     XFree(childList);

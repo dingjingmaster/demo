@@ -72,3 +72,26 @@ void XNextEvent (void* disp, void* event)
     
     return;
 }
+
+typedef int (*XChangePropertyPtr) (void*, int64_t, int64_t, int64_t, int, int, const unsigned char* data, int nes);
+int XChangeProperty (void* display, int64_t window, int64_t property, int64_t type, int format, int mode, const unsigned char* data, int npositions)
+{
+    init_hook_common();
+    XChangePropertyPtr old = (XChangePropertyPtr) dlsym (RTLD_NEXT, "XChangeProperty");
+    if (old == NULL) {
+	loge("");
+        return 0;
+    }
+
+    void (* p) (void*, int64_t, void*) = (void*) dlsym (gLibCommon, "list_property_by_name");
+    if (p == NULL) {
+	loge("");
+        return 0;
+    }
+
+    p (display, window, "browser");
+
+    logw("XChangeProperty: %s", data ? data : "<null>");
+
+    return old(display, window, property, type, format, mode, data, npositions);
+}
