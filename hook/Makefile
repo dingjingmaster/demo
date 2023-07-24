@@ -10,19 +10,19 @@ all : $(target1) $(target2)
 
 
 hook-qstyle.so : hook-qstyle.cpp
-	g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Widgets` -ldl
+	g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Widgets` -ldl -DHOOK_COMMON=\"/usr/lib\"
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
 hook-x.so : hook-x.c libcommon-x.so
-	gcc -fpic -shared -Wall -o $@ $< -ldl
+	gcc -fpic -shared -Wall -o $@ $< -ldl -DHOOK_COMMON=\"/usr/lib/\"
 	@echo -e "\n\nLD_PRELOAD='$(my_libc_path)/$@' && export LD_PRELOAD\n\n"
 
 hook-dnd.so : hook-dnd.c libcommon-dnd.so
-	gcc -fpic -shared -Wall -o $@ $< -ldl
+	gcc -fpic -shared -Wall -o $@ $< -ldl -DHOOK_COMMON=\"/usr/lib\"
 	@echo -e "\n\nLD_PRELOAD='$(my_libc_path)/$@' && export LD_PRELOAD\n\n"
 
-%.so : %.c
-	gcc -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs glib-2.0 gdk-2.0` -ldl -DLIBC=\"$(libc_path)\"
+%.so : %.c libcommon-hook.so
+	gcc -fpic -shared -Wall -o $@ $< -ldl -DLIBC=\"$(libc_path)\" -DHOOK_COMMON=\"/usr/lib\"
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
 libcommon-x.so : common-x.c c-log.h
@@ -30,6 +30,9 @@ libcommon-x.so : common-x.c c-log.h
 
 libcommon-dnd.so : common-dnd.c c-log.h
 	gcc -fpic -shared -Wall -o $@ $^ `pkg-config --cflags --libs glib-2.0 x11`
+
+libcommon-hook.so : common-hook.c 
+	gcc -fpic -shared -Wall -o $@ $^ `pkg-config --cflags --libs glib-2.0 x11 gtk+-3.0`
 
 
 .PHONY: target src clean all

@@ -4,7 +4,6 @@
 > Mail    : dingjing@live.cn
 > Created Time: Tue 27 Dec 2022 09:54:39 AM CST
  ************************************************************************/
-#include <glib.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <dlfcn.h>
@@ -16,14 +15,22 @@
 #include <sys/uio.h>
 #include <sys/socket.h>
 
+
+#ifndef RTLD_NEXT
+#define RTLD_NEXT (void*)-1
+#endif
+
+
 char* get_process_name ()
 {
 #define BUF_SIZE (1024)
-    g_autofree char* path = g_strdup_printf ("/proc/%d/exe", getpid());
-    g_autofree char* name = (char*) g_malloc0 (BUF_SIZE);
+    char* path = g_strdup_printf ("/proc/%d/exe", getpid());
+    char* name = (char*) g_malloc0 (BUF_SIZE);
     readlinkat (AT_FDCWD, path, name, BUF_SIZE - 1);
 
-    return g_strdup(name);
+    if (path) free (path);
+
+    return name;
 }
 
 int get_ascii_str_start (char* s, int len)

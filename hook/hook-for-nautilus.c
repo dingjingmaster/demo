@@ -5,11 +5,10 @@
 > Created Time: Wed 10 May 2023 05:35:59 PM CST
  ************************************************************************/
 #include <syslog.h>
-#include <gdk/gdk.h>
 
-void nautilus_file_operations_copy_move (const GList                    *item_uris,
-                                    const char                     *target_dir,
-                                    GdkDragAction                   copy_action,
+void nautilus_file_operations_copy_move (const void           *item_uris,
+                                    const char                *target_dir,
+                                    int                       copy_action,
                                     void                      *parent_view,
                                     void* dbus_data,
                                     void* done_callback,
