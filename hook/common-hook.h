@@ -33,7 +33,6 @@ static pthread_mutex_t gLocker = PTHREAD_MUTEX_INITIALIZER;
 
 static inline void init_hook_common ()
 {
-#if 0
     if (!gLibCommon) {
         pthread_mutex_lock (&gLocker);
         if (!gLibCommon) {
@@ -41,7 +40,6 @@ static inline void init_hook_common ()
         }
         pthread_mutex_unlock (&gLocker);
     }
-#endif
 }
 
 static inline void* get_system_function_ptr (const char* functionName)
@@ -54,8 +52,7 @@ static inline void* get_common_function_ptr (const char* functionName)
 {
     init_hook_common();
     // FIXME:// Add a cache ?
-    //return dlsym (gLibCommon, functionName);
-    return NULL;
+    return dlsym (gLibCommon, functionName);
 }
 
 /**

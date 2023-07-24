@@ -118,3 +118,5 @@ void common_gtk_clipboard_text_received(GtkClipboard* clipboard, char* text, gpo
 
     syslog(LOG_ERR, "text: %s", text);
 }
+
+

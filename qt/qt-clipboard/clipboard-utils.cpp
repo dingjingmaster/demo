@@ -64,7 +64,7 @@ bool ClipboardUtils::eventFilter(QObject *obj, QEvent *ev)
 
 QStringList ClipboardUtils::getUrlsByX11()
 {
-#if 0
+#if 1
     QAtomicInt currentCount = remoteCurrentCount;
     const QMimeData *mimedata = qApp->clipboard()->mimeData();
     if (!mimedata) {
