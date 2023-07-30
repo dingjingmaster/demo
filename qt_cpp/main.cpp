@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QStringLists>
 
 using namespace std;
 
