@@ -12,6 +12,8 @@
 
 int main (int argc, char* argv[])
 {
+    QStringList ls;
+
     printf ("sizeof\n");
     printf (" int           : %d\n", sizeof (int));
     printf (" float         : %d\n", sizeof (float));
