@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>max.png</file>
+        <file>min.png</file>
+        <file>close.png</file>
+    </qresource>
+</RCC>

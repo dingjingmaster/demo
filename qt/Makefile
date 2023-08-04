@@ -8,6 +8,12 @@ all:$(target)
 
 ss.run : ss.cpp server-header.moc
 
+header.run:header.cpp header/header-button.cpp header/main-header.cpp
+	rcc -o header/res.h header/res.qrc
+	moc -o header/main-header.moc.cpp header/main-header.h
+	moc -o header/header-button.moc.cpp header/header-button.h
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $^ header/main-header.moc.cpp header/header-button.moc.cpp $(cflag) 
+
 %.run:%.cpp 
 	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
 
@@ -27,4 +33,5 @@ clean:
 	@rm -fr */*.run
 	@rm -fr *.txt
 	@rm -fr */*.txt
+	@rm -f `find -name "*.moc.cpp"`
 

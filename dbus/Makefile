@@ -13,6 +13,10 @@ demo2_obj = $(patsubst %.c, %.o, $(demo2_src))
 demo3_src = $(wildcard dbus_service/*.c)
 demo3_obj = $(patsubst %.c, %.o, $(demo3_src))
 
+demo4_src = $(wildcard gdbus-*.c)
+demo4_obj = $(patsubst %.c, %.run, $(demo4_src))
+
+
 gdbus_target = $(patsubst %.c, %.run, $(wildcard gdbus_*.c))
 
 
@@ -28,11 +32,15 @@ gobject_target =									\
 
 target = $(gdbus_data)								\
 		 $(gdbus_target)							\
-		 $(gobject_target)
+		 $(gobject_target)							\
+		 $(demo4_obj)
 
 all:$(target)
 
 gdbus_%.run:gdbus_%.c data/*.c
+	cc -o $@ $^ $(cflag) $(heads) `pkg-config --cflags --libs gio-2.0 gio-unix-2.0`
+
+gdbus-%.run:gdbus-%.c 
 	cc -o $@ $^ $(cflag) $(heads) `pkg-config --cflags --libs gio-2.0 gio-unix-2.0`
 
 dbus_service/share_service.run:dbus_service/share_service.o
