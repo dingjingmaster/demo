@@ -9,7 +9,7 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 all:$(target)
 
 %.run:%.cpp
-	g++ -o $@ $< 
+	g++ -o $@ $< `pkg-config --cflags --libs dtkwidget`
 
 .PHONY:clean all
 
