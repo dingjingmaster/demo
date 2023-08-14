@@ -49,7 +49,7 @@ GList* get_file_recu (const char* file)
     if (!file_is_dir(f)) {
         GList* ls = NULL;
         if (g_file_query_exists (f, NULL)) {
-            ls = g_list_append (ls, file);
+            ls = g_list_append (ls, g_strdup(file));
         }
         return ls;
     }
@@ -97,7 +97,7 @@ GList* get_file_recu (const char* file)
                 if (name) {
                     if (0 == g_strcmp0(name, ".")) {
                         printf ("%s\n", name); 
-                        return 1;
+                        continue;
                     }
                     g_autofree char* tpath = g_strdup_printf ("%s/%s", path, name);
                     if (G_FILE_TYPE_DIRECTORY == fileType) {
