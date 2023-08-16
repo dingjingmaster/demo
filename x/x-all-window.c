@@ -27,16 +27,16 @@ int main (int argc, char* argv[])
         // 属性
         int nProps = 0;
         Atom* proLists = XListProperties (display, childList[i], &nProps);
-        for (int i = 0; i < nProps; ++i) {
+        for (int j = 0; j < nProps; ++j) {
             Atom propertyAtom;
             Atom actualType;
             int actualFormat;
             unsigned long numItems, bytesAfter;
             unsigned char* propertyValue;
-            char* name = XGetAtomName (display, proLists[i]);
-            printf ("  property[%d]=%s ", i, name);
+            char* name = XGetAtomName (display, proLists[j]);
+            printf ("  property[%d]=%s ", j, name);
             // 属性值
-            if (Success == XGetWindowProperty(display, childList[i], proLists[i], 0, 1024, False, AnyPropertyType, &actualType, &actualFormat, &numItems, &bytesAfter, &propertyValue)) {
+            if (Success == XGetWindowProperty(display, childList[i], proLists[j], 0, 1024, False, AnyPropertyType, &actualType, &actualFormat, &numItems, &bytesAfter, &propertyValue)) {
                 if (actualType == XA_STRING && actualFormat == 8) {
                     printf ("\t%s", propertyValue);
                 }
