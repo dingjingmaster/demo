@@ -21,8 +21,30 @@ int main (int argc, char* argv[])
 
     XQueryTree (display, rootWindow, &rootReturn, &parentReturn, &childList, &winNum);
 
-    printf ("%d\n", winNum);
-
+    printf ("window num: %d\n", winNum);
+    for (unsigned int i = 0; i < winNum; ++i) {
+        printf ("window ID: 0x%1x\n", childList[i]);
+        // 属性
+        int nProps = 0;
+        Atom* proLists = XListProperties (display, childList[i], &nProps);
+        for (int i = 0; i < nProps; ++i) {
+            Atom propertyAtom;
+            Atom actualType;
+            int actualFormat;
+            unsigned long numItems, bytesAfter;
+            unsigned char* propertyValue;
+            char* name = XGetAtomName (display, proLists[i]);
+            printf ("  property[%d]=%s ", i, name);
+            // 属性值
+            if (Success == XGetWindowProperty(display, childList[i], proLists[i], 0, 1024, False, AnyPropertyType, &actualType, &actualFormat, &numItems, &bytesAfter, &propertyValue)) {
+                if (actualType == XA_STRING && actualFormat == 8) {
+                    printf ("\t%s", propertyValue);
+                }
+                printf ("\n");
+                XFree (propertyValue);
+            }
+        }
+    }
 
     XFree(childList);
     XCloseDisplay(display);
