@@ -8,6 +8,8 @@
 #include <X11/Xatom.h>
 #include <stdio.h>
 
+#define MAXSTR  500000
+
 int main (int argc, char* argv[])
 {
     Display         *display = NULL;
@@ -36,9 +38,25 @@ int main (int argc, char* argv[])
             char* name = XGetAtomName (display, proLists[j]);
             printf ("  property[%d]=%s ", j, name);
             // 属性值
-            if (Success == XGetWindowProperty(display, childList[i], proLists[j], 0, 1024, False, AnyPropertyType, &actualType, &actualFormat, &numItems, &bytesAfter, &propertyValue)) {
-                if (actualType == XA_STRING && actualFormat == 8) {
-                    printf ("\t%s", propertyValue);
+            if (Success == XGetWindowProperty(display, childList[i], proLists[j], 0, (MAXSTR + 3) / 4, False, AnyPropertyType, &actualType, &actualFormat, &numItems, &bytesAfter, &propertyValue)) {
+                printf ("\t");
+                for (int k = 0; k < numItems;) {
+                    if (actualType == XA_STRING && actualFormat == 8) {
+                        printf ("%c", *(propertyValue + k));
+                        k += sizeof(char);
+                    }
+                    else if (actualType == 32) {
+                        printf ("%d ", (long)*(propertyValue + k));
+                        k += sizeof(long);
+                    }
+                    else if (actualType == 16) {
+                        printf ("%d ", (short)*(propertyValue + k));
+                        k += sizeof(short);
+                    }
+                    else {
+                        //printf (" ");
+                        ++k;
+                    }
                 }
                 printf ("\n");
                 XFree (propertyValue);
