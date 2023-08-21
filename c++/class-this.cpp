@@ -14,10 +14,11 @@ public:
     {
         // 在 x86 架构中，this指针通常存储在 ECX(32位) 或 RCX(64位)寄存器中
         void* thisPtr = NULL;
+        int i = 0;
 
-        asm volatile (
-                "movq %%RAX,%%RCX;"
-                : "=a" (thisPtr)
+        asm volatile(
+                "movq %0, %%RCX;"
+                : "=r" (thisPtr)
         );
 
         printf ("this pointer: 0x%X -- 0x%X\n", this, thisPtr);
