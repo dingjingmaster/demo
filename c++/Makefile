@@ -1,4 +1,4 @@
-cflag = -w 
+cflag = -w -g 
 
 CUR_DIR = $(shell pwd)
 
