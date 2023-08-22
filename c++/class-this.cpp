@@ -17,7 +17,7 @@ public:
         int i = 0;
 
         asm volatile(
-                "movq %0, %%RCX;"
+                "movq %0, %%RAX;"
                 : "=r" (thisPtr)
         );
 
