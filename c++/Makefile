@@ -9,7 +9,7 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 all:$(target)
 
 %.run:%.cpp
-	g++ -std=c++20 -o $@ $< $(cflag) 
+	g++ -std=c++11 -o $@ $< $(cflag) 
 
 %.o:%.cpp
 	g++ -o $@ -c $< $(cflag)
