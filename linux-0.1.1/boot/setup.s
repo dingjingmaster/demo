@@ -188,7 +188,7 @@ end_move:
 ! absolute address 0x00000, in 32-bit protected mode.
 	mov	ax,#0x0001	! protected mode (PE) bit
 	lmsw	ax		! This is it!
-	jmpi	0,8		! jmp offset 0 of segment 8 (cs)
+    jmpi 0,8        ! 跳转到第0的内存块的0地址处开始执行 jmp offset 0 of segment 8 (cs)
 
 ! This routine checks that the keyboard command queue is empty
 ! No timeout is used - if this hangs there is something wrong with
