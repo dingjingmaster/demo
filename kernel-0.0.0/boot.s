@@ -27,6 +27,13 @@
 !          —— 一个8085的地址寄存器(段地址 —— 就是16字节的段的序号)左移 4 位(x 16 = 16字节小段的首地址)，加上另一个 8085 的地址寄存器就可以。
 !
 
+! 注意：此处是操作系统引导扇区代码，在此之前 BIOS 已经做了一些工作：
+!   1. 硬件初始化和自检(POST)
+!   2. 启动设备的选择，把启动设备的第一扇区读取并加载到内存
+!   3. 提供基本的输入/输出功能：键盘输入、字符显示到屏幕、读写扇区
+!   4. 中断服务例程：BIOS 提供了一系列中断服务例程，用于处理各种系统中断和硬件操作，包括：磁盘操作、视频操作、键盘输入、系统时间等
+!   5. CMOS设置和保存
+! 然后才会开始执行启动设备的第一扇区代码，后续计算机的控制权不在 BIOS
 
 BOOTSEG = 0x07c0                    ! BIOS 读取可启动设备第一扇区内容放到内存地址 0x7c00 处
 SYSSEG  = 0x1000                    ! system loaded at 0x10000 (65536).
@@ -42,37 +49,38 @@ go: mov ax,cs                       ! cs -> ax
 
 ! ok, we've written the message, now
 load_system:
-    mov dx,#0x0000                  ! 0x0 -> dx
-    mov cx,#0x0002                  ! 0x2 -> cx     循环两次
+    mov dx,#0x0000                  ! 0x0 -> dx     DH 0x00 要读取的磁头号; DL 0x00 要读取的软盘号
+    mov cx,#0x0002                  ! 0x2 -> cx     CH 0x00 要读取的磁道号; CL 0x02 要读取的扇区号
     mov ax,#SYSSEG                  ! 0x1000 -> ax
-    mov es,ax                       ! 0x1000 -> es
-    xor bx,bx                       ! 0x0 -> bx
-    mov ax,#0x200+SYSLEN            ! 0x200 + 17 == (0x217(535))
-    int 0x13                        ! 磁盘操作中断
-    jnc ok_load
-die:    jmp die
+    mov es,ax                       ! 0x1000 -> es  设置目标内存段地址  0x1000
+    xor bx,bx                       ! 0x0 -> bx     设置目标偏移地址    0x0000
+    mov ax,#0x200+SYSLEN            ! 0x200 + 17 == 0x217: AH 0x02 表示软盘读取; AL 0x17 表示要读取扇区数量
+    int 0x13                        ! 磁盘操作中断，这里根据BIOS的中断向量表执行，此处将 内核读到 0x1000处
+    jnc ok_load                     ! 注意：上一步读取后，如果没有出错则设置 AH 寄存器为 0，或者标志寄存位CF为 0 表示成功
+die:
+    jmp die
 
 ! now we want to move to protected mode ...
 ok_load:
-    cli         ! no interrupts allowed !
-    mov ax, #SYSSEG
-    mov ds, ax
-    xor ax, ax
-    mov es, ax
-    mov cx, #0x2000
-    sub si,si
-    sub di,di
+    cli                             ! 禁用中断
+    mov ax, #SYSSEG                 ! 0x1000 -> ax
+    mov ds, ax                      ! 0x1000 -> ds  目标段寄存器是 0x1000，目标地址为 DS << 4 + DI
+    xor ax, ax                      ! 0x0000 -> ax
+    mov es, ax                      ! 0x0000 -> es
+    mov cx, #0x2000                 ! 0x2000 -> cx
+    sub si,si                       ! 0x0000 -> si
+    sub di,di                       ! 0x0000 -> di
     rep
-    movw
-    mov ax, #BOOTSEG
-    mov ds, ax
-    lidt    idt_48      ! load idt with 0,0
-    lgdt    gdt_48      ! load gdt with whatever appropriate
+    movw                            ! 将 SI 指向的字 复制到 DI 指向的位置，直到 CX 值为 0。把 0x0000 ~ 0x2000 的内容复制到 0x10000 ~ 0x12000 处
+    mov ax, #BOOTSEG                ! 0x07c0 -> ax
+    mov ds, ax                      ! 0x07c0 -> ds
+    lidt    idt_48                  ! 加载IDT
+    lgdt    gdt_48                  ! 加载GDT
 
 ! absolute address 0x00000, in 32-bit protected mode.
-    mov ax,#0x0001  ! protected mode (PE) bit
-    lmsw    ax      ! This is it!
-    jmpi    0,8     ! jmp offset 0 of segment 8 (cs)
+    mov ax,#0x0001                  ! protected mode (PE) bit
+    lmsw    ax                      ! 进入保护模式This is it!
+    jmpi    0,8                     ! jmp offset 0 of segment 8 (cs)
 
 
 ! GDT（全局描述符表，由Intel x86处理器使用）用于定义在程序执行期间使用的各种内存区域的特征，包括：大小、基址以及访问权限

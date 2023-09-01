@@ -10,10 +10,10 @@ LDT1_SEL	= 0x38
 .global startup_32
 .text
 startup_32:
-	movl $0x10,%eax
-	mov %ax,%ds
+	movl $0x10,%eax                 # 0x10 -> eax
+	mov %ax,%ds                     # ax -> ds
 #	mov %ax,%es
-	lss init_stack,%esp
+	lss init_stack,%esp             #
 
 # setup base fields of descriptors.
 	call setup_idt
