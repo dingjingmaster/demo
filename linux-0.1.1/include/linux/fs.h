@@ -90,7 +90,8 @@ struct d_inode {
 	unsigned short i_zone[9];
 };
 
-struct m_inode {
+struct m_inode 
+{
 	unsigned short i_mode;
 	unsigned short i_uid;
 	unsigned long i_size;

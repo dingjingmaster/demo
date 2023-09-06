@@ -179,19 +179,19 @@ head: .word 0                   ! current head
 track: .word 0                  ! current track
 
 read_it:
-    mov ax,es
-    test ax,#0x0fff
-die: jne die                    ! es must be at 64kB boundary
+    mov ax,es                   ! EX: 0x1000
+    test ax,#0x0fff             ! 按位测试 AX 与 #0x0FFF，最终结果写入零标志位；运算结果为0，则ZF被设置为1，否则ZF被清零。
+die: jne die                    ! FIXME:// 此处没理解。上条指令后 ZF 应该被设置为 0， must be at 64kB boundary
     xor bx,bx                   ! bx is starting address within segment
 rp_read:
     mov ax,es
-    cmp ax,#ENDSEG              ! have we loaded all yet?
-    jb ok1_read
+    cmp ax,#ENDSEG              ! have we loaded all yet? #ENDSEG - AX, 如果两个数相等，则：ZF=1，CF=0。OF(溢出位) SF(符号位)
+    jb ok1_read                 ! 无符号数比较的跳转指令。如果 CF 为1，则跳转到指定位置
     ret
 ok1_read:
-    seg cs
-    mov ax,sectors
-    sub ax,sread
+    seg cs                      ! FIXME:// ？？？
+    mov ax,sectors              ! FIXME:// ???
+    sub ax,sread                ! sread = 1+0x4
     mov cx,ax
     shl cx,#9
     add cx,bx
