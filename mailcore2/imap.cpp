@@ -23,11 +23,19 @@ int main ()
     session->setUsername(name);             // name
     session->setPassword(passwd);           // passwd
 
+    session->setConnectionType(mailcore::ConnectionTypeClear);
+
     // 启动会话
     mailcore::ErrorCode error; 
     session->connect(&error); 
     if (mailcore::ErrorNone != error) {
         printf("连接失败: %d\n", error);
+        return -1;
+    }
+
+    session->login(&error); 
+    if (mailcore::ErrorNone != error) {
+        printf("登录失败: %d\n", error);
         return -1;
     }
 
@@ -48,10 +56,10 @@ int main ()
             printf("folder status error: %d\n", error);
             continue;
         }
-#if 0
+#if 1
         session->select(obj->path(), &error);
         if (mailcore::ErrorNone != error) {
-            printf("连接失败: %d\n", error);
+            printf("选中文件失败: %d\n", error);
             continue;
         }
 #endif
