@@ -11,11 +11,11 @@ int main ()
 
     QRegExp regex ("_\\(\\d\\d\\d\\d-\\d\\d-\\d\\d\\).dsm$");
 
-    qDebug() << str1 << "    " << regex.indexIn(str1) << "    " << regex.cap(0) << "    " << str1.replace(regex, "");
-    qDebug() << str2 << "    " << regex.indexIn(str2) << "    " << regex.cap(0) << "    " << str2.replace(regex, "");
-    qDebug() << str3 << "    " << regex.indexIn(str3) << "    " << regex.cap(0) << "    " << str3.replace(regex, "");
-    qDebug() << str4 << "    " << regex.indexIn(str4) << "    " << regex.cap(0) << "    " << str4.replace(regex, "");
-    qDebug() << str5 << "    " << regex.indexIn(str5) << "    " << regex.cap(0) << "    " << str5.replace(regex, "");
+    qDebug() << str1 << "    " << regex.indexIn(str1) << "    " << regex.cap(0) << "    " << str1.replace(regex, ".dsm");
+    qDebug() << str2 << "    " << regex.indexIn(str2) << "    " << regex.cap(0) << "    " << str2.replace(regex, ".dsm");
+    qDebug() << str3 << "    " << regex.indexIn(str3) << "    " << regex.cap(0) << "    " << str3.replace(regex, ".dsm");
+    qDebug() << str4 << "    " << regex.indexIn(str4) << "    " << regex.cap(0) << "    " << str4.replace(regex, ".dsm");
+    qDebug() << str5 << "    " << regex.indexIn(str5) << "    " << regex.cap(0) << "    " << str5.replace(regex, ".dsm");
 
     return 0;
 }
