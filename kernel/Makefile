@@ -1,26 +1,24 @@
-cflag = -w #-std=gnu11
+pwd=$(shell pwd)
 
-curDir = $(shell pwd)
+ifeq ($(shell uname -o), Darwin)
+	subdirs = object-c 
+else ifeq ($(shell uname -o), GNU/Linux)
+	subdirs = \
+		version
+endif
 
-src = $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.c)))
 
-target = $(strip $(patsubst %.c, %.run, $(src)))
-
-all:$(target)
-
-%.run:%.o
-	gcc -o $@ $< -lpthread -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
-
-%.o:%.c
-	gcc `pkg-config --cflags --libs glib-2.0 gio-2.0` -o $@ -c $< $(cflag)
-
-.PHONY:clean all
+all:
+	@for subdir in $(subdirs); \
+		do \
+		cd $(pwd)/$$subdir && make; \
+		done
 
 clean:
-	@rm -fr *.o
-	@rm -fr */*.o
-	@rm -fr *.run
-	@rm -fr */*.run
-	@rm -fr *.txt
-	@rm -fr */*.txt
+	@for subdir in $(subdirs);\
+		do\
+		cd $(pwd)/$$subdir && make clean;\
+		done
 
+
+.PHONY:clean all build clean
