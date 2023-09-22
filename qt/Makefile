@@ -18,7 +18,7 @@ header.run:header.cpp header/header-button.cpp header/main-header.cpp
 	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $^ header/main-header.moc.cpp header/header-button.moc.cpp $(cflag) 
 
 %.so : %.c
-	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets` -ldl
+	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Gui Qt5Widgets` -ldl
 	@echo "CC -o $@ $<"
 
 %.run:%.cpp 

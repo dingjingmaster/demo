@@ -1,4 +1,8 @@
-all:
+target = demo-pkexec
+
+all: $(target)
+	cd $< && make
 
 
-clean:
+clean: $(target)
+	cd $< && make clean

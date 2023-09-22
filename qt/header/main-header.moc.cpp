@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'main-header.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.10)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "main-header.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'main-header.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.15.10. It"
+#error "This file was generated using the moc from 5.11.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -52,7 +51,7 @@ QT_MOC_LITERAL(8, 79, 19) // "onApplyDataFinished"
 static const uint qt_meta_data_MainHeader[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        6,   14, // methods
@@ -88,8 +87,8 @@ static const uint qt_meta_data_MainHeader[] = {
 void MainHeader::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<MainHeader *>(_o);
-        (void)_t;
+        MainHeader *_t = static_cast<MainHeader *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->windowMin(); break;
         case 1: _t->windowMax(); break;
@@ -132,14 +131,10 @@ void MainHeader::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject MainHeader::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_MainHeader.data,
-    qt_meta_data_MainHeader,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+QT_INIT_METAOBJECT const QMetaObject MainHeader::staticMetaObject = {
+    { &QWidget::staticMetaObject, qt_meta_stringdata_MainHeader.data,
+      qt_meta_data_MainHeader,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *MainHeader::metaObject() const
@@ -193,7 +188,7 @@ void MainHeader::windowClose()
 // SIGNAL 3
 void MainHeader::setCloseButtonEnable(bool _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_WARNING_POP

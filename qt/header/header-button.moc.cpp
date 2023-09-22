@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'header-button.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.10)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "header-button.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'header-button.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.15.10. It"
+#error "This file was generated using the moc from 5.11.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -53,7 +52,7 @@ QT_MOC_LITERAL(9, 64, 7) // "RESTORE"
 static const uint qt_meta_data_HeaderButton[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -81,8 +80,8 @@ static const uint qt_meta_data_HeaderButton[] = {
  // properties: notify_signal_id
        0,
 
- // enums: name, alias, flags, count, data
-       3,    3, 0x0,    4,   39,
+ // enums: name, flags, count, data
+       3, 0x0,    4,   38,
 
  // enum data: key, value
        6, uint(HeaderButton::MIN),
@@ -96,8 +95,8 @@ static const uint qt_meta_data_HeaderButton[] = {
 void HeaderButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<HeaderButton *>(_o);
-        (void)_t;
+        HeaderButton *_t = static_cast<HeaderButton *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->typeChanged((*reinterpret_cast< Type(*)>(_a[1]))); break;
         case 1: _t->onTypeChanged((*reinterpret_cast< Type(*)>(_a[1]))); break;
@@ -115,16 +114,16 @@ void HeaderButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     }
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<HeaderButton *>(_o);
-        (void)_t;
+        HeaderButton *_t = static_cast<HeaderButton *>(_o);
+        Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< Type*>(_v) = _t->getType(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<HeaderButton *>(_o);
-        (void)_t;
+        HeaderButton *_t = static_cast<HeaderButton *>(_o);
+        Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
         case 0: _t->setType(*reinterpret_cast< Type*>(_v)); break;
@@ -135,14 +134,10 @@ void HeaderButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
 #endif // QT_NO_PROPERTIES
 }
 
-QT_INIT_METAOBJECT const QMetaObject HeaderButton::staticMetaObject = { {
-    QMetaObject::SuperData::link<QPushButton::staticMetaObject>(),
-    qt_meta_stringdata_HeaderButton.data,
-    qt_meta_data_HeaderButton,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+QT_INIT_METAOBJECT const QMetaObject HeaderButton::staticMetaObject = {
+    { &QPushButton::staticMetaObject, qt_meta_stringdata_HeaderButton.data,
+      qt_meta_data_HeaderButton,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *HeaderButton::metaObject() const
@@ -173,7 +168,7 @@ int HeaderButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 2;
     }
 #ifndef QT_NO_PROPERTIES
-    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+   else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
         _id -= 1;
@@ -195,7 +190,7 @@ int HeaderButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void HeaderButton::typeChanged(Type _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
