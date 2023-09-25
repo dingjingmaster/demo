@@ -122,5 +122,71 @@ Lua中表里的默认初始索引一般是以 1 开始的。
 
 函数参数可以传递匿名函数
 
+### 线程(thread)
+
+在 Lua 里，最主要的线程是协同程序（coroutine）。它跟线程（thread）差不多，拥有自己独立的栈、局部变量和指令指针，可以跟其他协同程序共享全局变量和其他大部分东西。
+
+线程跟协程的区别：线程可以同时多个运行，而协程任意时刻只能运行一个，并且处于运行状态的协程只有被挂起（suspend）时才会暂停。
+
+### 用户自定义类型
+
+userdata 是一种用户自定义数据，用于表示一种由应用程序或 C/C++ 语言库所创建的类型，可以将任意 C/C++ 的任意数据类型的数据（通常是 struct 和 指针）存储到 Lua 变量中调用。
+
 ## 变量
 
+变量在使用前，需要在代码中进行声明，即创建该变量。
+
+编译程序执行代码之前编译器需要知道如何给语句变量开辟存储区，用于存储变量的值。
+
+Lua 变量有三种类型：全局变量、局部变量、表中的域。
+
+Lua 中的变量全是全局变量，哪怕是语句块或是函数里，除非用 local 显式声明为局部变量。
+
+局部变量的作用域为从声明位置开始到所在语句块结束。
+
+变量的默认值均为 nil。
+
+```lua
+a = 5               -- 全局变量
+local b = 5         -- 局部变量
+
+function joke()
+    c = 5           -- 全局变量
+    local d = 6     -- 局部变量
+end
+
+joke()
+print(c,d)          --> 5 nil
+
+do
+    local a = 6     -- 局部变量
+    b = 6           -- 对局部变量重新赋值
+    print(a,b);     --> 6 6
+end
+
+print(a,b)      --> 5 6
+```
+
+## 垃圾回收
+Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+- collectgarbage("collect"): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
+- collectgarbage("count"): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。
+- collectgarbage("restart"): 重启垃圾收集器的自动运行。
+- collectgarbage("setpause"): 将 arg 设为收集器的 间歇率。 返回 间歇率 的前一个值。
+- collectgarbage("setstepmul"): 返回 步进倍率 的前一个值。
+- collectgarbage("step"): 单步运行垃圾收集器。 步长"大小"由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。
+- collectgarbage("stop"): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。
+
+```lua
+mytable = {"apple", "orange", "banana"}
+
+print(collectgarbage("count"))
+
+mytable = nil
+
+print(collectgarbage("count"))
+
+print(collectgarbage("collect"))
+
+print(collectgarbage("count"))
+```
