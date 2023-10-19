@@ -18,6 +18,5 @@ int main (int argc, char* argv[])
         printf ("name:%s\n", g_app_info_get_name(app));
     }
 
-
     return 0;
 }

@@ -4,10 +4,10 @@ ifeq ($(shell uname -o), Darwin)
 	subdirs = object-c 
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
-		c core cppbase cbase cairo \
+		c core cppbase cbase cairo cuda \
 		dbus dconf device \
 		file function \
-		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk \
+		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
 		ipc \
 		lightdm localization libblocked \
 		module \

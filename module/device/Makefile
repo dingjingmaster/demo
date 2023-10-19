@@ -1,8 +1,9 @@
-obj-m = device.o
-KERNEL_BUILD := /lib/modules/$(shell uname -r)/build
+obj-m 			= device.o
+KERNEL_BUILD 	?= /lib/modules/$(shell uname -r)/build
+PWD 			:= $(shell pwd)
 
 all:
-	make -C $(KERNEL_BUILD) M=$(shell pwd) modules
+	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) modules
 
 clean:
 	@rm -f *.o

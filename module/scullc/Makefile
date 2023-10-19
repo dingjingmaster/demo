@@ -1,7 +1,8 @@
-obj-m = hello-world.o
-KERNEL_BUILD := /lib/modules/$(shell uname -r)/build
+obj-m 			:= scullc.o
+scullc-objs 	:= main.o
+KERNEL_BUILD 	:= /lib/modules/$(shell uname -r)/build
 
-helloWorld:
+scullc:
 	$(MAKE) -C $(KERNEL_BUILD) M=$(shell pwd) modules
 
 clean:
