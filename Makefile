@@ -8,7 +8,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		dbus dconf device \
 		file function \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
-		ipc \
+		ipc iso \
 		lightdm localization libblocked \
 		module \
 		pam pcre polkit protobuf python-c-api\
