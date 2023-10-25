@@ -13,6 +13,7 @@
 #include <X11/Xmu/Atoms.h>
 
 static size_t mach_item_size(int format);
+static char* format_buf (Atom selType, unsigned char* selBuf, size_t selLen);
 static void print_buf (FILE* fout, Atom selType, unsigned char* selBuf, size_t selLen);
 static int xcout (Display* dsp, Window win, XEvent event, Atom sel, Atom target, Atom* type, unsigned char** txt, unsigned long* len, unsigned int* ctx);
 
@@ -77,6 +78,11 @@ int main (int argc, char* argv[])
 
         if (selLen > 0) {
             print_buf (stdout, selType, selBuf, selLen);
+            char* str = format_buf (selType, selBuf, selLen);
+            if (str) {
+                printf ("\nstr:\n%s\n", str);
+                free (str);
+            }
             free (selBuf);
         }
     } while (0);
@@ -239,4 +245,72 @@ static void print_buf (FILE* fout, Atom selType, unsigned char* selBuf, size_t s
     }
 
     fwrite (selBuf, sizeof(char), selLen, fout);
+}
+
+static char* format_buf (Atom selType, unsigned char* selBuf, size_t selLen)
+{
+    if (selType == XA_INTEGER) {
+        int len = 0;
+        long* longBuf = (long*) selBuf;
+        size_t longLen = selLen / sizeof (long);
+        while (longLen--) {
+            char bufTmp[32] = {0};
+            snprintf(bufTmp, sizeof(bufTmp)/sizeof(char), "%ld", *longBuf++);
+            len += strlen(bufTmp) + 1;
+        }
+
+        if (len <= 0) return NULL;
+        char* buf = (char*) malloc (len);
+        if (!buf) return NULL;
+
+        int curLen = 0;
+        while (longLen--) {
+            char bufTmp[32] = {0};
+            snprintf(bufTmp, sizeof(bufTmp)/sizeof(char), "%ld", *longBuf++);
+            int aLen = strlen(bufTmp);
+            strncpy (buf + curLen, bufTmp, aLen);
+            strncpy (buf + curLen + aLen + 1, "\t", 1);
+            curLen += (aLen + 1);
+        }
+        buf[curLen - 1] = '\0';
+
+        return buf;
+    }
+
+    if (selType == XA_ATOM) {
+        int len = 0;
+        Atom* atomBuf = (Atom*) selBuf;
+        size_t atomLen = selLen / sizeof(Atom);
+        while (atomLen--) {
+            char* atomName = XGetAtomName (dsp, *atomBuf++);
+            len += strlen(atomName) + 1;
+            XFree(atomName);
+        }
+        if (len <= 0) return NULL;
+        char* buf = (char*) malloc (len);
+        if (!buf) return NULL;
+
+        int curLen = 0;
+        while (atomLen--) {
+            char* atomName = XGetAtomName (dsp, *atomBuf++);
+            int aLen = strlen(atomName);
+            strncpy (buf + curLen, atomName, aLen);
+            strncpy (buf + curLen + aLen + 1, "\t", 1);
+            curLen += (aLen + 1);
+            XFree(atomName);
+        }
+        buf[curLen - 1] = '\0';
+
+        return buf;
+    }
+
+    int len = sizeof (char) * (selLen + 1);
+    char* buf = (char*) malloc (len);
+    if (!len) {
+        return NULL;
+    }
+    memset (buf, 0, len);
+    strncpy (buf, (const char*) selBuf, (unsigned long) selLen);
+
+    return buf;
 }
