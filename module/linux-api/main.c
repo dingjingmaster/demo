@@ -8,6 +8,7 @@
 #include <linux/kernel.h>
 #include <linux/moduleparam.h>
 
+#include "hlist.h"
 #include "list-management.h"
 
 
@@ -16,6 +17,7 @@
 int linux_api_init(void)
 {
     dj_demo_list();
+    dj_demo_hlist();
 
     return 0;
 }
