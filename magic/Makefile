@@ -1,4 +1,4 @@
-cflag = -w #-std=gnu11
+cflag = -w -lmagic #-std=gnu11
 
 CUR_DIR = $(shell pwd)
 
@@ -9,11 +9,11 @@ target = $(strip $(patsubst %.c, %.run, $(src)))
 all:$(target)
 
 %.run:%.o
-	@gcc -o $@ $< `pkg-config --cflags --libs glib-2.0 gio-2.0 libmagic` $(cflag) 
+	@gcc -o $@ $< `pkg-config --cflags --libs glib-2.0 gio-2.0` $(cflag) 
 	@echo "CC -o $@ $<"
 
 %.o:%.c
-	@gcc `pkg-config --cflags glib-2.0 gio-2.0 libmagic` -o $@ -c $< $(cflag)
+	@gcc `pkg-config --cflags glib-2.0 gio-2.0` -o $@ -c $< $(cflag)
 
 .PHONY:clean all
 

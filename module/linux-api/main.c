@@ -10,6 +10,7 @@
 
 #include "hlist.h"
 #include "klist.h"
+#include "string.h"
 #include "list-management.h"
 
 
@@ -20,6 +21,7 @@ int linux_api_init(void)
     dj_demo_list();
     dj_demo_hlist();
     dj_demo_klist();
+    dj_demo_string();
 
     return 0;
 }

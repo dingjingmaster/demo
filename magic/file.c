@@ -7,13 +7,13 @@ char* get_magic_file ();
 
 int main (int argc, char* argv[])
 {
-    printf("magic version: %d\n", magic_version());
+    //printf("magic version: %d\n", magic_version());
     if (argc <= 1) {
         printf("请输入要查看的文件路径\n");
         return -1;
     }
 
-    magic_t magic = magic_open(0);
+    struct magic_set* magic = magic_open(MAGIC_NODESC);
     if (NULL == magic) {
         printf("magic_open error\n");
         return -2;
@@ -33,7 +33,11 @@ int main (int argc, char* argv[])
         return -1;
     }
 
-    int ret = magic_load(magic, NULL);
+    const char* magicFile = magic_getpath("/usr/share/misc/magic.mgc", 0);
+
+    printf ("%s\n", magicFile);
+
+    magic_load(magic, magicFile);
 
     const char* type = magic_file(magic, argv[1]);
     if (NULL == type) {
@@ -43,6 +47,10 @@ int main (int argc, char* argv[])
 
     printf("==>Query file: %s\n", filePath);
     printf("         Type: %s\n", type);
+
+    if (magic) {
+        magic_close(magic);
+    }
 
     return 0;
 }
