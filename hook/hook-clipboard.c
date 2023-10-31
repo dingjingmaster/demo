@@ -98,9 +98,9 @@ void gdk_clipboard_read_text_async (void* clip, void* cancel, void* cb, void* ud
 
 int XGetWindowProperty (void* display, int64_t window, int64_t property, long longoffset, long longLen, bool delete, int64_t reqType, int64_t* actualType, int* actualFormatRet, unsigned long* nitemsRet, unsigned long* bytesAfterRet, unsigned char** propRet)
 {
-    int(*old)(void*, int64_t, int64_t, long, long, bool, int64_t, int64_t*, int*, unsigned long*, unsigned long* unsigned char**) = get_system_function_ptr ("XGetWindowProperty");
+    int(*old)(void*, int64_t, int64_t, long, long, bool, int64_t, int64_t*, int*, unsigned long*, unsigned long*, unsigned char**) = get_system_function_ptr ("XGetWindowProperty");
 
-    ret = old (display, window, property, longoffset, longLen, delete, reqType, actualType, actualFormatRet, nitemsRet, bytesAfterRet, propRet);
+    int ret = old (display, window, property, longoffset, longLen, delete, reqType, actualType, actualFormatRet, nitemsRet, bytesAfterRet, propRet);
 
     return ret;
 }
