@@ -1,5 +1,7 @@
 # XLib
 
+X11书籍：https://tronche.com/gui/x/
+
 [Xlib 介绍](#user-content-xlib-介绍)
 [Xlib 显示相关函数](#user-content-显示相关函数)
 
