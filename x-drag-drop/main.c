@@ -9,7 +9,16 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int main (void)
+#include "spawn-window.h"
+
+int main (int argc, char* argv[])
 {
+    if (argc > 1) {
+        spawnWindow (111);
+    }
+    else {
+        spawnWindow (0);
+    }
+
     return 0;
 }
