@@ -16,7 +16,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		sl sqlite\
 		str \
 		vala vte \
-		x xcb \
+		x xcb x-drag-drop \
 		syscall
 endif
 
