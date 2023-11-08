@@ -12,10 +12,11 @@
 static Window getFocusedWindow(Display* display);
 static void print_child_window(Display* display, Window win);
 
-int main ()
+int main (int argc, char* argv[])
 {
     Display* display = XOpenDisplay(NULL);
     Window win = getFocusedWindow(display);
+    if (argc == 2) {win = atoi(argv[1]);}
     if (None == win) return -1;
 
     printf ("focused window ID: %lu(0x%X)\n", win, win);

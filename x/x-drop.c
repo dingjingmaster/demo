@@ -162,8 +162,6 @@ int main (int argc, char* argv[])
 
                 // 删除属性
                 XDeleteProperty(disp, win, XDND_DATA);
-
-                // 修改 正方形 属性
                 printf ("path: %s\n", pathStr);
                 free (pathStr);
 
@@ -191,15 +189,6 @@ int main (int argc, char* argv[])
 				    printf("sending XdndDrop to target window\n");
 				    sendXdndDrop(disp, win, xdndState.otherWindow);
 			    }
-			    break;
-            }
-            case Expose: {
-			    break;
-            }
-            case EnterNotify: {
-			    break;
-            }
-            case LeaveNotify: {
 			    break;
             }
             case ClientMessage: {

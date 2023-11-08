@@ -18,7 +18,7 @@ int main (int argc, char* argv[])
     Window          rootWindow;
 
     display = XOpenDisplay (0);
-    rootWindow = 0x3400001; //DefaultRootWindow (display);
+    rootWindow = DefaultRootWindow (display);
 
     //
     print_window_pid (display, rootWindow);
@@ -43,8 +43,7 @@ static void print_window_pid (Display* display, Window window)
 
     char* actualType = XGetAtomName(display, pidActualType);
     printf ("actual type: %s\n", actualType ? actualType : "<null>");
-
-        printf ("%u\n", *((uint32_t*)(propRet)));
+    printf ("%u\n", *((uint32_t*)(propRet)));
     for (int i = 0; propRet && propRet[i]; ++i) {
     }
 }
