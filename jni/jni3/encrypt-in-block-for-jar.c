@@ -231,6 +231,7 @@ uint64_t encryptinblockforjr(const char* fileid,
         if (outfilehead && outfileheadsize)
         {
             syslog (LOG_ERR, "[EST] Check  file header\n");
+            syslog (LOG_ERR, "[EST] Check  file header:%d", *outfileheadsize);
             if (*outfileheadsize >= TA_DSIP_FILE_HEADER_LENGTH)
             {
                 memcpy(outfilehead, retDRMHeader, sizeof(CdgFileHeader));
@@ -413,18 +414,23 @@ static uint64_t makeDSIPDrmFileHeadEx(
     uint32_t nValidateDate,     // 有效期（单位：天；1-36000天，0为永久） [9/3/2022 dongziheng]
     const char* szFileMakeTime)    // 增加时间参数，满足自由选择有效期截止日期问题。文档制作时间、文档创建时间、文档修改时间、文档最后访问时间 [9/23/2023 dongziheng]
 {
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     uint64_t retVal = TCA_UNKNOW_ERROR;
     if (!fileId || !cryptKey || !fileHead || !fileHeadSize)
 	    return  TCA_INVALID_PARAM;
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     if (*fileHeadSize < TA_FILE_HEADER_LENGTH)
 	    return  TCA_BUFFER_TO_SMALL;
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     if (fileType != TCA_FILE_DRM && fileType != TCA_FILE_TP && fileType != TPTemplate && fileType != Customize)
         return TCA_NOT_SUPPORT_TYPE;
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
 
     CdgFileHeader  mDRMHeader = { 0 };
     CdgFileHeader* pDRMHeader = &mDRMHeader;
 
     // 组CDG文件头	
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     pDRMHeader->myID = CDG_FILE_HEAD_ID_DSM;
     pDRMHeader->version = 2;
     pDRMHeader->encType = 0;
@@ -432,58 +438,73 @@ static uint64_t makeDSIPDrmFileHeadEx(
     pDRMHeader->dwenleng = g_dwenleng;
 
     // 缺失部分信息
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memset(pDRMHeader->szFileId, 0, 64);
     strncpy(pDRMHeader->szFileId, fileId, TA_FILE_ID_LENGTH);
     pDRMHeader->szFileId[TA_FILE_ID_LENGTH - 1] = '\0';
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memset(pDRMHeader->szFileName, '\0', 256);
     strncpy(pDRMHeader->szFileName, szFileName, 256);
     pDRMHeader->szFileName[255] = '\0';
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memset(pDRMHeader->szUserName, '\0', MAX_USER_NAME_LEN);
     strncpy(pDRMHeader->szUserName, szUserName, MAX_USER_NAME_LEN);
     pDRMHeader->szUserName[MAX_USER_NAME_LEN - 1] = '\0';
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memset(pDRMHeader->szUserId, '\0', MAX_USER_NAME_LEN);
     strncpy(pDRMHeader->szUserId, szUserID, MAX_USER_NAME_LEN);
     pDRMHeader->szUserId[MAX_USER_NAME_LEN - 1] = '\0';
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     pDRMHeader->dwValidateDate = nValidateDate;
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memset(pDRMHeader->szFileMakeTime, '\0', 50);
-    strncpy(pDRMHeader->szFileMakeTime, szFileMakeTime, 50);
+    strncpy(pDRMHeader->szFileMakeTime, szFileMakeTime, szFileMakeTime ? strlen(szFileMakeTime) : 0);
     pDRMHeader->szFileMakeTime[49] = '\0';
 
-    strncpy(pDRMHeader->szFileAccessTime, szFileMakeTime, 50);
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
+    strncpy(pDRMHeader->szFileAccessTime, szFileMakeTime, szFileMakeTime ? strlen(szFileMakeTime) : 0);
     pDRMHeader->szFileAccessTime[49] = '\0';
 
-    strncpy(pDRMHeader->szFileCreateTime, szFileMakeTime, 50);
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
+    strncpy(pDRMHeader->szFileCreateTime, szFileMakeTime, szFileMakeTime ? strlen(szFileMakeTime) : 0);
     pDRMHeader->szFileCreateTime[49] = '\0';
 
-    strncpy(pDRMHeader->szFileUpdateTime, szFileMakeTime, 50);
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
+    strncpy(pDRMHeader->szFileUpdateTime, szFileMakeTime, szFileMakeTime ? strlen(szFileMakeTime) : 0);
     pDRMHeader->szFileUpdateTime[49] = '\0';
 
     // 模板权限文件
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     pDRMHeader->dwTemplateType = fileType;
     strncpy(pDRMHeader->szTemplateId, szTID, TA_FILE_ID_LENGTH - 1);
     pDRMHeader->szTemplateId[TA_FILE_ID_LENGTH - 1] = '\0';
     
     // 产生随机密钥
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     char* password = createGuid();  // 假设 CreateGuid() 返回 char*
     memmove(pDRMHeader->szPassword, password, 16);
     memmove(g_password, password, TA_FILE_KEY_LENGTH);
 
     // 传出dataKey
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     *dataKeyLength = TA_FILE_KEY_LENGTH;
     memmove(dataKey, password, TA_FILE_KEY_LENGTH);
 
     // 加密CDG头
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     EncodeAES((char*)(&mDRMHeader) + 12, sizeof(CdgFileHeader) - 12, (unsigned char*)CDG_FILE_HEAD_PASS);
 
     // 复制文件头
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     memmove(fileHead, pDRMHeader, sizeof(CdgFileHeader));
     *fileHeadSize = sizeof(CdgFileHeader);
 
+    syslog(LOG_ERR, "%s:%d", __func__, __LINE__);
     return TCA_SUCCESS;  // 返回 NULL 表示成功
 
 }
