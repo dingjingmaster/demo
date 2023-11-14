@@ -1,0 +1,5 @@
+node_modules/
+.debugTemp/
+wps-addon-build/
+!src/
+dist/
