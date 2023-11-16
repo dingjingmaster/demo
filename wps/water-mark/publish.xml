@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsplugins>
+    <jsplugin url="http://127.0.0.1/water-mark.7z" version="1.0.0" enable="true" type="pdf" name="water-mark"/>
+    <jsplugin url="http://127.0.0.1/water-mark.7z" version="1.0.0" enable="true" type="wpp" name="water-mark"/>
+    <jsplugin url="http://127.0.0.1/water-mark.7z" version="1.0.0" enable="true" type="wps" name="water-mark"/>
+    <jsplugin url="http://127.0.0.1/water-mark.7z" version="1.0.0" enable="true" type="et" name="water-mark"/>
+</jsplugins>

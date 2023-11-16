@@ -1,5 +1,8 @@
 # et_vue
 
+publish.xml
+放到 ~/.local/share/Kingsoft/wps/jsaddons
+
 ## Project setup
 ```
 npm install

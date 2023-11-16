@@ -127,7 +127,7 @@ function OnAddinLoad(ribbonUI)
 
 function wppAddWaterMark()
 {
-
+    WaterMark.pptInsertNewWaterMark(GetWaterMarkString())
 }
 
 function etAddWaterMark()

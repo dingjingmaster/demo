@@ -90,7 +90,7 @@ function excelInsertNewWaterMark (str)
         'visibleStatus': 1,
         'watermarkText': str,
         'opacity': 0.5,
-        'font_size': 16,
+        'font_size': 18,
         'angle': 45,
         'color': '#A8A8A8A8',
         'font': '黑体',
@@ -98,18 +98,59 @@ function excelInsertNewWaterMark (str)
 
     try {
         var app = wps.EtApplication();
-        app.Application.GetApplicationEx().setWatermarkInfo(JSON.stringify(waterMarkInfo));
+        app.Application.GetApplicationEx().SetWatermarkInfo(JSON.stringify(waterMarkInfo));
     } catch (e) {
-        alert(e)
         console.log(e)
     }
 }
 
+function excelDeleteAllWater(str)
+{
+    var waterMarkInfo = {
+        'visibleStatus': 0,
+        'watermarkText': str,
+        'opacity': 0.5,
+        'font_size': 18,
+        'angle': 45,
+        'color': '#A8A8A8A8',
+        'font': '黑体',
+    };
+
+    try {
+        var app = wps.EtApplication();
+        app.Application.GetApplicationEx().SetWatermarkInfo(JSON.stringify(waterMarkInfo));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function pptInsertNewWaterMark (str)
+{
+    var waterMarkInfo = {
+        'visibleStatus': 1,
+        'watermarkText': str,
+        'opacity': 0.5,
+        'font_size': 18,
+        'angle': 45,
+        'color': '#A8A8A8A8',
+        'font': '黑体',
+    };
+
+    try {
+        var app = wps.WppApplication();
+        app.Application.GetApplicationEx().SetWatermarkInfo(JSON.stringify(waterMarkInfo));
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 export default{
     wpsSaveAllWater,
     wpsDeleteAllWater,
     wpsInsertNewWaterMark,
 
-    excelInsertNewWaterMark
+    excelDeleteAllWater,
+    excelInsertNewWaterMark,
+
+    pptInsertNewWaterMark,
 }
