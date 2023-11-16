@@ -1,16 +1,98 @@
 import Util from './js/util.js'
-// import SystemDemo from './js/systemdemo.js'
 import WaterMark from './js/water-mark.js'
 
- // WpsApp
-let wpsApp = wps.WpsApplication()
+var serverINI = '/usr/local/ultrasec/server.ini';
 
+function parseINIString(data)
+{
+    var regex = {
+        section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
+        // eslint-disable-next-line no-useless-escape
+        param: /^\s*([\w\.\-\_]+)\s*=\s*(.*?)\s*$/,
+        comment: /^\s*;.*$/
+    };
+    var value = {};
+    var lines = data.split(/\r\n|\r|\n/);
+    var section = null;
+    lines.forEach(function(line){
+        if(regex.comment.test(line)){
+            return;
+        }else if(regex.param.test(line)){
+            var match = line.match(regex.param);
+            if(section){
+                value[section][match[1]] = match[2];
+            }else{
+                value[match[1]] = match[2];
+            }
+        }else if(regex.section.test(line)){
+            // eslint-disable-next-line no-redeclare
+            var match = line.match(regex.section);
+            value[match[1]] = {};
+            section = match[1];
+        }else if(line.length === 0 && section){
+            section = null;
+        };
+    });
+    return value;
+}
+
+/**
+ * @return {string}
+ */
+function GetWaterMarkString()
+{
+    var retStr = "";
+    var userName = "";
+    if (wps.FileSystem.Exists(serverINI)) {
+        var str = wps.FileSystem.ReadFile(serverINI);
+        if (str !== null && str !== undefined) {
+            var ini = parseINIString(str);
+            if (null !== ini && undefined !== ini) {
+                var user = ini['user'];
+                if (null !== user&& undefined !== user) {
+                    userName = user['username'];
+                    if (null === userName || undefined === userName) {
+                        userName = '';
+                    }
+                }
+            }
+        }
+    }
+
+    var date = new Date();
+    var dateStr = date.getFullYear().toString(10).padStart(2, '0') + '-' + date.getMonth().toString(10).padStart(2, '0') + '-' + date.getDay().toString(10).padStart(2, '0');
+    if ("" !== userName) {
+        retStr = userName + '\n';
+    }
+    retStr += dateStr;
+
+    return retStr;
+}
+
+/**
+ * @return {string}
+ */
+function GetApplicationObject()
+{
+    if (wps.WpsApplication !== undefined) {
+        return wps.WpsApplication.name
+    }
+    else if (wps.EtApplication !== undefined) {
+        return wps.EtApplication.name;
+    }
+    else if (wps.WppApplication !== undefined) {
+        return wps.WppApplication.name;
+    }
+
+    return 'unknown';
+}
 
 //这个函数在整个wps加载项中是第一个执行的
 /**
  * @return {boolean}
  */
-function OnAddinLoad(ribbonUI){
+function OnAddinLoad(ribbonUI)
+{
     if (typeof (wps.ribbonUI) != "object"){
 		wps.ribbonUI = ribbonUI
     }
@@ -19,34 +101,45 @@ function OnAddinLoad(ribbonUI){
         wps.Enum = Util.WPS_Enum
     }
 
-    addWaterMark();
+    switch (GetApplicationObject()) {
+        case 'EtApplication':{
+            etAddWaterMark();
+            wps.ApiEvent.AddApiEventListener('WorkbookOpen', function (fileUrl) { wpsAddWaterMark(); return fileUrl; });
+            break
+        }
+        case 'WpsApplication': {
+            wpsAddWaterMark();
+            wps.ApiEvent.AddApiEventListener('DocumentOpen', function (fileUrl) { etAddWaterMark(); return fileUrl; });
+            break
+        }
+        case 'WppApplication': {
+            wppAddWaterMark();
+            wps.ApiEvent.AddApiEventListener('PresentationOpen', function (fileUrl) { wppAddWaterMark(); return fileUrl; });
+            break
+        }
+        default: {
+            break
+        }
+    }
 
-    // 添加事件
-    wpsApp.ApiEvent.AddApiEventListener('DocumentOpen', function (fileUrl) {
-        addWaterMark();
-        return fileUrl;
-    });
-
-    //这几个导出函数是给外部业务系统调用的
-    // window.openOfficeFileFromSystemDemo = SystemDemo.openOfficeFileFromSystemDemo
-    // window.InvokeFromSystemDemo = SystemDemo.InvokeFromSystemDemo
-    //
-    // wps.PluginStorage.setItem("EnableFlag", false) //往PluginStorage中设置一个标记，用于控制两个按钮的置灰
-    // wps.PluginStorage.setItem("ApiEventFlag", false) //往PluginStorage中设置一个标记，用于控制ApiEvent的按钮label
     return true
 }
 
-function addWaterMark()
+function wppAddWaterMark()
 {
-    WaterMark.deleteAllWater()
-    WaterMark.insertNewWaterMark()
-    // wps.WpsApplication().
-    var selection = wps.ActiveDocument.ActiveWindow.Selection;//当前光标对象
-    var sectionCount = wps.WpsApplication().ActiveDocument.Sections.Count;
-    for(var i=1;i<=sectionCount;i++) {
-        selection.GoTo(0, 1, i);
-        selection.Document.Save();
-    }
+
+}
+
+function etAddWaterMark()
+{
+    WaterMark.excelInsertNewWaterMark(GetWaterMarkString())
+}
+
+function wpsAddWaterMark()
+{
+    WaterMark.wpsDeleteAllWater();
+    WaterMark.wpsInsertNewWaterMark(GetWaterMarkString(), 10, true, false);
+    WaterMark.wpsSaveAllWater();
 }
 
 //
