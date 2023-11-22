@@ -53,6 +53,7 @@ int main (int argc, char* argv[])
         Atom clipboard = XInternAtom (dsp, "CLIPBOARD", False);
 
         while (1) {
+            if (XCLIB_XCOUT_BAD_TARGET == context) { break; }
             if (context != XCLIB_XCOUT_NONE) {
                 XNextEvent(dsp, &event);
             }
