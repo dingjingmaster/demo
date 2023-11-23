@@ -36,6 +36,20 @@ function parseINIString(data)
     return value;
 }
 
+function GetLocalTime(i)
+{
+    if (typeof i !== "number") {
+        return new Date();
+    }
+
+    var d = new Date();
+    var len = d.getTime();
+    var offset = d.getTimezoneOffset() * 60000;
+    var utcTime = len + offset;
+
+    return new Date(utcTime + 3600000 * i);
+}
+
 /**
  * @return {string}
  */
@@ -59,7 +73,7 @@ function GetWaterMarkString()
         }
     }
 
-    var date = new Date();
+    var date = GetLocalTime(8);
     var dateStr = date.getFullYear().toString(10).padStart(2, '0') + '-' + date.getMonth().toString(10).padStart(2, '0') + '-' + date.getDay().toString(10).padStart(2, '0');
     if ("" !== userName) {
         retStr = userName + '\n';
