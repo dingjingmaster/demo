@@ -74,7 +74,7 @@ function GetWaterMarkString()
     }
 
     var date = GetLocalTime(8);
-    var dateStr = date.getFullYear().toString(10).padStart(2, '0') + '-' + date.getMonth().toString(10).padStart(2, '0') + '-' + date.getDay().toString(10).padStart(2, '0');
+    var dateStr = date.getFullYear().toString(10).padStart(2, '0') + '-' + (date.getMonth() + 1).toString(10).padStart(2, '0') + '-' + date.getDate().toString(10).padStart(2, '0');
     if ("" !== userName) {
         retStr = userName + '\n';
     }
