@@ -1,12 +1,6 @@
-pwd=$(shell pwd)
+pwd 	:= $(shell pwd)
 
-ifeq ($(shell uname -o), Darwin)
-	subdirs = object-c 
-else ifeq ($(shell uname -o), GNU/Linux)
-	subdirs = \
-		version \
-		learn
-endif
+subdirs  = $(shell find . -maxdepth 1 -mindepth 1 -type d -not -path '(*/\.*)' -printf "%f\n" | xargs)
 
 
 all:
