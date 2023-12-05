@@ -8,6 +8,7 @@ src1 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/hook-*.c)))
 target1 = $(strip $(patsubst %.c, %.so, $(src1)))
 
 all:$(target) $(target1)
+	make -C drag-drop1
 
 ss.run : ss.cpp server-header.moc
 
@@ -42,4 +43,5 @@ clean:
 	@rm -fr *.txt
 	@rm -fr */*.txt
 	@rm -f `find -name "*.moc.cpp"`
+	make -C drag-drop1 clean
 
