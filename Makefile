@@ -6,13 +6,14 @@ else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
 		c core cppbase cbase cairo cuda \
 		dbus dconf device \
+		ev \
 		file function \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
 		ipc iso \
 		lightdm localization libblocked \
 		module \
 		pam pcre polkit protobuf python-c-api\
-		qt-demo qt-tools \
+		qt qt-demo qt-tools \
 		sl sqlite\
 		str \
 		vala vte \

@@ -144,6 +144,7 @@ int main (int argc, char* argv[])
         XNextEvent(disp, &ev);
         switch (ev.type) {
             case SelectionRequest: {
+                printf("SelectionRequest\n");
                 if (xdndState.xdndExchangeStarted && xdndState.amISource) {
                     // add data to target window
                     sendSelectionNotify(disp, &ev.xselectionrequest, "test");
@@ -151,6 +152,7 @@ int main (int argc, char* argv[])
                 break;
             }
             case SelectionNotify: {
+                printf("SelectionNotify\n");
                 if (ev.xselection.property != XDND_DATA) {
                     break;
                 }
@@ -305,6 +307,7 @@ int main (int argc, char* argv[])
 						    xdndState.xdndDropTimestamp = ev.xclient.data.l[2];
 
 						    // Call XConvertSelection
+                            printf("XConvertSelection\n");
 						    XConvertSelection(disp, XdndSelection, xdndState.proposedType, XDND_DATA, win, xdndState.xdndDropTimestamp);
 					    }
 				    }
