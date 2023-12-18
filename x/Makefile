@@ -6,7 +6,7 @@ target = $(patsubst %.c, %.run, $(src))
 all:$(target)
 
 %.run:%.c
-	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs x11 gtk+-2.0 cairo xcb`
+	cc -o $@ $^ $(cflag) `pkg-config --cflags --libs x11 gtk+-2.0 cairo xcb xcb-xkb xcb-xinput`
 
 .PHONY:clean all
 
