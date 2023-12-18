@@ -1,4 +1,4 @@
-cflag = -w -lXmu
+cflag = -w -lXmu -lXi
 
 src = $(wildcard *.c)
 target = $(patsubst %.c, %.run, $(src))
