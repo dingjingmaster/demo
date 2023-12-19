@@ -19,7 +19,9 @@ int main ()
     root = DefaultRootWindow (display);
 
     printf ("按下 Ctrl+c 退出\n");
+    XAllowEvents(display, AsyncBoth, CurrentTime);
     XSelectInput (display, root, KeyPressMask | KeyReleaseMask);
+
 
     while (1) {
         XNextEvent(display, &event);
