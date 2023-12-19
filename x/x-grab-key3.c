@@ -53,7 +53,7 @@ int main ()
             }
 
             const char* keyStr = XKeysymToString(key);
-            printf ("%s\n", keyStr);
+            printf ("%s(%lu=0x%X)\n", keyStr, key, key);
 
             if ((mod & ControlMask) && (key == XK_c)) {
                 printf("即将退出!\n");
