@@ -50,10 +50,14 @@ int main (int argc, char* argv[])
     }
 
 out:
+    if (fRead) {g_object_unref(fRead);}
+    if (file)  {g_object_unref(file);}
     if (md5sum) { g_checksum_free (md5sum); }
     return 0;
 
 error:
+    if (fRead) {g_object_unref(fRead);}
+    if (file)  {g_object_unref(file);}
     if (md5sum) { g_checksum_free (md5sum); }
     return -1;
 }
