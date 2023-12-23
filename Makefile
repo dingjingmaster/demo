@@ -4,7 +4,7 @@ ifeq ($(shell uname -o), Darwin)
 	subdirs = object-c 
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
-		c core cppbase cbase cairo cuda \
+		c core cppbase cbase cairo cuda cups \
 		dbus dconf device \
 		ev \
 		file function \
