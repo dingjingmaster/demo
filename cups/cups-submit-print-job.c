@@ -36,7 +36,7 @@ int print_dest(void *user_data, unsigned flags, cups_dest_t *dest)
     }
 
     if (success) {
-        if (IPP_STATUS_OK == cupsFinishDestDocument(CUPS_HTTP_DEFAULT, dest, info)) {
+        if (IPP_STATUS_OK == cupsCloseDestJob(CUPS_HTTP_DEFAULT, dest, info, job_id)) {
             printf ("finished!\n");
         }
         else {
