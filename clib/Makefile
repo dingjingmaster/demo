@@ -32,7 +32,7 @@ clean:
 	@rm -rf *.so
 	@rm -fr */*.o
 	@rm -fr *.run
-	@rm -fr */*.run
 	@rm -fr *.txt
+	@rm -fr */*.run
 	@rm -fr */*.txt
 
