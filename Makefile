@@ -7,7 +7,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		c core clib cppbase cbase cairo cuda cups \
 		dbus dconf device \
 		ev elf \
-		file function \
+		file font function \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
 		ipc iso \
 		lightdm localization libblocked \
