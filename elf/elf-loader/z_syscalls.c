@@ -36,6 +36,7 @@ ret z_##name(t1 a1, t2 a2, t3 a3) \
 	return (ret)SYSCALL(name, a1, a2, a3); \
 }
 
+// int z_open(const char*, filename)
 DEF_SYSCALL2(int, open, const char *, filename, int, flags)
 DEF_SYSCALL3(ssize_t, read, int, fd, void *, buf, size_t, count)
 DEF_SYSCALL3(ssize_t, write, int, fd, const void *, buf, size_t, count)

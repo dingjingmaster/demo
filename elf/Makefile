@@ -16,6 +16,7 @@ elfObjs = $(strip $(patsubst %.S, %.o, $(strip $(subst $(curDir), ., $(wildcard 
 
 all:$(target)
 
+# @NOTE:// 入口在 z_start 处，位于 elf-loader/$(ARCH)/z_start.S 文件中
 elf-loader.run:elf-loader.o $(elfObjs) elf-loader/z_err.o elf-loader/z_utils.o elf-loader/z_printf.o elf-loader/z_syscalls.o
 	@gcc -o $@ $^ $(elfLoaderFlags) $(elfFlags)
 	@echo "LD $@"
@@ -47,10 +48,7 @@ elf-loader/i386/%.o:elf-loader/i386/%.S
 .PHONY:clean all
 
 clean:
-	@rm -fr *.o
-	@rm -fr */*.o
-	@rm -fr *.run
-	@rm -fr */*.run
-	@rm -fr *.txt
-	@rm -fr */*.txt
+	@find -name "*.o" -delete
+	@find -name "*.txt" -delete
+	@find -name "*.run" -delete
 

@@ -103,6 +103,9 @@ err:
 #define Z_PROG		0
 #define Z_INTERP	1
 
+/**
+ * @ 第一个参数是 栈顶指针，第二个参数是 要调用的程序
+ */
 void z_entry(unsigned long *sp, void (*fini)(void))
 {
 	Elf_Ehdr ehdrs[2], *ehdr = ehdrs;
@@ -115,11 +118,14 @@ void z_entry(unsigned long *sp, void (*fini)(void))
 	int argc, fd, i;
 
 	x_fini = fini;
+
+    // 函数调用规范 ...
 	argc = (int)*(sp);
 	argv = (char **)(sp + 1);
 	env = p = (char **)&argv[argc + 1];
-	while (*p++ != NULL)
-		;
+	while (*p++ != NULL);
+    // end
+
 	av = (void *)p;
 
 	(void)env;
@@ -131,20 +137,20 @@ void z_entry(unsigned long *sp, void (*fini)(void))
 		/* Open file, read and than check ELF header.*/
 		if ((fd = z_open(file, O_RDONLY)) < 0)
 			z_errx(1, "can't open %s", file);
-		if (z_read(fd, ehdr, sizeof(*ehdr)) != sizeof(*ehdr))
+		if (z_read(fd, ehdr, sizeof(*ehdr)) != sizeof(*ehdr))                   // 读取 elf header (Elf_Ehdr) 到 ehdr 并检查
 			z_errx(1, "can't read ELF header %s", file);
 		if (!check_ehdr(ehdr))
 			z_errx(1, "bogus ELF header %s", file);
 
 		/* Read the program header. */
-		sz = ehdr->e_phnum * sizeof(Elf_Phdr);
+		sz = ehdr->e_phnum * sizeof(Elf_Phdr);                                  // 读取程序头 (Elf_Phdr)，程序头有多个 phdr
 		phdr = z_alloca(sz);
 		if (z_lseek(fd, ehdr->e_phoff, SEEK_SET) < 0)
 			z_errx(1, "can't lseek to program header %s", file);
 		if (z_read(fd, phdr, sz) != sz)
 			z_errx(1, "can't read program header %s", file);
 		/* Time to load ELF. */
-		if ((base[i] = loadelf_anon(fd, ehdr, phdr)) == LOAD_ERR)
+		if ((base[i] = loadelf_anon(fd, ehdr, phdr)) == LOAD_ERR)               // 加载 elf，
 			z_errx(1, "can't load ELF %s", file);
 
 		/* Set the entry point, if the file is dynamic than add bias. */
