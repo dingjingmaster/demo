@@ -14,6 +14,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		module \
 		pam pcre polkit protobuf python-c-api\
 		qt qt-demo qt-tools \
+		rust \
 		sl sqlite\
 		str \
 		vala vte \
