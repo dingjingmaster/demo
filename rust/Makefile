@@ -2,25 +2,19 @@ cflag = -w #-std=gnu11
 
 curDir = $(shell pwd)
 
-src = $(strip $(subst $(CUR_DIR), ., $(wildcard $(CUR_DIR)/*.c)))
+src = $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.rs)))
 
-target = $(strip $(patsubst %.c, %.run, $(src)))
+target = $(strip $(patsubst %.rs, %.run, $(src)))
 
 all:$(target)
 
-%.run:%.o
-	gcc -o $@ $< -lpthread -lrt -lsqlite3 `pkg-config --cflags --libs glib-2.0 gio-2.0 openssl` $(cflag) 
-
-%.o:%.c
-	gcc `pkg-config --cflags glib-2.0 gio-2.0 openssl` -o $@ -c $< $(cflag)
+%.run:%.rs
+	@rustc $< -o $@
+	@echo "rustc -o $@"
 
 .PHONY:clean all
 
 clean:
-	@rm -fr *.o
-	@rm -fr */*.o
-	@rm -fr *.run
-	@rm -fr */*.run
-	@rm -fr *.txt
-	@rm -fr */*.txt
+	@find -name "*.run" -delete
+	@find -name "*.txt" -delete
 

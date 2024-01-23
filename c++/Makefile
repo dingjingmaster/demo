@@ -9,10 +9,11 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 all:$(target)
 
 %.run:%.cpp
-	g++ -std=c++11 -o $@ $< $(cflag) 
+	@g++ -std=c++20 -o $@ $< $(cflag) 
+	@echo "cc -o $@"
 
 %.o:%.cpp
-	g++ -o $@ -c $< $(cflag)
+	@g++ -o $@ -c $< $(cflag)
 
 .PHONY:clean all
 
