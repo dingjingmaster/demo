@@ -22,5 +22,6 @@ clean:
 	@find -name "*.o" -delete
 	@find -name "*.run" -delete
 	@find -name "*.txt" -delete
+	@find -name "*.log" -delete
 	@find -name "*.data" -delete
 
