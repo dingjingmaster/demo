@@ -5,7 +5,7 @@ ifeq ($(shell uname -o), Darwin)
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
 		c core clib cppbase cbase cairo cuda cups \
-		dbus dconf device \
+		dbus dconf device dpdk \
 		ev elf \
 		file font function \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
