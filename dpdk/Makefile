@@ -1,4 +1,4 @@
-SUBDIRS = hello-world
+SUBDIRS = hello-world basicfwd
 
 all : subdirs
 

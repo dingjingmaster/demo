@@ -17,6 +17,14 @@
 #include <rte_lcore.h>
 #include <rte_debug.h>
 
+/**
+ * 检测 DPDK 环境是否配置 OK
+ *
+ * 设置 EAL 抽象层
+ * 向每个启用了 DPDK 的核心打印一个简单的 "Hello World" 消息
+ * 不做任何数据包转发
+ */
+
 /* Launch a function on lcore. 8< */
 static int lcore_hello(__rte_unused void *arg)
 {
