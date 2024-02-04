@@ -1,4 +1,4 @@
-SUBDIRS = hello-world basicfwd
+SUBDIRS = hello-world basicfwd bbdev
 
 all : subdirs
 
