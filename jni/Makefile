@@ -20,12 +20,12 @@ test1:
 	@echo -e "execute export LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH}"
 	@echo -e "run command for test: \033[33;34m java -Djava.library.path='.' JavaMain \033[0m"
 
-test2:
-	make -C $(cur_dir)/jni3
+#test2:
+	#make -C $(cur_dir)/jni3
 
 clean:
 	@rm -f `find -name "*.o"`
 	@rm -f `find -name "*.so"`
 	@rm -f `find -name "*.run"`
 	@rm -f `find -name "*.class"`
-	@make clean -C $(cur_dir)/jni3
+	#@make clean -C $(cur_dir)/jni3
