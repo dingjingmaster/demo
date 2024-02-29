@@ -13,43 +13,40 @@
 extern "C" {
 #endif
 
-enum CDG_RETVAL
+enum C_D_G_RETVAL
 {
-	CDG_RET_SUCCESS			        =	0,
-	CDG_RET_INVALID_FILETYPE         =	1,
-	CDG_RET_OPEN_BYOTHERPROCESS		=	2,
-	CDG_RET_DOC_READONLY            =   3,
-	CDG_RET_COPY_FAILED             =   4,
-	CDG_RET_MAKE_FAILED             =   5,
-	CDG_RET_OPEN_INIT_FAILED        =   6,
-	CDG_RET_OPEN_MUTEX_EXIST        =   7,
-	CDG_RET_USER_NOT_LOGIN          =   8,
-	CDG_RET_OPEN_NO_PERMISSION      =   9,
-	CDG_RET_FILENAME_EMPTY          =   10,
-	CDG_RET_OPEN_FILE_FAILED        =   11,
-	CDG_RET_OPEN_NO_APPFILE         =   12,
-	CDG_RET_OPEN_WITH_64EXE         =   13,
-	CDG_RET_OPEN_CREATEPROCESS_FAILED = 14,
-	CDG_RET_OPEN_EXCEED_MAX_FILENUM   = 15,
-	CDG_RET_SUFFIX_NOT_DSM            = 16,
-	CDG_RET_FILE_HEAER_FAILED         = 17,
-	CDG_RET_FILE_HEAER_ID_ERR         = 18,
-	CDG_RET_OCCUPY_FAILED             = 19,
-	CDG_RET_NO_CDGKEY                 = 20,
-	CDG_RET_DECRYPT_FAILED            = 21,
-	CDG_RET_SEND_RPC_FAILED           = 22,
-	CDG_RET_INVALID_TEMPLATEID        = 23,
-	CDG_RET_OPEN_BEFORE_START_TIME    = 24,
-	CDG_RET_OPEN_AFTER_END_TIME       = 25,
-	CDG_RET_OPEN_WRONG_TIME           = 26,
+	C_D_G_RET_SUCCESS			        =	0,
+	C_D_G_RET_INVALID_FILETYPE         =	1,
+	C_D_G_RET_OPEN_BYOTHERPROCESS		=	2,
+	C_D_G_RET_DOC_READONLY            =   3,
+	C_D_G_RET_COPY_FAILED             =   4,
+	C_D_G_RET_MAKE_FAILED             =   5,
+	C_D_G_RET_OPEN_INIT_FAILED        =   6,
+	C_D_G_RET_OPEN_MUTEX_EXIST        =   7,
+	C_D_G_RET_USER_NOT_LOGIN          =   8,
+	C_D_G_RET_OPEN_NO_PERMISSION      =   9,
+	C_D_G_RET_FILENAME_EMPTY          =   10,
+	C_D_G_RET_OPEN_FILE_FAILED        =   11,
+	C_D_G_RET_OPEN_NO_APPFILE         =   12,
+	C_D_G_RET_OPEN_WITH_64EXE         =   13,
+	C_D_G_RET_OPEN_CREATEPROCESS_FAILED = 14,
+	C_D_G_RET_OPEN_EXCEED_MAX_FILENUM   = 15,
+	C_D_G_RET_SUFFIX_NOT_DSM            = 16,
+	C_D_G_RET_FILE_HEAER_FAILED         = 17,
+	C_D_G_RET_FILE_HEAER_ID_ERR         = 18,
+	C_D_G_RET_OCCUPY_FAILED             = 19,
+	C_D_G_RET_NO_CDGKEY                 = 20,
+	C_D_G_RET_DECRYPT_FAILED            = 21,
+	C_D_G_RET_SEND_RPC_FAILED           = 22,
+	C_D_G_RET_INVALID_TEMPLATEID        = 23,
+	C_D_G_RET_OPEN_BEFORE_START_TIME    = 24,
+	C_D_G_RET_OPEN_AFTER_END_TIME       = 25,
+	C_D_G_RET_OPEN_WRONG_TIME           = 26,
 };
 
 
-//#define CDG_FILEHEAD_ID            	0x12345678
-//#define CDG_FILEHEAD_ID_NEW			0x12345688
-
-#define CDG_FILEHEAD_ID_DSM			0x12345668
-#define CDG_FILEHEAD_PASS           "IOSDFKKLJJKDSDDS"
+#define C_D_G_FILEHEAD_ID_DSM			0x12345668
+#define C_D_G_FILEHEAD_PASS           "IOSDFKKLJJKDSDDS"
 
 #define MAX_USER_NAME_LEN          	128
 
@@ -97,18 +94,15 @@ typedef struct _CDG_FILE_HEADER
 	//char  szabout[896];//保留字段
 	//char  szabout[1024];//保留字段
 
-} CDG_FILE_HEADER;
+} C_D_G_FILE_HEADER;
 
 
-bool EncryptLockFile(char* pFileName, unsigned char* key, int arith);
-void DecodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
-void EncodeAES(char* pBuffer, ULONG nLength, unsigned char* Key);
-bool IsEncryptLockFile(const char* pFileName);
+bool EncLockFile(char* pFileName, unsigned char* key, int arith);
+void DecAES(char* pBuffer, ULONG nLength, unsigned char* Key);
+void EncAES(char* pBuffer, ULONG nLength, unsigned char* Key);
+bool IsEncLockFile(const char* pFileName);
 #ifdef __cplusplus
 }
 #endif
-
-//BOOL IsCdgFile(  char *filename, CDG_FILE_HEADER *pCdgHead );
-
 
 #endif

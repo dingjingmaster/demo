@@ -8,6 +8,8 @@ target2 = $(strip $(patsubst %.c, %.run, $(src2)))
 
 cflags = -L $(CUR_DIR) -lfilelock -Wl,-rpath=$(CUR_DIR) `pkg-config --cflags --libs gio-2.0` 
 
+D_S_M:
+
 all:$(target) ${target2}
 
 %.run:%.cpp
