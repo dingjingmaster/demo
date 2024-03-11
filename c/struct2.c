@@ -19,7 +19,8 @@
  *  then some compilers may allow memory overlap for the fields while
  *  others would store the next field in the next word.
  */
-struct packed_struct {
+struct packed_struct 
+{
    unsigned int f1:1;       // int is 4 byte(32 bit in 32bit system), 1 means bit fields length, f1 use 1 bit
    unsigned int f2:1;
    unsigned int f3:1;
@@ -28,7 +29,8 @@ struct packed_struct {
    unsigned int my_int:9;
 } pack;                     // unsigned int is 32 bit. so that can't store than 32 bit
 
-struct ks {
+struct ks 
+{
     char a:1;
     char :2;                // this 2 bit can't use because of no name
     char b:3;
@@ -41,7 +43,8 @@ struct ks {
 }k; // max is 8 * 8(bit)
 
 
-int main() {
+int main() 
+{
 
     pack.f1 = 0x1;
 
