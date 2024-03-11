@@ -12,6 +12,9 @@
  *  1. 第一个成员首地址为0；
  *  2. 每个成员的首地址是自身大小的整数倍；
  *  3. 结构体中大小，是成员中所含最大类型的整数倍；
+ *  4. 使用 #pragma pack(push, 1) 和 #pragma pack(pop) 之后，对齐为设置的数值；
+ *
+ *  注意两点：对齐对应的首位置 + 所占大小
  */
 
 // 16
@@ -143,6 +146,28 @@ typedef union _S13
     } u2;
 } S13;                      // =8
 
+#pragma pack(push,1)
+// 9
+typedef struct _S14
+{
+    double  s1;             // 0 - 7
+    char    s2;             // 8
+} S14;                      // = 9
+
+// 22
+typedef struct _S15
+{
+    double      s1;         // 0 - 7
+    char        s2;         // 8
+    struct {
+        int     s31;        // 9 - 12
+        char    s32;        // 13
+        double  s33;        // 14 - 21
+    } s3;
+} S15;                      // = 22
+
+#pragma pack(pop)
+
 
 int main ()
 {
@@ -166,6 +191,8 @@ int main ()
     printf ("S11    : %lu\n", sizeof(S11));         // 24
     printf ("S12    : %lu\n", sizeof(S12));         // 8
     printf ("S13    : %lu\n", sizeof(S13));         // 8
+    printf ("S14    : %lu\n", sizeof(S14));         // 9
+    printf ("S15    : %lu\n", sizeof(S15));         // 22
 
     return 0;
 }
