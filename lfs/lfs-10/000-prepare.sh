@@ -39,6 +39,6 @@ mkdir -p ${srcDir}
 wget --input-file=${curDir}/wget-list --continue --directory-prefix=${srcDir} 
 
 pushd ${srcDir}
-    md5sum -c ${curDir}/md5sum
+    md5sum -c ${curDir}/md5sums
 popd
 
