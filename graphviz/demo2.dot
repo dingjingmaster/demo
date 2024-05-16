@@ -1,0 +1,13 @@
+digraph G{
+    node[shape=box];
+    source[fontname="FangSong" label="源文件(.h .c)" color = "red"];
+    pre[fontname="FangSong" label="预编译后的文件(.i)"];
+    build[fontname="FangSong" label="编译后的汇编文件(.S)"];
+    as[fontname="FangSong" label="汇编后可重定位文件(.o)"];
+    link[fontname="FangSong" label="链接可重执行文件(ELF)" color = "red"];
+    source->pre[fontname="FangSong" label="gcc -i" fontsize = 12];
+    {rank=same; source; pre;}
+    pre->build[fontname="FangSong" label="gcc -s" fontsize = 12];
+    build->as[fontname="FangSong" label="as -o" fontsize = 12];
+    as->link[fontname="FangSong" label=" gcc -o" fontsize = 12];
+}
