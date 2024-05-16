@@ -1,0 +1,6 @@
+digraph {
+    main -> foo;
+    main -> bar;
+    foo -> baz;
+    bar -> baz;
+}
