@@ -9,12 +9,12 @@ sysroot="/data/build/$build/sysroot/"
     --host=$target                  \
     --enable-vtable-verify          \
     --build=$(../config.guess)      \
-    --prefix=/usr                   \
+    --prefix=usr/                   \
     --disable-multilib              \
     --disable-nls                   \
     --disable-libstdcxx-pch         \
     --with-gxx-include-dir=$sysroot/tools/$target/include/c++/10.5.0
 
 make -j$(nproc)
-make DISTDIR=$sysroot install
+make DESTDIR=$sysroot install
 rm -fv $sysroot/usr/lib/lib{stdc++{,exp,fs},supc++}.la
