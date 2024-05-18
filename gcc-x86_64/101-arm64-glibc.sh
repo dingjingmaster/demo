@@ -39,9 +39,9 @@ cd -
     CFLAGS=-I$sysroot/usr/include       \
     CXXFLAGS=-I$sysroot/usr/include           
 
-make -d -j$(nproc)
-#make DESTDIR=$sysroot install
-#sed '/RTLDLIST=/s@/usr@@g' -i $sysroot/usr/bin/ldd
+make -j$(nproc)
+make DESTDIR=$sysroot install
+sed '/RTLDLIST=/s@/usr@@g' -i $sysroot/usr/bin/ldd
 
-#echo 'int main(){}' | $target-gcc -xc -
-#readelf -l a.out | grep ld-linux
+echo 'int main(){}' | $target-gcc -xc -
+readelf -l a.out | grep ld-linux

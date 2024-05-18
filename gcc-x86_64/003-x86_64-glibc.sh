@@ -26,16 +26,16 @@ cd -
 echo "rootsbindir=/usr/sbin" > configparms
 
 ../configure \
+      --disable-werror                    \
       --prefix=/usr                       \
       --host=$target                      \
       --build=$(../scripts/config.guess)  \
       --enable-kernel=4.19                \
-      --disable-werror                    \
       --with-headers=$sysroot/usr/include \
       --disable-nscd                      \
       libc_cv_slibdir=/usr/lib
 
-make -d -j$(nproc)
+make -j$(nproc)
 make DESTDIR=$sysroot install
 sed '/RTLDLIST=/s@/usr@@g' -i $sysroot/usr/bin/ldd
 
