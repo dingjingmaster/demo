@@ -16,7 +16,7 @@ cd ..
 
 export INSTALL_HDR_PATH=$sysroot/usr/include
 make mrproper
-make ARCH=arm headers_install
+make ARCH=arm64 headers_install
 find user/include -type f ! -name '*.h' -delete
 cp -rv usr/include $sysroot/usr
 
