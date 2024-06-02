@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: Mon 19 Dec 2022 11:18:19 AM CST
  ************************************************************************/
+#define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 
 
 int main (int argc, char* argv[])

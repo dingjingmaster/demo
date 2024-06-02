@@ -5,6 +5,7 @@
 > Created Time: 2022年02月28日 星期一 15时32分41秒
  ************************************************************************/
 #include <stdio.h>
+#include <string.h>
 
 void print (int aa[], int len)
 {
@@ -20,7 +21,7 @@ int main (int argc, char* argv[])
 
     print (aa, sizeof (aa) / sizeof (aa[0]));
 
-    memcpy (aa + 3, aa, 5 * sizeof (aa[0]));
+    memcpy ((void*)(aa + 3), aa, 5 * sizeof (aa[0]));
 
     print (aa, sizeof (aa) / sizeof (aa[0]));
 

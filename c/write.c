@@ -4,10 +4,12 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年06月27日 星期日 15时11分05秒
  ************************************************************************/
+#define _GNU_SOURCE
 #include <stdio.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 int main (int argc, char* argv[])
 {

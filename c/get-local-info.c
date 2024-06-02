@@ -6,6 +6,7 @@
  ************************************************************************/
 #include <stdio.h>
 #include <errno.h>
+#include <unistd.h>
 #include <string.h>
 #include <net/if.h>
 #include <sys/ioctl.h>

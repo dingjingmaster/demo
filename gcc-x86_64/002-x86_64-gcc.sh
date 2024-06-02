@@ -19,11 +19,9 @@ case $(uname -m) in
 esac
 cd -
 
-
 ../configure                  \
     --target=$target          \
     --prefix=$sysroot/tools   \
-    --with-build-sysroot=$sysroot   \
     --with-glibc-version=2.34 \
     --with-newlib             \
     --without-headers         \
@@ -39,12 +37,10 @@ cd -
     --disable-libssp          \
     --disable-libvtv          \
     --disable-libstdcxx       \
-    CFLAGS=-I$sysroot/usr/include       \
-    CXXFLAGS=-I$sysroot/usr/include     \
     --enable-languages=c,c++
 
-#make -j$(nproc)
-#make DESTDIR=${sysroot}/tools install
+make -j$(nproc)
+make DESTDIR=${sysroot}/tools install
 
 cd ..
 cat gcc/limitx.h gcc/glimits.h gcc/limity.h > $sysroot/usr/include/limits.h

@@ -1,16 +1,17 @@
 /*************************************************************************
-> FileName: malloc.c
+> FileName: empty-func.c
 > Author  : DingJing
 > Mail    : dingjing@live.cn
-> Created Time: Tue 08 Nov 2022 04:06:55 PM CST
+> Created Time: Sun Jun  2 10:13:57 2024
  ************************************************************************/
 #include <stdio.h>
-#include <stdlib.h>
 
-int main (int argc, char* argv[])
+void empty_func()
+{}
+
+int main (void)
 {
-    char* a = malloc(1024 * 1024 * 66 * 10);
-    printf ("%s\n", a ? "ok" : "error");
+    empty_func();
 
     return 0;
 }

@@ -116,7 +116,7 @@ static int semaphore_wait(int sem_id)
     return 1;
 }
 
-void * fun(void)
+void * fun(void*)
 {
 
         semaphore_v(sem_id_2);

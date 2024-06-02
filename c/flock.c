@@ -5,6 +5,7 @@
 > Created Time: Mon 27 Mar 2023 09:28:30 AM CST
  ************************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <sys/file.h>

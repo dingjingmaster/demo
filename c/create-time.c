@@ -23,7 +23,6 @@ int main (int argc, char* argv[])
 
     int fd = 0;
     int ret = 0;
-    struct statx buf;
     int i = 0;
     char* tmp = NULL;
     char* name = NULL;
@@ -41,6 +40,8 @@ int main (int argc, char* argv[])
         name = name + 1;
     }
 
+#ifdef statx
+    struct statx buf;
     fd = open (path, O_RDONLY);
     if (fd < 0) {
         printf ("open file error!");
@@ -48,10 +49,20 @@ int main (int argc, char* argv[])
     }
 
     ret = statx (fd, name, AT_SYMLINK_NOFOLLOW, STATX_BASIC_STATS, &buf);
+#else
+    struct stat buf;
+    ret = stat (path, &buf);
+#endif
     if (0 == ret) {
+#ifdef statx
         printf ("create time: %d\n", buf.stx_ctime.tv_sec);
         printf ("access time: %d\n", buf.stx_atime.tv_sec);
         printf ("modify time: %d\n", buf.stx_mtime.tv_sec);
+#else
+        printf ("create time: %d\n", buf.st_ctim.tv_sec);
+        printf ("access time: %d\n", buf.st_atim.tv_sec);
+        printf ("modify time: %d\n", buf.st_mtim.tv_sec);
+#endif
     } else if (EACCES == errno) {
         printf ("permission is denied\n");
     } else if (EBADF == errno) {

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
@@ -77,7 +78,7 @@ int main (int argc, char* argv[])
 
         while (1) {
             readByte = read(newSock, clientBuf, sizeof(clientBuf) - 1);
-            if ((readByte == 0) || (0 == strcmp(clientBuf, "exit\n"))) {
+            if ((readByte == 0) || (0 == strcmp((char*)clientBuf, "exit\n"))) {
                 printf("\e[31mclose!\e[0m\n");
                 close(newSock);
                 break;

@@ -5,6 +5,7 @@
 > Created Time: Mon 10 Oct 2022 11:01:57 AM CST
  ************************************************************************/
 #include <stdio.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +22,7 @@ int main (int argc, char* argv[])
 
     snprintf(buf, sizeof(buf) - 1, "/proc/%d/cmdline", pid);
     printf ("%s\n", buf);
-    if (!access(buf)) {
+    if (!access(buf, R_OK)) {
         printf ("%s not exists!\n", buf);
         return -1;
     }
