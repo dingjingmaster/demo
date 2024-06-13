@@ -4,13 +4,13 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2020年08月08日 星期六 14时46分24秒
  ************************************************************************/
-
 #include <glib.h>
+#include <stdio.h>
 
 void handle_error(GError *error) 
 {
     if(error != NULL) {
-        g_printf(error->message);
+        printf("%s\n", error->message);
         g_clear_error(&error);
     }
 }

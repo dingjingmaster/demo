@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年11月05日 星期五 09时50分35秒
  ************************************************************************/
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <gio/gio.h>

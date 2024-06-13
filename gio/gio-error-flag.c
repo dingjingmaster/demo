@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <gio/gio.h>
 
 int main (int argc, char* argv[])

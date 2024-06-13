@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: Tue 14 Mar 2023 04:17:39 PM CST
  ************************************************************************/
+#include <stdio.h>
 #include <gio/gio.h>
 
 static void handle (GFilenameCompleter* fc, gpointer);

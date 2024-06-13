@@ -4,7 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年10月28日 星期四 10时32分37秒
  ************************************************************************/
-
+#include <stdio.h>
 #include <gio/gio.h>
 
 static void print_volume_info   (GVolume* volume); 
@@ -52,7 +52,7 @@ static void print_volume_info (GVolume* volume)
         //g_file_mount_enclosing_volume (file, G_MOUNT_MOUNT_NONE, NULL, NULL, mount_volume_callback, NULL);
 
         g_autoptr (GError) error1 = NULL;
-        g_file_query_info_async (file, "*", G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 0, NULL, query_fileinfo_callback, &error1);
+        g_file_query_info_async (file, "*", G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 0, NULL, (void*)query_fileinfo_callback, &error1);
         if (error1) {
             printf ("\t\t %d -- %s\n ", error1->code, error1->message);
         } 
@@ -148,7 +148,7 @@ static GAsyncReadyCallback mount_volume_callback (GFile* file, GAsyncResult* res
     switch (error->code) {
     case G_IO_ERROR_CANCELLED:
     case G_IO_ERROR_EXISTS:
-        g_file_unmount_mountable_with_operation (file, G_MOUNT_UNMOUNT_FORCE, NULL, NULL, umount_volume_callback, NULL);
+        g_file_unmount_mountable_with_operation (file, G_MOUNT_UNMOUNT_FORCE, NULL, NULL, (void*)umount_volume_callback, NULL);
         break;
     default:
         break;

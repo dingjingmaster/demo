@@ -8,7 +8,7 @@
 
 int main (int argc, char* argv[])
 {
-    g_rmdir ("./aa");
+    //g_rmdir ("./aa");
 
     return 0;
 }

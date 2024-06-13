@@ -5,6 +5,7 @@
 > Created Time: 2020年01月20日 星期一 14时55分04秒
  ************************************************************************/
 #include <glib.h>
+#include <stdio.h>
 #include <gio/gio.h>
 
 static void handle(GFileMonitor     *monitor,
