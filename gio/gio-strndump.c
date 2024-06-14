@@ -5,6 +5,7 @@
 > Created Time: 2021年11月04日 星期四 19时07分50秒
  ************************************************************************/
 #include <gio/gio.h>
+#include <stdio.h>
 
 int main (int argc, char* argv[])
 {

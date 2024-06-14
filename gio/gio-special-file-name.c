@@ -42,7 +42,7 @@ int main (int argc, char* argv)
     }
     do {
         // 返回值表示 "错误" 或 "正在迭代"
-        g_file_enumerator_iterate (fs, &fi, &foc, NULL, error);
+        g_file_enumerator_iterate (fs, &fi, &foc, NULL, &error);
         if (NULL != error) {
             printf ("error:%s\n", error->message);
             g_error_free(error);

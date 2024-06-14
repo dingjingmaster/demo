@@ -6,6 +6,7 @@
  ************************************************************************/
 #include <stdio.h>
 #include <gio/gio.h>
+//#include <gtk/gtk.h>
 
 void mount_enclosing_volume_callback(GFile *volume, GAsyncResult *res, gpointer a);
 void ask_question_cb(GMountOperation *op, char *message, char **choices, gpointer a);
@@ -19,7 +20,7 @@ int main (int argc, char* argv[])
     GMountOperation*            mop = NULL;
     GCancellable*               mcancel = NULL;
 
-    gtk_init (&argc, &argv);
+    //gtk_init (&argc, &argv);
 
     mcancel = g_cancellable_new();
     mop = g_mount_operation_new();
@@ -32,12 +33,12 @@ int main (int argc, char* argv[])
     g_mount_operation_set_password_save(mop, G_PASSWORD_SAVE_FOR_SESSION);
 
     printf ("uri:%s\n", g_file_get_uri (mvolume));
-    g_file_mount_enclosing_volume(mvolume, 0, mop, mcancel, mount_enclosing_volume_callback, NULL);
+    g_file_mount_enclosing_volume(mvolume, 0, mop, mcancel, (void*)mount_enclosing_volume_callback, NULL);
 
     g_signal_connect (mop, "ask-question", G_CALLBACK(ask_question_cb), NULL);
     g_signal_connect (mop, "ask-password", G_CALLBACK(ask_password_cb), NULL);
 
-    gtk_main ();
+    //gtk_main ();
 
 
     // free

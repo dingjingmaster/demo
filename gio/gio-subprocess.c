@@ -5,6 +5,7 @@
 > Created Time: Thu 28 Apr 2022 11:30:10 AM CST
  ************************************************************************/
 #include <gio/gio.h>
+#include <stdio.h>
 
 static void done (GObject* source, GAsyncResult* result, gpointer udata)
 {
@@ -21,7 +22,7 @@ static void done (GObject* source, GAsyncResult* result, gpointer udata)
 
 int main (int argc, char* argv[])
 {
-    char* argv1[] = {
+    const char* argv1[] = {
         "touch",
         "/home/dingjing/kkk.txt",
         NULL

@@ -4,7 +4,9 @@
 > Mail    : dingjing@live.cn
 > Created Time: Thu 16 Mar 2023 10:58:06 AM CST
  ************************************************************************/
+#include <stdio.h>
 #include <gio/gio.h>
+#include <glib.h>
 
 
 int main (int argc, char* argv[])
@@ -17,7 +19,7 @@ int main (int argc, char* argv[])
 
     g_autoptr(GSocketAddress) sock = g_unix_socket_address_new(sockPath);
 
-    g_autoptr(GSocketConnection) conn = g_socket_client_connect(client, sock, NULL, &error);
+    g_autoptr(GSocketConnection) conn = g_socket_client_connect((GSocketClient*) client, (GSocketConnectable*) sock, NULL, &error);
     if (error) {
         printf ("error: %s\n", error->message);
         return -1;
@@ -25,13 +27,12 @@ int main (int argc, char* argv[])
 
     gchar* buffer = "hello";
 
-    GOutputStream* out = g_io_stream_get_output_stream (conn);
+    GOutputStream* out = g_io_stream_get_output_stream ((GIOStream*) conn);
     g_output_stream_write(out, buffer, strlen(buffer), NULL, &error);
     if (error) {
         printf ("error: %s\n", error->message);
         return -1;
     }
-
 
 
     return 0;

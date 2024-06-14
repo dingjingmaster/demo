@@ -5,7 +5,7 @@
 > Created Time: Fri 24 Mar 2023 08:26:34 AM CST
  ************************************************************************/
 #include <glib.h>
-
+#include <stdio.h>
 
 /* 检查事件源是否有事件发生，如果有事件已经发生，则无需轮询（poll） */
 gboolean g_source_myidle_prepare(GSource *source, gint *timeout) 
@@ -40,10 +40,10 @@ gboolean g_source_myidle_dispatch(GSource *source, GSourceFunc callback, gpointe
 }
 
 /* source被销毁前调用，使用此函数释放资源 */
-gboolean g_source_myidle_finalize(GSource *source) 
+void g_source_myidle_finalize(GSource *source) 
 {
     printf("finalize\n");
-    return FALSE;
+    return ;
 }
 
 gboolean myidle(gchar *message) 

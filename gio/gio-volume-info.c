@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年10月28日 星期四 16时02分11秒
  ************************************************************************/
+#include <stdio.h>
 #include <gio/gio.h>
 #include <gio/gunixmounts.h>
 

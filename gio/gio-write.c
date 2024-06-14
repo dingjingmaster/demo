@@ -4,6 +4,8 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年04月20日 星期二 15时01分10秒
  ************************************************************************/
+#include <stdio.h>
+#include <glib.h>
 #include <gio/gio.h>
 
 int main (int argc, char* argv[])
@@ -21,13 +23,13 @@ int main (int argc, char* argv[])
         return -1;
     }
 
-    gssize size = g_output_stream_write (fw, "123456789", 9, NULL, &error);
+    gssize size = g_output_stream_write ((GOutputStream*)fw, "123456789", 9, NULL, &error);
     if (NULL != error) {
         printf ("error:%s\n", error->message);
         return -1;
     }
 
-    gboolean ret = g_output_stream_flush (fw, NULL, &error);
+    gboolean ret = g_output_stream_flush ((GOutputStream*)fw, NULL, &error);
     if (NULL != error) {
         printf ("error:%s\n", error->message);
         return -1;

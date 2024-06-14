@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年11月03日 星期三 16时57分41秒
  ************************************************************************/
+#include <stdio.h>
 #include <gio/gio.h>
 
 char* url_encode (const char* url);
