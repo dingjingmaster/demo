@@ -5,6 +5,7 @@
 > Created Time: Fri 14 Apr 2023 05:34:49 PM CST
  ************************************************************************/
 #include <glib.h>
+#include <stdio.h>
 
 int main (int argc, char* argv[])
 {

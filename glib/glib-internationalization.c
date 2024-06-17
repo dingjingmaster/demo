@@ -5,6 +5,7 @@
 > Created Time: Wed 15 Mar 2023 11:01:02 AM CST
  ************************************************************************/
 #include <glib.h>
+#include <stdio.h>
 #include <glib/gi18n.h>
 
 int main (int argc, char* argv[])

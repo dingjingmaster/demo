@@ -6,6 +6,7 @@
  ************************************************************************/
 
 #include <glib.h>
+#include <stdio.h>
 
 int main(int argc, char *argv[]) 
 {
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 
     for (i = 0; i < 5; i++) {
         text = g_ptr_array_index(array, i);
-        g_printf("%s\n", text->str);
+        g_print("%s\n", text->str);
     }
                                 
     g_ptr_array_free(array, TRUE);

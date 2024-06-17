@@ -5,6 +5,7 @@
 > Created Time: Wed 15 Mar 2023 10:53:27 AM CST
  ************************************************************************/
 #include <glib.h>
+#include <stdio.h>
 #include <glib/gi18n.h>
 
 

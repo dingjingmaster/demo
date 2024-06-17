@@ -6,6 +6,7 @@
  ************************************************************************/
 #include <glib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <glib-object.h>
 
 static gboolean quit_callback (gpointer udata)
@@ -30,7 +31,7 @@ int main (int argc, char* argv[])
     GMainLoop* loop = g_main_loop_new (NULL, FALSE);
 
     // 创建闭包 GClosure* g_cclosure_new (GCallback cf, gpointer udata, GClosureNotify dd);
-    GClosure* c = g_cclosure_new (quit_callback, loop, NULL);
+    GClosure* c = g_cclosure_new (G_CALLBACK(quit_callback), loop, NULL);
     
     // 给 GSource 设置回调函数
     g_source_set_closure (src, c);

@@ -21,6 +21,8 @@ typedef struct _User User;
 GMutex mutex;
 #endif
 
+gboolean user_check_name_id(User *user) ;
+
 void user_set_name_id(User *user, GString *name, GString *id) 
 {
 #if MUTEX

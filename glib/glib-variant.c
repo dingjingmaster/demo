@@ -10,8 +10,8 @@
 
 int main (int argc, char* argv[])
 {
-    GVariantType* intI32 = g_variant_type_new (G_VARIANT_TYPE_INT32);
-    GVariantType* arrI32 = g_variant_type_new_array (G_VARIANT_TYPE_INT32);
+    GVariantType* intI32 = g_variant_type_new ("i");
+    GVariantType* arrI32 = g_variant_type_new_array (intI32);
 
 
     printf ("peek_string: %s\n", g_variant_type_peek_string(intI32));

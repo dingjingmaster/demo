@@ -15,13 +15,13 @@ int main (int argc, char* argv[])
         if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
             g_warning ("Error loading key file: %s", error->message);
         }
-        return;
+        return -1;
     }
 
     g_autofree gchar *val = g_key_file_get_string (key_file, "Group Name", "SomeKey", &error);
     if (val == NULL && !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND)) {
         g_warning ("Error finding key in key file: %s", error->message);
-        return;
+        return -1;
     }
     else if (val == NULL) {
         // Fall back to a default value.
