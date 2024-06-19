@@ -41,5 +41,13 @@ int main(int argc, char *argv[])
 
     printf("CLASSPATH\t: %s\n", g_getenv("CLASSPATH"));
 
+    char** eenv = g_get_environ();
+
+    printf ("\n========================================\n");
+    for (int i = 0; eenv[i]; ++i) {
+        printf ("%s\n", eenv[i]);
+    }
+    printf ("\n");
+
     return 0;
 }
