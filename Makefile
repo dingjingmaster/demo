@@ -9,6 +9,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		ev elf \
 		file font function fuse3 \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
+		hook hook-module \
 		ipc iso \
 		lightdm localization libblocked \
 		module \
