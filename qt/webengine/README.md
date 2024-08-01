@@ -47,3 +47,108 @@ Qt WebEngine Process 是一个单独的可执行文件，用于渲染网页和�
 ## Qt WebEngine Widgets C++类
 
 > 这些类用于在基于QWidget的应用程序中渲染Web内容
+
+## Qt WebChannel Javascript API
+
+Qt WebChannel 支持服务器（QML/C++应用程序）和客户端（HTML/JavaScript或QML应用程序）之间的点对点通信。
+
+该模块提供了一个JavaScript库，用于将C++和QML应用程序与HTML/JavaScript和QML客户端无缝集成。客户端必须使用JavaScript库来访问主机应用程序发布的序列化对象。
+
+要与 QWebChannel 通信，客户端必须使用并设置 qwechannel.js 提供的 Javascript API。对于在 QtWebEngine中运行的客户端，你可以加载 `qrc://xxx/qtwebchannel.js` 文件。
+
+对于外部客户端，你需要把此文件复制到网络服务器，然后实例化 QWebChannel 对象，并传递一个传输对象和回调函数，一旦通道的初始化完成并且已发布的对象可用，将调用该函数。
+
+传输对象实现了最小消息传递接口，它应该是一个具有`send()`函数的对象，该函数接收json消息，传递到服务器的 QWebChannelAbstractTransport对象。此外，当收到来自服务器的消息时候，应调用其onMessage属性，或者你可以使用websocket来实现接口。
+
+> 请注意：一旦传输对象完全运行，就应构建JavaScriptChannel对象，在WebSocket的情况下，这意味着您应该在套接字的 onOpen 处程序中创建完成。
+
+### 开始使用
+
+1. 头文件
+
+```c++
+#include <QtWebChannel/QtWebChannel>
+```
+
+2. 项目中
+```
+QT += webchannel
+```
+
+### 与QObject交互
+
+一旦调用传递给 QWebChannel 对象的回调，通道就完成了初始化，所有已经发布的对象都可以通过通道访问。
+
+```js
+new QWebChannel(yourTransport, function(channel) {
+
+    // Connect to a signal:
+    channel.objects.foo.mySignal.connect(function() {
+        // This callback will be invoked whenever the signal is emitted on the C++/QML side.
+        console.log(arguments);
+    });
+
+    // To make the object known globally, assign it to the window object, i.e.:
+    window.foo = channel.objects.foo;
+
+    // Invoke a method:
+    foo.myMethod(arg1, arg2, function(returnValue) {
+        // This callback will be invoked when myMethod has a return value. Keep in mind that
+        // the communication is asynchronous, hence the need for this callback.
+        console.log(returnValue);
+    });
+
+    // Read a property value, which is cached on the client side:
+    console.log(foo.myProperty);
+
+    // Writing a property will instantly update the client side cache.
+    // The remote end will be notified about the change asynchronously
+    foo.myProperty = "Hello World!";
+
+    // To get notified about remote property changes,
+    // simply connect to the corresponding notify signal:
+    foo.myPropertyChanged.connect(function() {
+        console.log(foo.myProperty);
+    });
+
+    // One can also access enums that are marked with Q_ENUM:
+    console.log(foo.MyEnum.MyEnumerator);
+});
+```
+
+### 重载的方法和信号
+
+// C++端
+```c++
+class Foo : public QObject
+{
+    Q_OBJECT
+slots:
+    void foo(int i);
+    void foo(double d);
+    void foo(const QString &str);
+    void foo(const QString &str, int i);
+
+signals:
+    void bar(int i);
+    void bar(const QString &str);
+    void bar(const QString &str, int i);
+};
+```
+
+// javascript 端
+```js
+// methods
+foo.foo(42); // will call the method named foo which best matches the JavaScript number parameter, i.e. foo(double d)
+foo.foo("asdf"); // will call foo(const QString &str)
+foo.foo("asdf", 42); // will call foo(const QString &str, int i)
+foo["foo(int)"](42); // explicitly call foo(int i), *not* foo(double d)
+foo["foo(QString)"]("asdf"); // explicitly call foo(const QString &str)
+foo["foo(QString,int)"]("asdf", 42); // explicitly call foo(const QString &str, int i)
+
+// signals
+foo.bar.connect(...); // connect to first signal named bar, i.e. bar(int i)
+foo["bar(int)"].connect(...); // connect explicitly to bar(int i)
+foo["bar(QString)"].connect(...); // connect explicitly to bar(const QString &str)
+foo["bar(QString,int)"].connect(...); // connect explicitly to bar(const QString &str, int i)
+```
