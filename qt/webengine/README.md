@@ -78,10 +78,59 @@ QT += webchannel
 3. 代码中
 
 // QWebEngineView 中
+// 以便 javascript 调用C++
 ```c++
 QWebChannel* channel = new QWebChannel(this);
 channel->registerObject("iand", this->core);  // 向QWebChannel注册用于Qt和Web交互的对象。
 this->page()->setWebChannel(channel);
+```
+
+4. c++ 调用javascript
+```c++
+view->page()->runJavaScript("showPie(%1)".arg(sss));
+```
+
+5. javascript 调用C++函数
+
+```js
+// 和QT交互
+new QWebChannel(qt.webchannelTransport, function(channel) {
+    window.bridge = channel.objects.bridge_name;
+})
+
+// 调用C++中的函数
+if (bridge) {
+    bridge.showMsgBox(params.name);
+}
+```
+
+C++中对应代码
+```c++
+class bridge : public QObject
+{
+    Q_OBJECT
+public:
+
+public slots:
+    void showMsgBox(QString msg); // 申请槽函数，供js中使用
+};
+```
+
+C++中对应代码
+
+```c++
+{
+    view = new QWebEngineView(this);
+    setCentraWidget(view);
+
+    channel = new QWebChannel(this);
+    bridge1 = new bridge;
+    channel->registerObject("mybridge", (QObject*) bridge1);
+    
+    view->page()->setWebChannel(channel);
+
+    view->page()->load("https://xxxx");
+}
 ```
 
 ### 与QObject交互
