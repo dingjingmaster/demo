@@ -75,6 +75,15 @@ Qt WebChannel 支持服务器（QML/C++应用程序）和客户端（HTML/JavaSc
 QT += webchannel
 ```
 
+3. 代码中
+
+// QWebEngineView 中
+```c++
+QWebChannel* channel = new QWebChannel(this);
+channel->registerObject("iand", this->core);  // 向QWebChannel注册用于Qt和Web交互的对象。
+this->page()->setWebChannel(channel);
+```
+
 ### 与QObject交互
 
 一旦调用传递给 QWebChannel 对象的回调，通道就完成了初始化，所有已经发布的对象都可以通过通道访问。
