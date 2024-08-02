@@ -1,0 +1,3 @@
+*.moc.cpp
+*.moc
+moc_*.cpp
