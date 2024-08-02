@@ -12,7 +12,7 @@
 
 QStringList format_str(QString& str);
 QList<uint> port_list(QStringList& ls);
-QList<QString> addr_list(QStringList& ls);
+QList<QString> ip_list(QStringList& ls);
 
 int main (int argc, char* argv[])
 {
@@ -41,10 +41,10 @@ int main (int argc, char* argv[])
     auto s3 = port_list(f3);
     auto s4 = port_list(f4);
 #else
-    auto s1 = addr_list(f1);
-    auto s2 = addr_list(f2);
-    auto s3 = addr_list(f3);
-    auto s4 = addr_list(f4);
+    auto s1 = ip_list(f1);
+    auto s2 = ip_list(f2);
+    auto s3 = ip_list(f3);
+    auto s4 = ip_list(f4);
 #endif
 
     qInfo() << "str1: " << str1 << " -- " << f1 << " -- " << s1;
@@ -55,9 +55,62 @@ int main (int argc, char* argv[])
     return 0;
 }
 
-QList<QString> addr_list(QStringList& ls)
+QList<QString> ip_list(QStringList& ls)
 {
     QSet<QString> addrs;
+
+    for (auto l : ls) {
+        if (l.endsWith("|")) {
+            l = l.chopped(1);
+        }
+
+        if (l.startsWith("|")) {
+            l = l.remove(0, 1);
+        }
+
+        auto pp = l.split("|");
+        if (pp[0].toUpper() == "S") {
+            for (int i = 1; i < pp.size(); ++i) {
+                addrs.insert(pp[i]);
+            }
+        }
+        else if (pp[0].toUpper() == "F") {
+            if (pp.size() != 3) {
+                qWarning() << "error: " << l;
+            }
+            else {
+                struct in_addr ip1, ip2;
+                int ipInt1, ipInt2;
+
+                if (0 == inet_aton(pp[1].toUtf8().constData(), &ip1)) {
+                    qInfo() << "Invalid start ip: " << pp[1];
+                    continue;
+                }
+
+                if (0 == inet_aton(pp[2].toUtf8().constData(), &ip2)) {
+                    qInfo() << "Invalid start ip: " << pp[2];
+                    continue;
+                }
+
+                ipInt1 = ntohl (ip1.s_addr);
+                ipInt2 = ntohl (ip2.s_addr);
+
+                long startIp = ipInt1;
+                long endIp = ipInt2;
+
+                if (startIp > endIp) {
+                    startIp = ipInt2;
+                    endIp = ipInt1;
+                }
+
+                for (int i = startIp; i <= endIp; ++i) {
+                    struct in_addr ip;
+                    ip.s_addr = htonl(i);
+                    addrs.insert(inet_ntoa(ip));
+                }
+            }
+        }
+    }
 
     return addrs.values();
 }
