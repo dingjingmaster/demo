@@ -1,4 +1,4 @@
-cflag = -w -fPIE -fPIC `pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets`
+cflag = -w -fPIE -fPIC `pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets Qt5WebSockets`
 
 curDir 	= $(shell pwd)
 src 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.cpp)))
