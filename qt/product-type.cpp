@@ -1,17 +1,13 @@
 /*************************************************************************
-> FileName: websocket.cpp
+> FileName: host-address.cpp
 > Author  : DingJing
 > Mail    : dingjing@live.cn
-> Created Time: Wed 07 Aug 2024 07:00:57 PM CST
+> Created Time: Fri 09 Aug 2024 11:05:31 AM CST
  ************************************************************************/
-#include <QWebSocket>
-#include <QApplication>
+#include <QDebug>
+#include <QSysInfo>
 
 int main (int argc, char* argv[])
 {
-    QApplication app (argc, argv);
-
-    QWebSocket web("ws://");
-
-    return app.exec();
+    qDebug() << QSysInfo::productType();
 }
