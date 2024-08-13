@@ -1,6 +1,7 @@
 ifneq ($(KERNELRELEASE),)
 name 	:= $(shell basename $(shell realpath -- $(shell pwd)))
 obj-m 	+= hello-1.o
+obj-m 	+= hello-2.o
 #module1-objs := tiny-fs.o #$(wildcard $(shell pwd)/*.c)
 #$(shell basename $(shell realpath -- $(shell pwd))).o
 else

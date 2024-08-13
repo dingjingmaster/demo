@@ -5,7 +5,7 @@ ifeq ($(shell uname -o), Darwin)
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
 		version \
-		hello-1
+		hello
 endif
 
 # learn
