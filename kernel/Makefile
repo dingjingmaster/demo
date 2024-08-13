@@ -4,10 +4,10 @@ ifeq ($(shell uname -o), Darwin)
 	subdirs = object-c 
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
-		version \
-		learn
+		version 
 endif
 
+# learn
 
 all:
 	@for subdir in $(subdirs); \
