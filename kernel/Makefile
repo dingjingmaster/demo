@@ -6,7 +6,8 @@ else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
 		version \
 		hello \
-		start-stop
+		start-stop \
+		chardev
 endif
 
 # learn
