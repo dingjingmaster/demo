@@ -4,7 +4,8 @@ ifeq ($(shell uname -o), Darwin)
 	subdirs = object-c 
 else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
-		version 
+		version \
+		hello-1
 endif
 
 # learn
