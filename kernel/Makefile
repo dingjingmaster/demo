@@ -7,7 +7,8 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		version \
 		hello \
 		start-stop \
-		chardev
+		chardev \
+		procfs
 endif
 
 # learn
