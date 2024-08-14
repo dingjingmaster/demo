@@ -12,7 +12,9 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		sysfs \
 		ioctl \
 		syscall \
-		sleep
+		sleep \
+		completions \
+		lock
 endif
 
 # learn

@@ -23,3 +23,5 @@
 10. 设备类型
 11. `seq_file`：简化读写`/proc`文件的复杂度。有三个API`start()`、`next()`、`stop()`，当读取一个 `/proc` 文件时候，开始调用`start()`，如果返回非`NULL`，则继续调用`next()`，否则调用`stop()`，每次调用`next()`之后，就会调用`show()`。
 12. ioctl
+13. completions：代码同步（比如：一个进程完成后再执行另一个进程），completions有三个主要部分：初始化completion同步结构体部分、通过`wait_for_completion()`等待完成、通过`complete()`发送完成信号。
+14. 锁：互斥锁、自旋锁
