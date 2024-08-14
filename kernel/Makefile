@@ -8,7 +8,11 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		hello \
 		start-stop \
 		chardev \
-		procfs
+		procfs \
+		sysfs \
+		ioctl \
+		syscall \
+		sleep
 endif
 
 # learn
