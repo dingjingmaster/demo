@@ -18,7 +18,9 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		x \
 		schedu \
 		interrupt \
-		virt
+		virt \
+		device-model \
+		optimizations \
 
 endif
 
