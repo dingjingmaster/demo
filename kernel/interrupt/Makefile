@@ -1,11 +1,7 @@
 ifneq ($(KERNELRELEASE),)
 name 	:= $(shell basename $(shell realpath -- $(shell pwd)))
-obj-m 	+= tasklet.o
-tasklet-objs := example_tasklet.o
-obj-m 	+= sched.o
-obj-m 	+= bh_threaded.o
-#module1-objs := tiny-fs.o #$(wildcard $(shell pwd)/*.c)
-#$(shell basename $(shell realpath -- $(shell pwd))).o
+obj-m 	+= intrpt.o
+obj-m 	+= bottomhalf.o
 else
 PWD  := $(shell pwd)
 KVER := $(shell uname -r)

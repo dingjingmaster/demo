@@ -17,6 +17,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		lock \
 		x \
 		schedu \
+		interrupt \
 
 endif
 
