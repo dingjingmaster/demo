@@ -14,7 +14,10 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		syscall \
 		sleep \
 		completions \
-		lock
+		lock \
+		x \
+		schedu \
+
 endif
 
 # learn
