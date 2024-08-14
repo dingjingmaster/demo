@@ -18,6 +18,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		x \
 		schedu \
 		interrupt \
+		virt
 
 endif
 
