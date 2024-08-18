@@ -1,19 +1,12 @@
 /*************************************************************************
-> FileName: empty-func.c
+> FileName: libempty.c
 > Author  : DingJing
 > Mail    : dingjing@live.cn
-> Created Time: Sun Jun  2 10:13:57 2024
+> Created Time: Sun Jun  2 10:38:43 2024
  ************************************************************************/
 #include <stdio.h>
 
-extern void empty_func();
-
-//void empty_func()
-//{}
-
-int main (void)
+void empty_func()
 {
-    empty_func();
-
-    return 0;
+    printf("%s %s\n", __FILE__, __FUNCTION__);
 }
