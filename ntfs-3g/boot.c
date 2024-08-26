@@ -46,16 +46,32 @@ int main (int argc, char* argv[])
     }
 
 #define _OF(x) \
-    (0), (sizeof(x))
+    (0), (sizeof(x) - 1)
 
 #define _OFFSET(x) offsetof(NTFS_BOOT_SECTOR, x)
+#define _OFFSET_PARAM(x) offsetof(BIOS_PARAMETER_BLOCK, x)
 
 #define _OF_L(tis, param) \
-    _OFFSET(tis), _OFFSET(tis) + sizeof(param)
+    _OFFSET(tis), _OFFSET(tis) + sizeof(param) - 1
+
+#define _OF_PARAM_L(tis, param) \
+    _OFFSET(bpb) + _OFFSET_PARAM(tis), _OFFSET(bpb) + _OFFSET_PARAM(tis) + sizeof(param) - 1
 
     printf("[0x%03X - 0x%03X] <jump>\n", _OF(bs->jump));
     printf("[0x%03X - 0x%03X] Magic                                   : 0x%X\n", _OF_L(oem_id, bs->oem_id), bs->oem_id);
     printf("[0x%03X - 0x%03X] <BIOS_PARAMETER_BLOCK>\n", _OF_L(bpb, bs->bpb));
+    printf(" [0x%03X - 0x%03X]    bytes_per_sector                    :0x%X(%d)\n", _OF_PARAM_L(bytes_per_sector, bs->bpb.bytes_per_sector), bs->bpb.bytes_per_sector, bs->bpb.bytes_per_sector);
+    printf(" [0x%03X - 0x%03X]    sectors_per_cluster                 :0x%X(%d)\n", _OF_PARAM_L(sectors_per_cluster, bs->bpb.sectors_per_cluster), bs->bpb.sectors_per_cluster, bs->bpb.sectors_per_cluster);
+    printf(" [0x%03X - 0x%03X]    reserved_sectors                    :0x%X(%d)\n", _OF_PARAM_L(reserved_sectors, bs->bpb.reserved_sectors), bs->bpb.reserved_sectors, bs->bpb.reserved_sectors);
+    printf(" [0x%03X - 0x%03X]    fats                                :0x%X(%d)\n", _OF_PARAM_L(fats, bs->bpb.fats), bs->bpb.fats, bs->bpb.fats);
+    printf(" [0x%03X - 0x%03X]    root_entries                        :0x%X(%d)\n", _OF_PARAM_L(root_entries, bs->bpb.root_entries), bs->bpb.root_entries, bs->bpb.root_entries);
+    printf(" [0x%03X - 0x%03X]    sectors                             :0x%X(%d)\n", _OF_PARAM_L(sectors, bs->bpb.sectors), bs->bpb.sectors, bs->bpb.sectors);
+    printf(" [0x%03X - 0x%03X]    media_type                          :0x%X(%d)\n", _OF_PARAM_L(media_type, bs->bpb.media_type), bs->bpb.media_type, bs->bpb.media_type);
+    printf(" [0x%03X - 0x%03X]    sectors_per_fat                     :0x%X(%d)\n", _OF_PARAM_L(sectors_per_fat, bs->bpb.sectors_per_fat), bs->bpb.sectors_per_fat, bs->bpb.sectors_per_fat);
+    printf(" [0x%03X - 0x%03X]    sectors_per_track                   :0x%X(%d)\n", _OF_PARAM_L(sectors_per_track, bs->bpb.sectors_per_track), bs->bpb.sectors_per_track, bs->bpb.sectors_per_track);
+    printf(" [0x%03X - 0x%03X]    heads                               :0x%X(%d)\n", _OF_PARAM_L(heads, bs->bpb.heads), bs->bpb.heads, bs->bpb.heads);
+    printf(" [0x%03X - 0x%03X]    hidden_sectors                      :0x%X(%d)\n", _OF_PARAM_L(hidden_sectors, bs->bpb.hidden_sectors), bs->bpb.hidden_sectors, bs->bpb.hidden_sectors);
+    printf(" [0x%03X - 0x%03X]    large_sectors                       :0x%X(%d)\n", _OF_PARAM_L(large_sectors, bs->bpb.large_sectors), bs->bpb.large_sectors, bs->bpb.large_sectors);
     printf("[0x%03X - 0x%03X] 设备类型(0x00,floppy; 0x80,hard disk)   :0x%X\n", _OF_L(physical_drive, bs->physical_drive), bs->physical_drive);
     printf("[0x%03X - 0x%03X] current_head                            :0x%X\n", _OF_L(current_head, bs->current_head), bs->current_head);
     printf("[0x%03X - 0x%03X] extended_boot_signature                 :0x%X\n", _OF_L(extended_boot_signature, bs->extended_boot_signature), bs->extended_boot_signature);
@@ -71,6 +87,7 @@ int main (int argc, char* argv[])
     printf("[0x%03X - 0x%03X] checksum                                :0x%X(%d)\n", _OF_L(checksum, bs->checksum), bs->checksum, bs->checksum);
     printf("[0x%03X - 0x%03X] <bootstrap>\n", _OF_L(bootstrap, bs->bootstrap));
     printf("[0x%03X - 0x%03X] end_of_sector_marker                    :0x%X\n", _OF_L(end_of_sector_marker, bs->end_of_sector_marker), bs->end_of_sector_marker);
+    printf("\n");
 
 
 end:
