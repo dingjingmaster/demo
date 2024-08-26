@@ -13,6 +13,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		ipc iso \
 		lightdm localization libblocked \
 		module \
+		ntfs-3g \
 		pam pcre polkit protobuf python-c-api python \
 		qt qt-demo qt-tools \
 		rust \
