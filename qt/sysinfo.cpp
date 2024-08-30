@@ -8,21 +8,24 @@
 #include <QLocale>
 #include <QSysInfo>
 #include <QStorageInfo>
+#include <QStandardPaths>
 
 int main (int argc, char* argv[])
 {
     QSysInfo info;
 
-    qDebug() << info.buildAbi() << "\n";
-    qDebug() << info.buildCpuArchitecture() << "\n";
-    qDebug() << info.currentCpuArchitecture() << "\n";
-    qDebug() << info.kernelType() << "\n";
-    qDebug() << info.kernelVersion() << "\n";
-    qDebug() << info.machineHostName() << "\n";
-    qDebug() << info.machineUniqueId() << "\n";
-    qDebug() << info.prettyProductName() << "\n";
-    qDebug() << info.productType() << "\n";
-    qDebug() << info.productVersion() << "\n";
+    qDebug() << info.buildAbi();
+    qDebug() << info.buildCpuArchitecture();
+    qDebug() << info.currentCpuArchitecture();
+    qDebug() << info.kernelType();
+    qDebug() << info.kernelVersion();
+    qDebug() << info.machineHostName();
+    qDebug() << info.machineUniqueId();
+    qDebug() << info.prettyProductName();
+    qDebug() << info.productType();
+    qDebug() << info.productVersion();
+
+    qDebug() << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     return 0;
 }
