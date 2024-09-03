@@ -87,6 +87,6 @@ private:
     QLocalServer *m_server;
 };
 
-#include "server-header.moc"
+//#include "server-header_moc.cpp"
 
 #endif

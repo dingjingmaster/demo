@@ -7,6 +7,9 @@ CFLAGS = `pkg-config --cflags Qt5Widgets Qt5Core Qt5Gui`
 LIBS   = $(shell pkg-config --libs Qt5Widgets Qt5Core Qt5Gui)
 LIBS   = `pkg-config --libs Qt5Widgets Qt5Core Qt5Gui`
 
+rcc = /usr/lib64/qt5/bin/rcc
+moc = /usr/lib64/qt5/bin/moc
+
 all:puzzle.run
 
 
@@ -19,10 +22,10 @@ puzzle.run:main.o puzzle.o $(OBJ)
 	@echo "CC -o $@ $<"
 
 moc_%.cpp : %.h
-	@moc-qt5 $< > $@
+	@$(moc) $< > $@
 
 puzzle.cpp : puzzle.qrc
-	@rcc-qt5 $< -o $@ 
+	@$(rcc) $< -o $@ 
 
 
 clean:

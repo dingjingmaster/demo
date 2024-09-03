@@ -1,37 +1,48 @@
 cflag = -w -fPIE -fPIC `pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets Qt5WebSockets`
 
 curDir 	= $(shell pwd)
-src 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.cpp)))
-target 	= $(strip $(patsubst %.cpp, %.run, $(src)))
 
-src1 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/hook-*.c)))
-target1 = $(strip $(patsubst %.c, %.so, $(src1)))
+src11	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.cpp)))
+src12	= $(filter-out *_moc.cpp, $(src11))
+target1	= $(strip $(patsubst %.cpp, %.run, $(src12)))
 
-all:$(target) $(target1)
-	make -C drag-drop1
-	make -C drag-drop2
+src21 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/hook-*.c)))
+src22	= $(filter-out *_moc.cpp, $(src21))
+target2 = $(strip $(patsubst %.c, %.so, $(src22)))
 
-ss.run : ss.cpp server-header.moc
+rcc = /usr/lib64/qt5/bin/rcc
+moc = /usr/lib64/qt5/bin/moc
+
+all:$(target1) $(target2)
+	@echo $(target1) $(target2)
+	#make -C drag-drop1
+	#make -C drag-drop2
+
+ss.run : ss.cpp server-header.moc.cpp
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $^ $(cflag) 
+	@echo CC -o $@
+
 
 header.run:header.cpp header/header-button.cpp header/main-header.cpp
-	@rcc -o header/res.h header/res.qrc
-	@moc -o header/main-header.moc.cpp header/main-header.h
-	@moc -o header/header-button.moc.cpp header/header-button.h
+	@$(rcc) -o header/res.h header/res.qrc
+	@$(moc) -o header/main-header.moc.cpp header/main-header.h
+	@$(moc) -o header/header-button.moc.cpp header/header-button.h
 	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $^ header/main-header.moc.cpp header/header-button.moc.cpp $(cflag) 
+	@echo CC -o $@
 
 %.so : %.c
 	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Gui Qt5Widgets` -ldl
 	@echo "CC -o $@ $<"
 
 %.run:%.cpp 
-	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
 	@echo "CC -o $@ $<"
 
 %.o:%.cpp
 	@g++ -o $@ -c $< $(cflag)
 
-%.moc:%.h
-	@moc $(curDir)/$< > $(curDir)/$@
+%.moc.cpp:%.h
+	@$(moc) $(curDir)/$< > $(curDir)/$@
 
 .PHONY:clean all
 
