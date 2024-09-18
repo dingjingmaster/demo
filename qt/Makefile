@@ -4,11 +4,13 @@ curDir 	= $(shell pwd)
 
 src11	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/*.cpp)))
 src12	= $(filter-out *_moc.cpp, $(src11))
-target1	= $(strip $(patsubst %.cpp, %.run, $(src12)))
+src13	= $(filter-out *.moc.cpp, $(src12))
+target1	= $(strip $(patsubst %.cpp, %.run, $(src13)))
 
 src21 	= $(strip $(subst $(curDir), ., $(wildcard $(curDir)/hook-*.c)))
 src22	= $(filter-out *_moc.cpp, $(src21))
-target2 = $(strip $(patsubst %.c, %.so, $(src22)))
+src23	= $(filter-out *.moc.cpp, $(src22))
+target2 = $(strip $(patsubst %.c, %.so, $(src23)))
 
 rcc = /usr/lib64/qt5/bin/rcc
 moc = /usr/lib64/qt5/bin/moc
@@ -33,6 +35,9 @@ header.run:header.cpp header/header-button.cpp header/main-header.cpp
 %.so : %.c
 	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Gui Qt5Widgets` -ldl
 	@echo "CC -o $@ $<"
+
+%.moc.run:
+	@echo $@
 
 %.run:%.cpp 
 	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
