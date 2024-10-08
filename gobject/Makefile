@@ -48,15 +48,15 @@ all:$(target)
 
 
 demo11:
-	libtool --mode=compile gcc -c demo11/foo.c
-	gcc -fPIC -shared -o .libs/libfoo.so demo11/foo.c
-	#libtool --mode=link gcc -o libfoo.la foo.lo 
+	libtool --tag CC --mode=compile gcc -c demo11/foo.c
+	gcc -fPIC -shared -o libfoo.so demo11/foo.c
+	#libtool --mode=link gcc -o libfoo.la foo.lo
 	# 编辑 libfoo.la <我已编辑>
 	g-ir-scanner --namespace=Foo --nsversion=1.0 --library=libfoo.la demo11/foo.h demo11/foo.c -o Foo-1.0.gir
 	g-ir-compiler --includedir=. -o Foo-1.0.typelib Foo-1.0.gir
-	sudo cp .libs/libfoo.so /lib/
+	sudo cp libfoo.so /lib64/
 	sudo cp Foo-1.0.gir /usr/share/gir-1.0/
-	sudo cp Foo-1.0.typelib /usr/lib/girepository-1.0/
+	sudo cp Foo-1.0.typelib /usr/lib64/girepository-1.0/
 	@echo -e "\n\n\n\n"
 	gjs ./demo11/test.js
 

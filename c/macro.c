@@ -15,10 +15,14 @@
         ".previous\n"                               \
     );
 
+#define STR "Hello World"
+#define MACRO_STR_LEN(x) (sizeof(x) - 1)
+
 int main (int argc, char* argv[])
 {
     EMBED_STR(srcfile, "macro.c");
     printf ("\n%s\n\n", srcfile);
 
+    printf ("%s: %d", STR, MACRO_STR_LEN(STR));
     return 0;
 }
