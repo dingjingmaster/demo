@@ -18,6 +18,7 @@ int main (int argc, char* argv[])
     printf ("unsigned int: %u\n", sizeof(unsigned int));
     printf ("unsigned long: %u\n", sizeof(unsigned long));
     printf ("unsigned sort: %u\n", sizeof(unsigned short));
+    printf ("long int: %u\n", sizeof(long int));
 
 
     return 0;
