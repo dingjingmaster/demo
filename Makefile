@@ -6,7 +6,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 	subdirs = \
 		c core clib cppbase cbase cairo cuda cups \
 		dbus dconf device dpdk \
-		ev elf \
+		ebpf ev elf \
 		file font function fuse3 \
 		gdk3 gtk gudev gvfs gio glib gsettings gstreamer gio-channel gobject gtk gjs gnome-shell \
 		haskell hook hook-module \
