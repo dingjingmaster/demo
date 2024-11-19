@@ -8,9 +8,13 @@ int main (void)
 
     do {
         qDebug() << dir;
-        int lastIdx = dir.lastIndexOf('/');
-        if (!lastIdx || "/" == dir) {
+        if ("/" == dir) {
             break;
+        }
+        int lastIdx = dir.lastIndexOf('/');
+        if (lastIdx <= 0) {
+            dir = "/";
+            continue;
         }
         dir = dir.left(lastIdx);
     } while(true);
