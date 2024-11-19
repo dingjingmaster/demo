@@ -5,6 +5,7 @@
 > Created Time: Fri 17 Mar 2023 10:21:18 AM CST
  ************************************************************************/
 #include <stdio.h>
+#include <unistd.h>
 #include <stdint.h>
 
 int main (int argc, char* argv[])
@@ -19,6 +20,8 @@ int main (int argc, char* argv[])
     printf ("unsigned long: %u\n", sizeof(unsigned long));
     printf ("unsigned sort: %u\n", sizeof(unsigned short));
     printf ("long int: %u\n", sizeof(long int));
+
+    printf ("pid_t: %u\n", sizeof(pid_t));
 
 
     return 0;
