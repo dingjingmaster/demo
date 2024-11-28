@@ -1,6 +1,6 @@
 is_true = { \
   if test -d '/proc'; then \
-    true; 
+    true;
   fi; \
 }
 
