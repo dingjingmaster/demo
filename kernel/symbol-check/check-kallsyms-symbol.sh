@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set +e
 
 #
 # 使用此脚本之前, 自觉判断 /proc/kallsyms 是否存在
