@@ -1,4 +1,4 @@
-obj-m 			:= kallsyms-each-symbol.o
+obj-m 			:= sprint-symbol.o
 KERNEL_BUILD 	:= /lib/modules/$(shell uname -r)/build
 
 scullc:
