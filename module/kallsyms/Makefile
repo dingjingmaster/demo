@@ -1,7 +1,7 @@
-obj-m 			:= sprint-symbol.o
+obj-m 			:= kallsyms-proc.o
 KERNEL_BUILD 	:= /lib/modules/$(shell uname -r)/build
 
-scullc:
+all:
 	$(MAKE) -C $(KERNEL_BUILD) M=$(shell pwd) modules
 
 clean:
