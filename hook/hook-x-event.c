@@ -12,12 +12,13 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <syslog.h>
 #include <stdbool.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "c-log.h"
+//#include "c-log.h"
 
 #ifndef RTLD_NEXT
 #define RTLD_NEXT (void*)-1
@@ -30,7 +31,7 @@ typedef void (*XNextEventPtr) (void* disp, void* event);
 
 void XNextEvent (void* disp, void* event)
 {
-    log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
+    //log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
     XNextEventPtr old = (XNextEventPtr) dlsym (RTLD_NEXT, "XNextEvent");
     if (old == NULL) {
         return ;
@@ -80,19 +81,19 @@ void XNextEvent (void* disp, void* event)
         default :       str = "unknown";            break;
     }
 
-    loge("XNextEvent %d - %s", (*p), str);
+    syslog(LOG_ERR, "XNextEvent %d - %s", (*p), str);
 }
 
 typedef int (*XChangePropertyPtr) (void*, int64_t, int64_t [], int64_t, int, int, const unsigned char* data, int nes);
 int XChangeProperty (void* display, int64_t window, int64_t property, int64_t type, int format, int mode, const unsigned char* data, int npositions)
 {
-    log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
+    //log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
     XChangePropertyPtr old = (XChangePropertyPtr) dlsym (RTLD_NEXT, "XChangeProperty");
     if (old == NULL) {
         return 0;
     }
 
-    loge("XChangeProperty: %s", data ? data : "<null>");
+    syslog(LOG_ERR, "XChangeProperty: %s", data ? data : "<null>");
 
     return old(display, window, property, type, format, mode, data, npositions);
 }
