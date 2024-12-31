@@ -457,10 +457,40 @@ extern void EncodeDES3              (IN uint8_t* pBuffer, IN uint32_t nLength, I
 extern void DecodeSM4               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
 extern void EncodeSM4               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
 
-inline uint32_t GetSafeHeadAdler    (IN SafeFileHead* fileHead)
+inline uint32_t GetSafeHeadAdler (IN SafeFileHead* fileHead)
 {
     return Adler32((uint8_t*) &fileHead->magic, C_STRUCT_OFFSET_OF(SafeFileHead, headAdler));
 }
+
+static inline void print_safe_head (SafeFileHead* sh)
+{
+    if (!sh) { return; }
+
+    printf("magic       : %u\n", sh->magic);
+    printf("magicID     : %u\n", sh->magicID);
+    printf("version     : %u\n", sh->version);
+    printf("headSize    : %u\n", sh->headSize);
+    printf("fileType    : %u\n", sh->fileType);
+    printf("headArith   : %u\n", sh->headArith);
+    printf("prompt      : %s\n", sh->prompt);
+    printf("reserved    : %u %u\n", sh->reserved[0], sh->reserved[1]);
+    printf("authorID    : %s\n", sh->authorID);
+    printf("departID    : %s\n", sh->departID);
+    printf("userState   : %u\n", sh->userState);
+    printf("headItems   : %u\n", sh->headItems);
+    printf("fileItems   : %u\n", sh->fileItems);
+    printf("dataKey     : %s\n", sh->dataKey);
+    printf("dataKeyAdler: %u\n", sh->dataKeyAdler);
+    printf("keyArith    : %u\n", sh->keyArith);
+    printf("dataArith   : %u\n", sh->dataArith);
+    printf("dataMode    : %u\n", sh->dataMode);
+    printf("headDataSize: %u\n", sh->headDataSize);
+    printf("dataAdler   : %u\n", sh->dataAdler);
+    printf("headAdler   : %u\n", sh->headAdler);
+    printf("reserved1   : %u %u\n", sh->reserved1[0], sh->reserved1[1]);
+    printf("headData    : %s\n", sh->headData);
+}
+
 
 #ifdef __cplusplus
 }
