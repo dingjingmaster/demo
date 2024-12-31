@@ -3,6 +3,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
+
+
+#ifdef __cplusplus
+extern "C" 
+{
+#endif
+
 
 #ifndef IN
 #define IN
@@ -27,12 +35,31 @@
 #define HASH_ARITH_SHA2             3
 #define HASH_ARITH_SM3              8
 
+#define ENCRYPT_ARITH_NONE          0
+//stream 
+#define ENCRYPT_ARITH_RC4           10
+#define ENCRYPT_ARITH_ENRC4         11
+///
+#define ENCRYPT_ARITH_RC5           20
+#define ENCRYPT_ARITH_RC6           30
+//block
+#define ENCRYPT_ARITH_DES           40
+#define ENCRYPT_ARITH_3DES          41
+#define ENCRYPT_ARITH_SEAL          50
+#define ENCRYPT_ARITH_TEA           60
+#define ENCRYPT_ARITH_XXTEA         61
+#define ENCRYPT_ARITH_AES           70
+#define ENCRYPT_ARITH_SM4           80
+
 #define MAX_KEY_LEN                 32
 #define USERID_LENGTH               32
 #define HEAD_DATA_SIZE              32
 #define MAX_MACHINE_UUID            32
 #define MAX_FONT_NAME_LEN           15
+#define ENCRYPTKEY_LEN              64
 #define MAX_SHOWTEXT_LEN            95
+#define MAX_MOUNT_PATH              16
+#define MAX_MAP_PATH                256
 #define SAFE_HEAD_SIZE              1024
 #define FILE_HEAD_SIZE              4096
 #define FILE_HEAD_VERSION           0x02
@@ -50,6 +77,9 @@
 #endif
 #endif
 
+#ifndef C_STRUCT_OFFSET_OF
+#define C_STRUCT_OFFSET_OF(structType, member)                                  offsetof(structType, member)
+#endif
 
 #ifndef C_STRUCT_SIZE_CHECK
 #if C_SUPPORTED_C11
@@ -96,11 +126,37 @@ typedef enum
 
 typedef enum
 {
+    CIPHERTYPE_NONE         = 0x0,
+    CIPHERTYPE_ENCRYPT      = 0x1,
+    CIPHERTYPE_DECRYPT      = 0x2,
+    CIPHERTYPE_DECRYPT_CLOUD= 0x4,
+} CipherType;
+
+typedef enum
+{
     QUARCTRL_GLOABLE        =  0x1,
     QUARCTRL_ORG            =  0x10,
     QUARCTRL_PERSONAL       =  0x100,
     QUARCTRL_RESERVED       = 0x10000000,
 } QuarCtrl;
+
+typedef enum
+{
+    WORKMODE_NORMAL         = 0x0,
+    WORKMODE_USERSELF       = 0x1,
+    WORKMODE_WRITEENCRYPT   = 0x2,
+} WorkMode;
+
+typedef enum
+{
+    VOLUMEINFO_NORMAL       = 0x0,
+    VOLUMEINFO_READONLY     = 0x01,
+    VOLUMEINFO_HIDDEN       = 0x02,
+    VOLUMEINFO_REMOVABLE    = 0x04,
+    VOLUMEINFO_CLOUDBOX     = 0x01000,
+    VOLUMEINFO_SANDBOX      = 0x02000,
+    VOLUMEINFO_ULONG        = 0xFFFFFFFF
+} VolumeInfo;
 
 typedef enum
 {
@@ -148,6 +204,21 @@ typedef enum
     WMTYPE_FILE             = 0x200,
     WMTYPE_ENCRYPT_PRINT    = 0x400,
 } WMType;
+
+typedef struct
+{
+    int64_t                         arith;
+    int64_t                         arithMode;
+    uint16_t                        keyLen;
+    union {
+        char                        encryptKey[ENCRYPTKEY_LEN];
+        // DJ- FIXME://
+        //rc4_context                 rc4Ctx;
+        //aes_context                 aesCtx;
+        //CSm4Ctx                     sm4Ctx;
+    };
+} CryptInfo, *PCryptInfo;
+
 
 typedef struct __attribute__((packed))
 {
@@ -333,5 +404,66 @@ struct __attribute__((packed)) _DrmFileHead
 };
 C_TYPE_SIZE_CHECK(DrmFileHead, 4096);
 
+
+
+extern bool GetDRMFileId            (IN const uint8_t* fileName, OUT int8_t fileID);
+extern bool ReadDRMHead             (IN void* handle, OUT DrmFileHead* pFileHead, IN const uint8_t* masterKey);
+extern bool WriteDRMHead            (IN void* handle, IN DrmFileHead* pFileHead, IN const uint8_t* masterKey);
+extern bool GetPlainDRMDataKey      (INOUT void* pFileHead, INOUT uint8_t* dataKey, IN uint8_t dataKeyLen);
+extern bool GetDRMDataKey           (INOUT DrmFileHead* fileHead, IN const uint8_t* masterKey, INOUT uint8_t* dataKey);
+extern bool ChgDRMMasterKey         (INOUT DrmFileHead* fileName, IN const uint8_t* oldMasterKey, IN uint8_t* newMaster);
+extern bool GetDRMMasterKey         (INOUT DrmFileHead* fileHead, IN const uint8_t* listKey, IN uint32_t listKeyNums, INOUT uint8_t* masterKey);
+extern bool DecodeDRMHead           (INOUT DrmFileHead* fileHead, IN const uint8_t* masterKey);
+extern void EncodeDRMHead           (INOUT DrmFileHead* fileHead, IN const uint8_t* masterKey);
+extern void MakeDRMHead             (INOUT DrmFileHead* fileHead, IN uint32_t fileType, IN uint32_t subType /*= 0*/, IN uint8_t* headBuffer/* = NULL*/, IN uint32_t headBufferSize /* = 0*/);
+extern bool ReadSafeFile            (IN const char* fileName, IN const SafeFileHead* fileHead, OUT void* dataBuffer, IN uint32_t dataBytes, IN int64_t offset /* = SAFE_HEAD_SIZE*/);
+extern bool WriteSafeFile           (IN const char* fileName, IN const SafeFileHead* fileHead, IN void* dataBuffer, IN uint32_t dataBytes, IN int64_t offset /*= SAFE_HEAD_SIZE*/);
+extern bool ReadSafeHead            (IN const char* fileName, OUT SafeFileHead* fileHead);
+extern bool WriteSafeHead           (IN const char* fileName, IN SafeFileHead* fileHead, IN bool update /*= false*/);
+extern bool DecodeSafeHead          (INOUT SafeFileHead* fileName, IN const uint8_t* masterKey/* = NULL*/);
+extern void EncodeSafeHead          (INOUT SafeFileHead* fileName, IN const uint8_t* masterKey/* = NULL*/);
+extern bool CheckSafeHead           (IN SafeFileHead* fileName, IN uint16_t fileType/* = FILE_TYPE_ANY*/);
+extern void MakeSafeHead            (INOUT SafeFileHead* fileHead, IN uint16_t fileType);
+extern uint32_t GetStrAdler32       (IN const uint8_t* szString);
+extern uint64_t Adler64             (IN const uint8_t* buffer, IN uint32_t len);
+extern uint32_t Adler32             (IN const uint8_t* buffer, IN uint32_t len);
+extern uint32_t Adler16             (IN const uint8_t* buffer, IN uint32_t len);
+extern void GenUUIDStr              (OUT uint8_t* buffer);
+extern uint32_t String2Key          (OUT char* keyArray, IN uint32_t keyArrayLen, IN uint8_t* inString);
+extern void Key2String              (OUT uint8_t* outString, IN char* keyArray, IN uint32_t keyArrayLen);
+extern void ExpandKey               (IN const char* inputBuffer, IN int64_t inputLen, OUT char* outputBuffer, IN int64_t outputLen);
+extern void GenRandKey              (OUT uint8_t* buffer, IN uint32_t bufferLen);
+extern bool DecryptSafeFileBuffer   (IN OUT uint8_t* fileBuffer, IN uint32_t len, IN uint64_t lnOffset, IN const uint8_t* dataKey, IN int arith/* = ENCRYPT_ARITH_RC4*/);
+extern bool EncryptSafeFileBuffer   (IN OUT uint8_t* fileBuffer, IN uint32_t len, IN uint64_t lnOffset, INOUT const uint8_t* dataKey, IN int arith/* = ENCRYPT_ARITH_RC4*/);
+extern void DecryptBuffer           (IN uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key, IN uint32_t keyLen, IN int arith);
+extern void EncryptBuffer           (IN uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key, IN uint32_t keyLen, IN int arith);
+extern void EncodeXXTEA             (IN OUT uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key);
+extern void DecodeXXTEA             (IN OUT uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key);
+extern void EncodeTEA               (IN OUT uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key);
+extern void DecodeTEA               (IN OUT uint8_t* buffer, IN uint32_t nLen, IN const uint8_t* key);
+extern void DecodeAES               (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen, IN uint8_t* IV /* = NULL*/, uint32_t iMode/* = ENCRYPT_MODE_ECB*/);
+extern void EncodeAES               (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen, IN uint8_t* IV /* = NULL*/, uint32_t iMode/* = ENCRYPT_MODE_ECB*/);
+extern void DecodeRC4               (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen);
+extern void EncodeRC4               (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen);
+extern void DecodeENRC4             (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen);
+extern void EncodeENRC4             (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key, IN uint32_t KeyLen);
+extern void DecodeSEAL              (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key);
+extern void EncodeSEAL              (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key);
+extern void InitCipher              (IN OUT CryptInfo *pCryptInfo);
+extern void DecodeDES               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
+extern void EncodeDES               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
+extern void DecodeDES3              (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key);
+extern void EncodeDES3              (IN uint8_t* pBuffer, IN uint32_t nLength, IN const uint8_t* Key);
+extern void DecodeSM4               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
+extern void EncodeSM4               (IN uint8_t* pBuffer,IN uint32_t nLength, IN const uint8_t* Key);
+
+inline uint32_t GetSafeHeadAdler    (IN SafeFileHead* fileHead)
+{
+    return Adler32((uint8_t*) &fileHead->magic, C_STRUCT_OFFSET_OF(SafeFileHead, headAdler));
+}
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
