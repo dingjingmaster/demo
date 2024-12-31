@@ -331,6 +331,7 @@ struct __attribute__((packed)) _DrmFileHead
     uint32_t                        drmHeadAdler;                   // 文件头部到 nDrmHeadAdlper的Adler32
     char                            lastNoUse[508];                 //
 };
+C_TYPE_SIZE_CHECK(DrmFileHead, 4096);
 
 #endif
 
