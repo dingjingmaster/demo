@@ -20,20 +20,18 @@ int main (int argc, char* argv[])
     GFile* fileLocation = NULL;
 
     file = g_file_new_for_uri (argv[1]);
-    if (NULL == file) {
+    if (!file) {
         printf ("g_file_new_for_uri error!!!\n");
         goto end;
     }
 
-    printf ("uri is exists: %s\n", g_file_query_exists(file, NULL)?"true":"false");
+    printf ("uri is exists: %s\n", g_file_query_exists(file, NULL) ? "true" : "false");
 
     mount = g_file_find_enclosing_mount(file, NULL, &error);
-    if (NULL == mount || NULL != error) {
-        printf ("g_file_find_enclosing_mount, error code: %d, error: %s\n", error->code, error->message);
-        if (NULL != error) {
-            g_object_unref (error);
-            error = NULL;
-        }
+    if (!mount) {
+        printf ("g_file_find_enclosing_mount, error code: %d, error: %s\n", (error) ? error->code : 0, (error && error->message) ? error->message : "null");
+        g_error_free(error);
+        error = NULL;
         goto end;
     }
 
@@ -59,7 +57,7 @@ end:
     }
 
     if (NULL != error) {
-        g_object_unref (error);
+        g_error_free(error);
     }
 
     if (NULL != fileLocation) {
