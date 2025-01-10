@@ -4,8 +4,10 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2020年05月08日 星期五 11时20分52秒
  ************************************************************************/
-#include <stdio.h>
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main (int argc, char* argv[])
 {
