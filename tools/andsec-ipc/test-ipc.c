@@ -38,9 +38,45 @@ int main (int argc, char* argv[])
 {
 	{
 		// backup
-		const char* file = "/tmp/file.b";
-
+		const char* file = "/tmp/file.a";
 		send_data_to_daemon(22, file, strlen(file), NULL, 0);
+	}
+
+	{
+		// backup
+		const char* file = "/tmp/file.b";
+		send_data_to_daemon(22, file, strlen(file), NULL, 0);
+	}
+	{
+		// backup
+		const char* file = "/tmp/file.c";
+		send_data_to_daemon(22, file, strlen(file), NULL, 0);
+	}
+
+	{
+		// backup
+		const char* file = "/tmp/file.d";
+		send_data_to_daemon(22, file, strlen(file), NULL, 0);
+	}
+
+	{
+		// backup
+		const char* file = "/tmp/file.e";
+		send_data_to_daemon(22, file, strlen(file), NULL, 0);
+	}
+
+	char buf[1024] = {0};
+	char cmd[1024] = {0};
+	for (int i = 0; i < 1000; ++i) {
+		memset(buf, 0, sizeof(buf));
+		memset(cmd, 0, sizeof(cmd));
+
+		snprintf(buf, sizeof(buf) - 1, "/tmp/file.%d", i);
+		snprintf(cmd, sizeof(cmd) - 1, "echo '12312312asdad' > /tmp/file.%d", i);
+
+		system(cmd);
+
+		send_data_to_daemon(22, buf, strlen(buf), buf, sizeof(buf) - 1);
 	}
 
 	return 0;
