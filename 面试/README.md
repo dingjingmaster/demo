@@ -308,3 +308,145 @@ std::vector<int> getVector2()
     return std::move(temp);
 }
 ```
+
+## C++什么情况下触发拷贝构造
+
+- **以值传递对象（如果开启编译优化，拷贝构造可能被省略）**
+```c++
+class MyClass
+{
+public:
+    MyClass() {}
+    MyClass(const MyClass&) {}
+};
+
+void func(MyClass obj) {}
+
+int main ()
+{
+    MyClass a;
+    func (a);
+}
+```
+- **以值返回对象（当函数返回一个对象的副本时候，会调用拷贝构造，但C++11及之后的编译器通常会使用返回值优化避免实际拷贝构造函数）**
+```c++
+MyClass createObject()
+{
+    MyClass obj;
+    return obj;
+}
+
+int main ()
+{
+    MyClass a = createObject();
+}
+```
+
+- **用一个已有对象初始化另一个对象**
+```c++
+int main ()
+{
+    MyClass a;
+    MyClass b = a; // ==> 等价于：MyClass b (a);
+}
+```
+
+- **对象作为类成员（如果类包含一个非静态成员，其类型没有默认的移动构造函数，那么在创建类对象时候，拷贝构造可能会被调用）**
+```c++
+class Wrapper
+{
+public:
+    MyClass obj;
+};
+
+int main ()
+{
+    Wrapper w1;
+    Wrapper w2 = w1; // 触发MyClass的拷贝函数
+}
+```
+
+- **显示调用拷贝函数**
+
+可以通过显示调用拷贝构造函数来创建对象
+
+```c++
+int main ()
+{
+    MyClass a;
+    MyClass b(a); 		// 触发拷贝构造
+}
+```
+
+- **STL容器存储和传递对象**
+
+当`std::vector`、`std::list`等存储对象时候，如果元素需要扩容(relloc)或以值传递方式插入，可能会调用拷贝构造。
+```c++
+std::vector<MyClass> vec;
+vec.push_back(MyClass()); // 可能调用拷贝构造
+```
+优化： `std::move()`可以避免拷贝构造，改用移动构造（C++11之后）、`emplace_back()`可以在原地构造对象，避免额外的拷贝。
+
+- **异常抛出时候**
+
+当对象被异常机制处理时候（例如：throw关键字），拷贝构造可能会被调用
+
+```c++
+void test()
+{
+    MyClass obj;
+    throw obj;
+}
+
+int main ()
+{
+    try {
+		test();
+    } catch (MyClass e) { // 可能调用拷贝构造
+    }
+}
+```
+
+优化：使用`catch(const MyClass&)`进行引用捕获，避免拷贝
+
+## 如何避免拷贝构造？
+
+- 使用`const&`传递参数代替值传递
+- 使用`std::move()`触发移动构造
+- 使用`RVO`返回值优化：`MyClass create() {return MyClass();}`
+- 使用`emplace_back()`而非`push_back()`：`vec.emplace_back(); // 直接构造，避免拷贝`
+
+## Qt中事件的传递
+
+Qt中的事件传递机制基于事件循环（Event Loop），核心是：事件的生成、分发和处理。
+
+事件传递流程
+1. 事件生成：由操作系统生成（如：鼠标、键盘事件）、由Qt自己（如：定时器）生成、由用户代码（如：QCoreApplication::postEvent()）主动发送
+2. 事件分发：Qt事件被放入事件队列。事件循环（QEventLoop）取出事件，交给`QCoreApplication::notify()`处理。
+3. 事件处理：事件首先传递给事件目标对象（QObject::event()）。若`event()`不处理，则传递给更具体的事件处理函数（如：mousePressEvent()）。若未处理，默认调用`QWidget::event()`或`QApplication::notify()`继续分发。
+
+事件传递方向
+Qt采用“自上而下” + “自下而上” 的事件传递模型：
+1. 从父组件到子组件：焦点事件、键盘事件（如果QMainWindow中的QLineEdit处于焦点，当用户按下键盘，事件首先达到QMainWindow，然后传递给QLineEdit处理）
+2. 从子组件到父组件：鼠标事件、绘制事件（鼠标事件QMouseEvent先传递给最前面的子组件，如果未处理，则向上传递到父组件）
+
+事件过滤与拦截
+Qt允许在事件传递过程中拦截或过滤事件：
+1. 事件过滤器（installEventFilter）：可以在父对象监听子对象的事件。
+2. 重写`event()`或`eventHandler()`进行拦截：`event()`拦截所有事件、具体事件处理函数：如`mousePressEvent()`、`keyPressEvent()`
+
+事件队列
+如果想异步发送事件，可以用`postEvent()`，这会将事件加入队列，等到事件循环运行时候处理（`QCoreApplication::postEvent(targetObj, new QEvent(QEvent::User));`）、立即处理事件（`QCoreApplication::sendEvent(targetObj, new QEvent(QEvent::User));`）
+
+事件处理顺序：
+1. installEventFilter()
+2. QObject::event()
+3. 具体事件处理函数（如：keyPressEvent()）
+
+拦截方式：
+- 外部拦截：`installEventFilter()`
+- 内部拦截：重写`event()`或`eventHandler()`
+
+事件分发方式
+- 异步：`postEvent()`
+- 同步：`sendEvent()`
