@@ -286,3 +286,25 @@ void wrapper(T&& arg)
 右值引用的用途：
 - 移动语义，使得资源转移称为可能，避免对象不必要的赋值（特别是大的对象），对象中的指针转移???
 - 完美转发（万能引用）：结合std::forware配合使用，实现完美转发，能够传递给其他函数原样的左值或右值，而不做任何拷贝或丢失信息。
+
+```c++
+std::move();
+使用类的 MyClass::MyClass(MyClass&& other); 成员函数
+MyClass& MyClass::operator=(MyClass&& other); 成员函数
+```
+
+```c++
+// 错误
+std::vector<int>& getVector1()
+{
+    std::vector<int> temp = {1, 2, 3, 4};
+    return temp;
+}
+
+// 正确, 避免拷贝
+std::vector<int> getVector2()
+{
+    std::vector<int> temp = {1, 2, 3, 4};
+    return std::move(temp);
+}
+```
