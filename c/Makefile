@@ -20,6 +20,10 @@ empty-func.run:libempty.a empty-func.o
 
 libempty.run:
 
+enca.run:enca.c
+	@gcc $(cflag) -o $@ $< -lpthread -lrt -lsqlite3 `pkg-config --libs glib-2.0 gio-2.0 gmodule-2.0 enca`
+	@echo "cc -o $@"
+
 read-file.run:read-file.c
 	@gcc $(cflag) -o $@ $< -lpthread -lrt -lsqlite3 `pkg-config --libs glib-2.0 gio-2.0 gmodule-2.0 enca`
 	@echo "cc -o $@"
