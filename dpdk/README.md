@@ -63,6 +63,8 @@
 3. 选择49绑定`igb_uio`模块：`usertools/dpdk-devbind.py --bind=igb_uio eth0`
 4. 选择`53`运行testpmd
 
+> 注意：网卡名为：`ens`要转为`eth`，因为ens是虚拟网卡，eth才是实际网卡
+
 设置启动参数：
 ```
 default_hugepages=1G hugepagesz=2M hugepages=1024 isolcpus=0-2
