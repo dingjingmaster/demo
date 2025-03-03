@@ -41,6 +41,14 @@
 
 ## 第二节
 
+### Linux内核是否支持
+
+- `CONFIG_HUGETLBFS`启用巨页文件系统、`CONFIG_HUGETLB_PAGE`启用巨页支持
+- `CONFIG_NUMA`启用非统一内存访问（NUMA）支持。对于多核CPU系统，可以帮助优化内存访问
+- `CONFIG_IXGBE`支持intel 82599及更高版本的网卡；`CONFIG_R8169`支持Realtek网卡；`CONFIG_MLX5_CORE`支持Mellanox网卡
+- `CONFIG_FHANDLE`：启用文件句柄支持；`CONFIG_PROC_FS`；`CONFIG_DEVPTS_FS`启用devpts文件系统
+- `CONFIG_NO_HZ`：启用高精度定时器，减少内核干扰；`CONFIG_PREEMPT_RT`：如果需要实时性能，考虑启用实时调度
+
 ### 环境搭建
 
 - ubuntu 16.04 server
