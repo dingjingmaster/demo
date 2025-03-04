@@ -66,12 +66,22 @@
 成功编译安装dpdk之后，开启大页:
 1. 设置启动参数：
 ```
-default_hugepagesz=1G hugepagesz=1G hugepages=4 hugepagesz=2M hugepages=2048 isolcpus=0-2
+# 默认大页为1GB，共分配2个（共2GB）
+# 额外分配1024个2MB的大页（共2GB）
+# 禁用透明大页（THP）
+default_hugepagesz=1G hugepages=2 hugepagesz=2M hugepages=1024 transparent_hugepage=never isolcpus=0-2
 ```
 2. 自动挂载大页
 ```
 nodev	/mnt/huge_2M	hugetlbfs	pagesize=2MB	0	0
 ```
+
+|grub字段|说明|
+|:-------|:---|
+|`default_hugepagesz`|设置默认的HugePage大小，可能值是2M或1G，需要内核支持|
+|`hugepagesz`|指定特定的大页大小，需要和hugepages配对使用，可选值为2M、1G，`hugepagesz=1G hugepages=4`分配4个1GB大页（共4GB）|
+|`hugepages`|分配指定数量的HugePages，尺寸由最近的hugepagesz或default_hugepagesz决定，示例：hugepages=1024(默认2M)分配1024个2MB页(共2GB)；`hugepagesz=1G hugepages=2`分配2个1GB页|
+|`transparent_hugepage`|控制透明大页(THP)的行为，THP是内核动态管理的，可能和静态HugePages冲突。可选值：`always`启用THP、`madvise`仅对明确要求的内存启用、`never`禁用THP|
 
 #### HugePage
 
