@@ -63,16 +63,26 @@
 3. 选择49绑定`igb_uio`模块：`usertools/dpdk-devbind.py --bind=igb_uio eth0`
 4. 选择`53`运行testpmd
 
-> 注意：网卡名为：`ens`要转为`eth`，因为ens是虚拟网卡，eth才是实际网卡
-
-设置启动参数：
+成功编译安装dpdk之后，开启大页:
+1. 设置启动参数：
 ```
-default_hugepages=1G hugepagesz=1G hugepages=4 isolcpus=0-2
+default_hugepagesz=1G hugepagesz=1G hugepages=4 hugepagesz=2M hugepages=2048 isolcpus=0-2
+```
+2. 自动挂载大页
+```
+nodev	/mnt/huge_2M	hugetlbfs	pagesize=2MB	0	0
 ```
 
-- 可以设置中断号对应哪个CPU处理
+#### HugePage
 
-#### 巨页（Huge Pages）
+```shell
+# cat /proc/meminfo
+HugePages_Total:       0 			// 预留HugePage的总个数
+HugePages_Free:        0 			// 池中尚未分配的HugePage个数，真正空闲页数等于 HugePages_Free - HugePages_Rsvd
+HugePages_Rsvd:		   0			// 表示池中已经被应用程序分配但尚未使用的HugePages数量
+HugePages_Surp: 	   0 			// 这个值的意思是当开始配置了20个大页，现在修改配置为16，那么这个参数就会显示为4，一般不修改配置，这个值都是0
+HugePagesize: 		   0 			// 每个大页的大小
+```
 
 是一种内存管理机制，可以通过将内存页面的大小增加到常规大小的多倍（通常为2MB或1GB）来提高性能。这种机制可以减少页表的数量，提高内存访问的效率，特别是在需要大量内存的应用程序中。
 
