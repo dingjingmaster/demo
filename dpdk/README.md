@@ -67,7 +67,7 @@
 
 设置启动参数：
 ```
-default_hugepages=1G hugepagesz=2M hugepages=1024 isolcpus=0-2
+default_hugepages=1G hugepagesz=1G hugepages=4 isolcpus=0-2
 ```
 
 - 可以设置中断号对应哪个CPU处理
@@ -94,3 +94,11 @@ DPDK中的用途：
 网卡接受到数据触发CPU中断。
 
 qemu中virtio-net是常用的虚拟网卡，支持多队列；e1000、rtl8139传统网卡不支持多队列
+
+## recv实现过程
+
+两个端口：一个接收数据、另一个发送数据。使用前需要`DOWN`掉网口
+
+1. 环境检测（大页）
+2. 初始化内存池
+3. 检测端口是否可用
