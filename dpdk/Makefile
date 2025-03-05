@@ -1,5 +1,5 @@
 curdir          	= $(shell realpath -- $(shell pwd))
-SUBDIRS         	= examples #recv #hello-world basicfwd bbdev
+SUBDIRS         	= recv #hello-world basicfwd bbdev
 
 export RTE_TARGET   = x86_64-native-linux-gcc
 export RTE_SDK      = $(curdir)/dpdk-stable-19.08.2
