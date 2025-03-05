@@ -1,8 +1,10 @@
-SUBDIRS = hello-world basicfwd bbdev
+curdir          	= $(shell realpath -- $(shell pwd))
+SUBDIRS         	= examples #recv #hello-world basicfwd bbdev
 
-all : subdirs
+export RTE_TARGET   = x86_64-native-linux-gcc
+export RTE_SDK      = $(curdir)/dpdk-stable-19.08.2
 
-subdirs:
+all:
 	@for n in $(SUBDIRS); do $(MAKE) -C $$n || exit 1; done
 
 clean:
