@@ -20,8 +20,9 @@ int main (int argc, char* argv[])
 
 	QCoreApplication app(argc, argv);
 
-	qDebug() << "SSL Support: " << QSslSocket::supportsSsl();
-	qDebug() << "SSL Library: " << QSslSocket::sslLibraryBuildVersionString();
+	qDebug() << "SSL Support               : " << QSslSocket::supportsSsl();
+	qDebug() << "SSL Library               : " << QSslSocket::sslLibraryVersionString();
+	qDebug() << "SSL Library Build Version : " << QSslSocket::sslLibraryBuildVersionString();
 
 	QNetworkAccessManager manager;
 	QUrl url(argv[1]);
