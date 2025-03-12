@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdarg.h>
@@ -18,7 +17,7 @@
 typedef int (*OpenPointer)(const char *pathname, int flags, ...);
 int open (const char *pathname, int flags, ...)
 {
-    printf("open IN, file: '%s'!!!!!!!!!!!!!!\n", pathname);
+    syslog(LOG_ERR, "open IN, file: '%s'", pathname);
 
     int mode = 0;
 
