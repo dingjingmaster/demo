@@ -181,18 +181,39 @@ static const struct wl_registry_listener wl_registry_listener =
 int main(int argc, char *argv[])
 {
     struct client_state state = { 0 };
+	// 1. 连接wayland服务器
     state.wl_display = wl_display_connect(NULL);
+	// 2. 创建注册表对象，允许客户端列出绑定到服务器中可用的全局对象
     state.wl_registry = wl_display_get_registry(state.wl_display);
+	// 3. Wayland客户端中用于注册全局对象（Global Object）监听器的关键函数，
+	//    其作用是让客户端能够接收服务器端新增全局对象的通知并执行相应处理 
+	//    wl_registry_add_listener(registry, &listener, user_data);
     wl_registry_add_listener(state.wl_registry, &wl_registry_listener, &state);
+	// 4. Wayland 客户端与服务器通信中同步操作的核心函数，用于确保客户端所有挂起的请求被处理，并读取服务器返回的所有事件
+	//    阻塞当前线程
     wl_display_roundtrip(state.wl_display);
 
+	// 5. 客户端中用于创建窗口内容表面（wl_surface）的核心函数，其作用及流程如下：
+	//    1. 创建窗口内容容器：通过wl_compositor接口向wayland服务器请求创建一个 wl_surface 对象，该对象代表窗口的画布。所有后续绘制操作都需要通过此表面完成
+	//    2. 初始化双缓存机制：wl_surface创建时候会自动分配前后两个缓存区。客户端通过wl_surface_attach绑定图像缓存区，并通过wl_surface_commit提交绘制内容到屏幕
     state.wl_surface = wl_compositor_create_surface(state.wl_compositor);
+
+	// 6. Wayland 协议中用于将基础表面（wl_surface）转换为可管理的窗口表面（xdg_surface）的关键函数
+	//    将普通的 wl_surface 转换为 xdg_surface，使其具备窗口管理能力（如标题栏、最小化/最大化等属性）
     state.xdg_surface = xdg_wm_base_get_xdg_surface(state.xdg_wm_base, state.wl_surface);
+	// 7. 为 xdg_surface 对象注册事件监听器的核心函数
+	//    1. 事件监听注册：该函数通过将自定义的监听器结构体绑定到 xdg_surface，实现对窗口状态变化（如大小调整、配置更新）的响应。例如，当窗口被移动或调整大小时，服务器会发送 configure 事件，触发监听器回调
+	//    2. 生命周期管理：通过监听器处理窗口的初始化、销毁等关键事件，确保客户端与服务器状态同步。例如，configure 事件需通过 ack_configure 确认处理完成，避免界面卡顿
     xdg_surface_add_listener(state.xdg_surface, &xdg_surface_listener, &state);
+	// 8. xdg_surface_get_toplevel 是 Wayland 协议中用于将 xdg_surface 转换为顶级窗口对象（xdg_toplevel）的核心函数，属于 xdg-shell 扩展协议的一部分
+	//	  该函数通过 xdg_surface 接口生成 xdg_toplevel 对象，使其具备窗口管理能力（如标题栏、最小化/最大化、关闭等属性）
     state.xdg_toplevel = xdg_surface_get_toplevel(state.xdg_surface);
+	// 9. xdg_toplevel_set_title 是 Wayland 协议中 xdg-shell 扩展的核心函数之一，用于为顶级窗口（xdg_toplevel）设置标题栏文本
     xdg_toplevel_set_title(state.xdg_toplevel, "Example client");
+	// 10. 提交界面改变
     wl_surface_commit(state.wl_surface);
 
+	// 11. 客户端处理事件循环的核心函数，负责从服务器接收并分派事件
     while (wl_display_dispatch(state.wl_display)) {
         /* This space deliberately left blank */
     }
