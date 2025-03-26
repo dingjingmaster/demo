@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="example">
+	<copyright>
+		Copyright (C) 2025 Example
+	</copyright>
+
+	<interface name="example_interface" version="1">
+		<description summary="must have">
+			This is description
+		</description>
+		
+		<request name="do_sth">
+			<description summary="asd11asd">
+				aaaa description
+			</description>
+			<arg name="param" type="int"/>
+		</request>
+		
+		<event name="sth_happened">
+			<description summary="asd11wq"> aaaa description ... </description>
+			<arg name="status" type="string"/>
+		</event>
+
+		<enum name="example_enum">
+			<entry name="FOO" value="0" summary="0"/>
+			<entry name="BAR" value="1" summary="1"/>
+		</enum>
+
+		<enum name="example_flags" bitmask="true">
+			<entry name="FLAG_A" value="1"/>
+			<entry name="FLAG_B" value="2"/>
+			<entry name="FLAG_C" value="4"/>
+			<entry name="FLAG_D" value="8"/>
+		</enum>
+	</interface>
+</protocol>
