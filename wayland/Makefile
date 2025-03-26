@@ -5,6 +5,12 @@ target = $(patsubst %.c, %.run, $(src))
 
 all:$(target)
 
+server-connect.run:server-connect.c
+	cc -o $@ $^ `pkg-config --cflags --libs wayland-server`
+
+client-connect.run:client-connect.c
+	cc -o $@ $^ `pkg-config --cflags --libs wayland-client`
+
 %.run:%.c
 	@wayland-scanner private-code /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml $@-xdg-shell-protocol.c
 	@wayland-scanner client-header /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml xdg-shell-client-protocol.h
