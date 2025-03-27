@@ -15,8 +15,8 @@ all:$(target)
 %.moc.run:
 	@echo $@
 
-%.run:main.cpp $(obj)
-	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Network` -o $@ $< $(cflag) 
+%.run:main.o $(obj)
+	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Network` -o $@ $^ $(cflag) 
 	@echo "CC -o $@ $<"
 
 %.o:%.cpp
