@@ -33,14 +33,14 @@ header.run:header.cpp header/header-button.cpp header/main-header.cpp
 	@echo CC -o $@
 
 %.so : %.c
-	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Gui Qt5Widgets` -ldl
+	@g++ -fpic -shared -Wall -o $@ $< `pkg-config --cflags --libs Qt5Gui Qt5Widgets gio-2.0` -ldl
 	@echo "CC -o $@ $<"
 
 %.moc.run:
 	@echo $@
 
 %.run:%.cpp 
-	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network` -o $@ $< $(cflag) 
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network gio-2.0` -o $@ $< $(cflag) 
 	@echo "CC -o $@ $<"
 
 %.o:%.cpp
