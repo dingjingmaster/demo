@@ -8,6 +8,9 @@ target = $(strip $(patsubst %.cpp, %.run, $(src)))
 
 all:$(target)
 
+demo-type.run:
+	@echo "demo-type.run"
+
 %.run:%.cpp
 	@g++ -std=c++20 -o $@ $< $(cflag) 
 	@echo "cc -o $@"
