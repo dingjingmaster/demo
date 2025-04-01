@@ -348,12 +348,21 @@ public:
     void setBackupValue(const QString& bp);
     bool getBackupLocalEnable();
     bool getBackupRpcEnable();
-    QString getBackupFileExtName();
-    void setBackupFileExtName(const QString& extName);
     void setBackupRound(const QString& str);
     bool getNeedRpcBackup();
     void updateRpcBackupTime();
     qint64 getLastUpdateTime();
+    void setRpcBackupMaxFileSize(int size, int unit);
+    qint64 getRpcBackupMaxFileSize();
+
+    QString getBackupRpcFileExtName();
+    void setBackupRpcFileExtName(const QString& extName);
+
+    void clearBackupLocalExtName();
+    QString getBackupLocalExtName();
+    QRegExp getBackupLocalExtNameReg();
+    bool getNeedLocalBackup(const QString& filePath);
+    void addBackupLocalExtName(const QStringList& ls);
 
 private:
     Storage(QObject* parent=nullptr);

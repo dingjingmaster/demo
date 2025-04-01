@@ -14,7 +14,8 @@ int main (int argc, char* argv[])
 	qInfo() << "[backup]";
 	qInfo() << "    允许本地备份: " << Storage::getInstance()->getBackupLocalEnable();
 	qInfo() << "    允许远程备份: " << Storage::getInstance()->getBackupRpcEnable();
-	qInfo() << "远程备份文件类型: " << Storage::getInstance()->getBackupFileExtName();
+	qInfo() << "远程备份文件类型: " << Storage::getInstance()->getBackupRpcFileExtName();
+	qInfo() << "本地备份文件类型: " << Storage::getInstance()->getBackupLocalExtName();
 	qInfo() << "上次远程备份时间: " << QDateTime::fromMSecsSinceEpoch(Storage::getInstance()->getLastUpdateTime()).toString("yyyy-MM-dd HH:mm:ss");
 
 	return 0;

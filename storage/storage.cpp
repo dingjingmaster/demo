@@ -1117,22 +1117,22 @@ bool Storage::getBackupRpcEnable()
     return false;
 }
 
-QString Storage::getBackupFileExtName()
+QString Storage::getBackupRpcFileExtName()
 {
     Q_D(Storage);
 
-    auto passwdE = d->getConfigValue("backup", "fileType").toByteArray();
+    auto passwdE = d->getConfigValue("backup", "rpcFileType").toByteArray();
 
     return config_value_dec(passwdE);
 }
 
-void Storage::setBackupFileExtName(const QString &extName)
+void Storage::setBackupRpcFileExtName(const QString &extName)
 {
     Q_D(Storage);
 
     QByteArray val = extName.toUtf8();
     auto valE = config_value_enc(val);
-    d->setConfigValue("backup", "fileType", valE);
+    d->setConfigValue("backup", "rpcFileType", valE);
 }
 
 void Storage::setBackupRound(const QString &str)
@@ -1160,14 +1160,14 @@ bool Storage::getNeedRpcBackup()
     auto pv = valLst.at(2).split(":");
 
     auto lastBackupTime = QDateTime::fromMSecsSinceEpoch(getLastUpdateTime());
-    auto lm = lastBackupTime.toString("%d").toInt(0);
+    auto lm = lastBackupTime.toString("d").toInt(0);
     auto lw = lastBackupTime.date().dayOfWeek();
-    auto lh = lastBackupTime.toString("%H").toInt(0);
+    auto lh = lastBackupTime.toString("H").toInt(0);
 
     auto currentTime = QDateTime::currentDateTime();
-    auto cm = currentTime.toString("%d").toInt(0);
+    auto cm = currentTime.toString("d").toInt(0);
     auto cw = currentTime.date().dayOfWeek();
-    auto ch = currentTime.toString("%H").toInt(0);
+    auto ch = currentTime.toString("H").toInt(0);
 
     auto pm = valLst.at(1).toInt();
     auto pw = pm;
@@ -1223,6 +1223,85 @@ qint64 Storage::getLastUpdateTime()
 
     return QString(config_value_dec(passwd)).toLongLong(0);
 }
+
+void Storage::setRpcBackupMaxFileSize(int size, int unit)
+{
+    Q_D(Storage);
+
+    qint64 maxSize = 0;
+
+    switch (unit) {
+    case 1:
+        maxSize = size * 1024 * 1024;
+        break;
+    case 2:
+        maxSize = size * 1024 * 1024 * 1024;
+        break;
+    }
+
+    QByteArray val = QString("%1").arg(maxSize).toUtf8();
+    auto valE = config_value_enc(val);
+    d->setConfigValue("backup", "maxFileSize", valE);
+}
+
+qint64 Storage::getRpcBackupMaxFileSize()
+{
+    Q_D(Storage);
+
+    auto val = d->getConfigValue("backup", "maxFileSize").toByteArray();
+
+    return QString(config_value_dec(val)).toLongLong();
+}
+
+void Storage::clearBackupLocalExtName()
+{
+    Q_D(Storage);
+
+    d->setConfigValue("backup", "localFileType", "");
+}
+
+QRegExp Storage::getBackupLocalExtNameReg()
+{
+    auto extsT = getBackupLocalExtName().split("|");
+    std::for_each(extsT.begin(), extsT.end(), [=] (QString& str) { if (str.startsWith("*.")) str = str.remove(0, 2); });
+    QRegExp extName(QString(".(%1)$").arg(extsT.join("|")), Qt::CaseInsensitive);
+
+    return extName;
+}
+
+bool Storage::getNeedLocalBackup(const QString &filePath)
+{
+    return getBackupLocalExtNameReg().indexIn(filePath) > 0;
+}
+
+void Storage::addBackupLocalExtName(const QStringList& ls)
+{
+    Q_D(Storage);
+    if (ls.isEmpty() || (ls.count() == 1 && ls.at(0).isEmpty())) { return; }
+
+    auto passwdE = d->getConfigValue("backup", "localFileType").toByteArray();
+    QString old = config_value_dec(passwdE);
+
+    auto extList = old.split("|");
+    extList += ls;
+
+    QSet<QString> filter(extList.begin(), extList.end());
+
+    auto newStr = QList<QString>(filter.begin(), filter.end()).join("|").toUtf8();
+    auto encStr = config_value_enc(newStr);
+
+    d->setConfigValue("backup", "localFileType", encStr);
+}
+
+QString Storage::getBackupLocalExtName()
+{
+    Q_D(Storage);
+
+    auto passwdE = d->getConfigValue("backup", "localFileType").toByteArray();
+
+    return config_value_dec(passwdE);
+}
+
 
 void Storage::setUserName(const QString &usrName)
 {
