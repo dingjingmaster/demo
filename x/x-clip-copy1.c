@@ -5,6 +5,7 @@
 > Created Time: Fri 18 Aug 2023 11:10:03 AM CST
  ************************************************************************/
 #include <stdio.h>
+#include <ctype.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xresource.h>

@@ -31,13 +31,13 @@ int main (int argc, char* argv[])
         long bytesAfter;
         char* value;
         int pid;
-        int status = XGetWindowProperty(dsp, c, pidA, 0, 1, false, AnyPropertyType, &aType, &aFormat, &nItems, &bytesAfter, &value);
+        int status = XGetWindowProperty(dsp, c, pidA, 0, 1, false, AnyPropertyType, &aType, &aFormat, &nItems, &bytesAfter, (unsigned char**)&value);
         if ((Success == status) && value) {
             pid = (*(unsigned long*)value);
             XFree(value);
         }
         printf ("0x%8X(%8u)  %6d\n", c, c, pid);
-        status = XGetWindowProperty(dsp, c, qaxF, 0, 1, false, AnyPropertyType, &aType, &aFormat, &nItems, &bytesAfter, &value);
+        status = XGetWindowProperty(dsp, c, qaxF, 0, 1, false, AnyPropertyType, &aType, &aFormat, &nItems, &bytesAfter, (unsigned char**)&value);
         if ((Success == status) && value) {
             int val = (*(int*)value);
             printf ("focused: %s", (val==0) ? "true" : "false");

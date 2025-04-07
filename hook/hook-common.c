@@ -272,6 +272,9 @@ static void hc_update_title(uint32_t opcode, const char* signature, const char* 
 				hc_update_gedit_title(str);
 			}
 		}
+		else {
+			logi("%s", str ? str : "null");
+		}
 	} while (0);
 
 	c_free(procPath);
@@ -436,25 +439,21 @@ static void hc_update_gedit_title (const char* str)
 	for (int i = strLen; i >= 0; i--) {
 		if (0 == strcmp(str + i, ") - gedit")) {
 			dirE = i;
-//			logi ("dirE: %d", dirE);
 			continue;
 		}
 
 		if (dirE > 0 && i > 1 && str[i] == '(' && str[i - 1] == ' ' && (str[i + 1] == '/' || str[i + 1] == '~')) {
 			dirB = i + 1;
-//			logi ("dirB: %d", dirB);
 			continue;
 		}
 
 		if (dirE > 0 && dirB > 0 && fileE == 0 && str[i] != ' ' && str[i + 1] == ' ' && str[i + 2] == '(') {
 			fileE = i + 1;
-//			logi ("fileE: %d", fileE);
 			continue;
 		}
 
 		if (dirE > 0 && dirB > 0 && fileE > 0) {
 			fileB = 0;
-//			logi ("fileB: %d", fileB);
 			break;
 		}
 	}

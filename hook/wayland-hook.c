@@ -41,16 +41,6 @@ void* wl_proxy_marshal_flags(void* proxy, uint32_t opcode, const void* interface
 		return NULL;
 	}
 
-	if (wayland_check_is_set_title(opcode)) {
-		//va_list cap;
-		//va_start(cap, flags);
-		//const char* title = va_arg(cap, const char*);
-		//if (title) {
-		//	logi("title: %p", title);
-		//}
-		//va_end(cap);
-	}
-
 	va_list ap;
 	va_start(ap, flags);
 	void* ret = wayland_default_proxy_marshal_flags(proxy, opcode, interface, version, flags, ap);

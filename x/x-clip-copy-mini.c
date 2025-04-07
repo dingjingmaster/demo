@@ -5,6 +5,9 @@
 > Created Time: Fri 18 Aug 2023 01:45:46 PM CST
  ************************************************************************/
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xresource.h>
@@ -29,6 +32,9 @@ char* xcnamestr(Display* display, Window w);
 static struct requestor* get_requestor(Window win);
 static void del_requestor(struct requestor* requestor);
 int xcfetchname(Display *display, Window w, char **namep);
+
+int xcin(Display* dpy, Window* win, XEvent evt, Atom* pty, Atom target, unsigned char* txt, unsigned long len, unsigned long *pos, unsigned int *context, long *chunk_size);
+
 
 Display* display = NULL;
 Atom target = XA_STRING;

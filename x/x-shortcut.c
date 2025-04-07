@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2021年06月23日 星期三 09时04分42秒
  ************************************************************************/
+#include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdbool.h>
