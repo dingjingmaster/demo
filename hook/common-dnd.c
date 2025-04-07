@@ -26,7 +26,7 @@ void list_property_by_name              (void* disp/*Display*/, int64_t window/*
 
 void xdnd_drop (void* event/*XEvent*/)
 {
-    XClientMessageEvent* ev = (XEvent*) event;
+    XClientMessageEvent* ev = (XClientMessageEvent*) event;
 
     if (!event) return;
 
@@ -237,5 +237,4 @@ void list_property_by_name (void* disp/*Display*/, int64_t window/*window*/, cha
 	logw ("%s", name);
     }
 }
-
 

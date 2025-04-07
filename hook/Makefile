@@ -22,7 +22,7 @@ hook-dnd.so : hook-dnd.c libcommon-dnd.so
 	@echo -e "\n\nLD_PRELOAD='$(my_libc_path)/$@' && export LD_PRELOAD\n\n"
 
 %.so : %.c libcommon-hook.so
-	gcc -fpic -shared -Wall -o $@ $< -ldl -DLIBC=\"$(libc_path)\" -DHOOK_COMMON=\"/usr/lib\"
+	gcc -fpic -shared -Wall -o $@ $< -ldl `pkg-config --cflags --libs glib-2.0` -DLIBC=\"$(libc_path)\" -DHOOK_COMMON=\"/usr/lib\"
 	@echo -e "\n\nLD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
 libcommon-x.so : common-x.c c-log.h

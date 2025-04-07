@@ -121,7 +121,7 @@ int XChangeProperty (void* display, int64_t window, int64_t property, int64_t ty
         return 0;
     }
 
-    logi("XChangeProperty: '%s', property: '%s', type: '%s'", (data ? data : "<null>"), atomName(display, property), atomName(display, type));
+    logi("XChangeProperty: '%s', property: '%s', type: '%s'", (data ? (char*)data : "<null>"), atomName(display, property), atomName(display, type));
 
     return old(display, window, property, type, format, mode, data, npositions);
 }
@@ -144,7 +144,7 @@ int XGetWindowProperty (void* display/*Display*/, int64_t window/*Window*/, int6
 
     int ret = old (display, window, property, offset, length, del, reqType, retType, retFormatType, retNElem, retByte, retProp);
 
-    logi ("XGetWindowProperty -- property: '%s', prop: '%s'", atomName(display, property), (*retProp ? *retProp : "<null>"));
+    logi ("XGetWindowProperty -- property: '%s', prop: '%s'", atomName(display, property), (*retProp ? (char*)*retProp : "<null>"));
 
     return ret;
 }

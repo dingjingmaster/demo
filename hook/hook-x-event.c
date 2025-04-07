@@ -93,7 +93,7 @@ int XChangeProperty (void* display, int64_t window, int64_t property, int64_t ty
         return 0;
     }
 
-    syslog(LOG_ERR, "XChangeProperty: %s", data ? data : "<null>");
+    syslog(LOG_ERR, "XChangeProperty: %s", (char*) ((data != NULL) ? (const char*) data : "<null>"));
 
-    return old(display, window, property, type, format, mode, data, npositions);
+    return old(display, window, (int64_t *)property, type, format, mode, data, npositions);
 }

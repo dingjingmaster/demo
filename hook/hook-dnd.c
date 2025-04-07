@@ -91,7 +91,7 @@ int XChangeProperty (void* display, int64_t window, int64_t property, int64_t ty
 
     p (display, window, "browser");
 
-    logw("XChangeProperty: %s", data ? data : "<null>");
+    logw("XChangeProperty: %s", data ? (char*) data : "<null>");
 
     return old(display, window, property, type, format, mode, data, npositions);
 }

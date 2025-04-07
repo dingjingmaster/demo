@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <sys/uio.h>
 #include <sys/socket.h>
+#include <glib.h>
 
 
 #ifndef RTLD_NEXT
