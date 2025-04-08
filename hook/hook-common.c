@@ -151,6 +151,9 @@ static int c_vasprintf (char** str, char const* format, va_list args);
 
 static void hc_update_gedit_title (const char* str);
 static void hc_update_title(uint32_t opcode, const char* signature, const char* str);
+
+static void hc_get_clipboard(uint32_t opcode, const char* signature, union wl_argument *args);
+
 static const char* my_get_next_argument(const char *signature, struct argument_details *details);
 static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, union wl_argument *args, int count, va_list ap);
 
@@ -236,6 +239,8 @@ static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, 
 			break;
 		}
 	}
+
+	hc_get_clipboard(opcode, signature, args);
 }
 
 static void hc_update_title(uint32_t opcode, const char* signature, const char* str)
@@ -273,7 +278,7 @@ static void hc_update_title(uint32_t opcode, const char* signature, const char* 
 			}
 		}
 		else {
-			logi("%s", str ? str : "null");
+			//logi("%s", str ? str : "null");
 		}
 	} while (0);
 
@@ -476,12 +481,29 @@ static void hc_update_gedit_title (const char* str)
 			}
 
 			memset(gsCurrentTitle + dirLen, '/', 1);
+
 			memcpy(gsCurrentTitle + dirLen + 1, str + fileB, fileE - fileB);
 			memset(gsCurrentTitle + dirLen + 1 + fileE - fileB, '\0', 1);
+
+			if (0 != access(gsCurrentTitle, F_OK) && str[fileB] == '*') {
+				fileB = 1;
+				memcpy(gsCurrentTitle + dirLen + 1, str + fileB, fileE - fileB);
+				memset(gsCurrentTitle + dirLen + 1 + fileE - fileB, '\0', 1);
+			}
 		}
 	} while (0);
 
 //	logi("dir: %d %d, file: %d %d", dirB, dirE, fileB, fileE);
 
 	logi("title: %s", gsCurrentTitle);
+}
+
+
+static void hc_get_clipboard(uint32_t opcode, const char* signature, union wl_argument *args)
+{
+	c_return_if_fail(signature && args);
+
+	if (opcode == 0) {
+		//logi("signature: %s", signature);
+	}
 }

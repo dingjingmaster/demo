@@ -48,3 +48,23 @@ void* wl_proxy_marshal_flags(void* proxy, uint32_t opcode, const void* interface
 
 	return ret;
 }
+
+// void wl_proxy_set_user_data(struct wl_proxy *proxy, void *user_data);
+typedef void (*WlProxySetUserData)(void* proxy, void* udata);
+void wl_proxy_set_user_data(void* proxy, void* udata)
+{
+	logi("wl_proxy_set_user_data");
+
+	if (udata) {
+		logi ("[clipboard] %s", (char*) udata);
+	}
+
+	WlProxySetUserData func = (WlProxySetUserData) get_function_ptr ("wl_proxy_set_user_data");
+	if (!func) {
+		logi("wl_proxy_set_user_data err");
+		return;
+	}
+
+
+	//func (proxy, udata);
+}
