@@ -159,9 +159,9 @@
         })
 
 
-extern __SYSCALL_CANCEL_CALL(openat, AT_FDCWD, file, oflag, mode);
+//extern __SYSCALL_CANCEL_CALL(openat, AT_FDCWD, file, oflag, mode);
 
-extern INTERNAL_SYSCALL_NCS_CALL(__SSC (AT_FDCWD), __SSC (file), __SSC (oflag), __SSC(mode), 0, 0, __SYSCALL_CANCEL7_ARG __NR_openat);
+//extern INTERNAL_SYSCALL_NCS_CALL(__SSC (AT_FDCWD), __SSC (file), __SSC (oflag), __SSC(mode), 0, 0, __SYSCALL_CANCEL7_ARG __NR_openat);
 
 int main (int argc, char* argv[])
 {
