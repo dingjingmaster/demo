@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 #include <wayland-util.h>
 #include <wayland-client.h>
 #include <wayland-client-protocol.h>
@@ -39,6 +40,7 @@ struct wl_proxy
 	struct wl_list queue_link; /**< in struct wl_event_queue::proxy_list */
 };
 
+typedef void (*WaylandClipboardSend)(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd);
 
 struct _WaylandCore 
 {
@@ -56,9 +58,11 @@ struct _WaylandCore
 	void*							wlDataSourceListenerData[10];
 
 	// static void send_handler(void *data, struct type *proxy, const char *mime_type, int fd);
-	void*							wlDataSourceSendFunc;
+	WaylandClipboardSend			wlDataSourceSendFunc;
 	// end
-} gsWaylandCore = {0};
+} gsWaylandCore = {
+0
+};
 
 WaylandCore* gsWaylandCorePtr = &gsWaylandCore;
 
@@ -497,7 +501,8 @@ static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature
 	c_return_if_fail(signature && str);
 
 	if (opcode == 0 && signature[0] == 's') {
-		if (c_str_has_prefix(str, "text/plain;charset=")) {
+		logi("opcode: %d, signature: %s, str: %s", opcode, signature, str);
+		if (0 == strcmp(str, "text/plain;charset=utf-8")) {
 			if (gsWaylandCore.curWlDataSource != proxy) {
 				for (int i = 0; i < sizeof(gsWaylandCore.wlDataSource) / sizeof(gsWaylandCore.wlDataSource[0]); ++i) {
 					if (gsWaylandCore.wlDataSource[i] == proxy) {
@@ -508,7 +513,9 @@ static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature
 						// 此处替换为自己的回调函数
 						//logi("proxy: %p, listener: %p, udata: %p", gsWaylandCore.curWlDataSource, gsWaylandCore.curWlDataSourceListener, gsWaylandCore.curWlDataSourceListenerData);
 						struct wl_data_source_listener* wdsl = (struct wl_data_source_listener*) gsWaylandCore.curWlDataSourceListener;
-						gsWaylandCore.wlDataSourceSendFunc = (void*) wdsl->send;
+						if (gsWaylandCore.wlDataSourceSendFunc != wdsl->send && hc_wayland_clipboard_send != wdsl->send) {
+							gsWaylandCore.wlDataSourceSendFunc = (void*) wdsl->send;
+						}
 
 						common_set_mem_write (wdsl);
 						wdsl->send = hc_wayland_clipboard_send;
@@ -523,5 +530,18 @@ static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature
 
 static void hc_wayland_clipboard_send(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd)
 {
+//	static pthread_mutex_t locker = PTHREAD_MUTEX_INITIALIZER;
+
+//	c_return_if_fail(0 == pthread_mutex_trylock(&locker));
+
 	logi("===========>send, fd: %d, mimeType: %s", fd, mimeType);
+
+	if (gsWaylandCore.wlDataSourceSendFunc) {
+		gsWaylandCore.wlDataSourceSendFunc(data, wl_data_source, mimeType, fd);
+	}
+	else {
+		logi("err!");
+	}
+
+//	pthread_mutex_unlock(&locker);
 }
