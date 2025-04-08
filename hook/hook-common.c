@@ -7,115 +7,16 @@
 #include "hook-common.h"
 
 #include <pwd.h>
-#include <errno.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
-#include <sys/types.h>
-#include <linux/limits.h>
 #include <wayland-util.h>
 #include <wayland-client.h>
+#include <wayland-client-protocol.h>
 
+#include "hook-macros.h"
 #include "wayland-private.h"
-
-
-#ifndef PATH_MAX
-#define PATH_MAX 4096
-#endif
-
-
-#if !(defined (C_STMT_START) && defined (C_STMT_END))
-#define C_STMT_START  do
-#if defined (_MSC_VER) && (_MSC_VER >= 1500)
-#define C_STMT_END \
-    __pragma(warning(push)) \
-    __pragma(warning(disable:4127)) \
-    while(0) \
-    __pragma(warning(pop))
-#else
-#define C_STMT_END    while (0)
-#endif
-#endif
-
-#define C_LIKELY(expr) (expr)
-#define C_UNLIKELY(expr) (expr)
-
-
-#define c_assert(x) \
-C_STMT_START \
-{ \
-    assert(x); \
-} \
-C_STMT_END
-
-#define c_malloc(ptr, size) \
-C_STMT_START \
-{ \
-    if (C_LIKELY(size > 0)) { \
-        ptr = malloc (size); \
-        c_assert(ptr); \
-        memset (ptr, 0, size); \
-    } \
-    else { \
-        c_assert(false); \
-    } \
-} \
-C_STMT_END
-
-#define c_free(ptr) \
-C_STMT_START \
-{ \
-    if (C_LIKELY(ptr)) { \
-        free (ptr); \
-        ptr = NULL; \
-    } \
-} \
-C_STMT_END
-
-/* void(*func) (void*)*/
-#define c_free_with_func(ptr, func) \
-C_STMT_START \
-{ \
-    if (C_LIKELY(ptr)) { \
-        func(ptr); \
-        ptr = NULL; \
-    } \
-} \
-C_STMT_END
-
-#define c_malloc_type(ptr, type, count) \
-C_STMT_START \
-{ \
-    if (C_LIKELY(count > 0)) { \
-        ptr = (type*) malloc (sizeof (type) * count); \
-        c_assert(ptr); \
-        memset (ptr, 0, sizeof (type) * count); \
-    } \
-    else { \
-        exit(-errno); \
-    } \
-} \
-C_STMT_END
-
-#define c_return_if_fail(x) \
-C_STMT_START \
-{ \
-    if (C_UNLIKELY(!(x))) { \
-        return; \
-    } \
-} \
-C_STMT_END
-
-#define c_return_val_if_fail(x, val) \
-C_STMT_START \
-{ \
-    if (C_UNLIKELY(!(x))) { \
-        return val; \
-    } \
-} \
-C_STMT_END
 
 struct wl_event_queue {
 	struct wl_list event_list;
@@ -139,6 +40,28 @@ struct wl_proxy
 };
 
 
+struct _WaylandCore 
+{
+	struct wl_display*				dsp;
+	struct wl_registry*				resgistry;
+
+	void*							clipboardProxy;
+
+	// struct wl_data_source*,  const struct wl_data_source_listener*,  void* udata 
+	void*							curWlDataSource;
+	void*							curWlDataSourceListener;
+	void*							curWlDataSourceListenerData;
+	void*							wlDataSource[10];
+	void*							wlDataSourceListener[10];
+	void*							wlDataSourceListenerData[10];
+
+	// static void send_handler(void *data, struct type *proxy, const char *mime_type, int fd);
+	void*							wlDataSourceSendFunc;
+	// end
+} gsWaylandCore = {0};
+
+WaylandCore* gsWaylandCorePtr = &gsWaylandCore;
+
 static char* get_program_full_path ();
 static void* c_realloc (void* ptr, uint64_t size);
 static char* c_file_read_link(const char *filename);
@@ -151,13 +74,15 @@ static int c_vasprintf (char** str, char const* format, va_list args);
 
 static void hc_update_gedit_title (const char* str);
 static void hc_update_title(uint32_t opcode, const char* signature, const char* str);
-
-static void hc_get_clipboard(uint32_t opcode, const char* signature, union wl_argument *args);
+static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature, const char* str);
+static void hc_wayland_clipboard_send(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd);
 
 static const char* my_get_next_argument(const char *signature, struct argument_details *details);
-static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, union wl_argument *args, int count, va_list ap);
+static void my_wl_argument_from_va_list(uint32_t opcode, void* proxy, const char *signature, union wl_argument *args, int count, va_list ap);
+
 
 char gsCurrentTitle[PATH_MAX + PATH_MAX] = {0};
+
 
 bool wayland_check_is_set_title(uint32_t opcode)
 {
@@ -170,10 +95,65 @@ void* wayland_default_proxy_marshal_flags (void* proxy, uint32_t opcode, const v
 
 	struct wl_proxy* proxyT = proxy;
 
-	my_wl_argument_from_va_list(opcode, proxyT->object.interface->methods[opcode].signature, args, 20, ap);
+	my_wl_argument_from_va_list(opcode, proxy, proxyT->object.interface->methods[opcode].signature, args, 20, ap);
+
+	//logi("proxy: %p", proxy);
 
 	return wl_proxy_marshal_array_flags(proxy, opcode, interface, version, flags, args);
 }
+
+void wayland_get_proxy (void* dsp)
+{
+	if (!dsp) { return; }
+
+	gsWaylandCore.dsp = dsp;
+	gsWaylandCore.resgistry = wl_display_get_registry(dsp);
+}
+
+void wayland_init_clipboard (WaylandCore* dsp)
+{
+	if (!dsp) { return; }
+}
+
+void common_set_mem_write (void* mem)
+{
+	if (!mem) { return; }
+
+	size_t psize = sysconf(_SC_PAGESIZE);
+	uintptr_t addr = (uintptr_t) mem;
+	uintptr_t pstart = addr & ~(psize - 1);
+	if (0 != mprotect((void*) pstart, psize, PROT_READ | PROT_WRITE)) {
+		perror("mprotect");
+	}
+}
+
+void common_set_mem_readonly (void* mem)
+{
+	size_t psize = sysconf(_SC_PAGESIZE);
+	uintptr_t addr = (uintptr_t) mem;
+	uintptr_t pstart = addr & ~(psize - 1);
+	if (0 != mprotect((void*) pstart, psize, PROT_READ)) {
+		perror("mprotect");
+	}
+}
+
+void debug_fd_info (int fd)
+{
+	char* pp = c_strdup_printf ("/proc/%d/fd/%d", getpid (), fd); 
+	if (pp) {
+		char* ff = c_file_read_link (pp); 
+		if (ff) {
+			if (c_str_has_prefix(ff, "pipe"))
+			logi("==>ff: %s", ff);
+			c_free(ff);
+		}
+		c_free(pp);
+	}
+}
+
+
+
+
 
 
 static const char* my_get_next_argument(const char *signature, struct argument_details *details)
@@ -201,7 +181,7 @@ static const char* my_get_next_argument(const char *signature, struct argument_d
 	return signature;
 }
 
-static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, union wl_argument *args, int count, va_list ap)
+static void my_wl_argument_from_va_list(uint32_t opcode, void* proxy, const char *signature, union wl_argument *args, int count, va_list ap)
 {
 	int i;
 	const char *sig_iter;
@@ -224,6 +204,7 @@ static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, 
 		case WL_ARG_STRING:
 			args[i].s = va_arg(ap, const char *);
 			hc_update_title(opcode, signature, args[i].s);
+			hc_get_clipboard(proxy, opcode, signature, args[i].s);
 			break;
 		case WL_ARG_OBJECT:
 			args[i].o = va_arg(ap, struct wl_object *);
@@ -239,8 +220,21 @@ static void my_wl_argument_from_va_list(uint32_t opcode, const char *signature, 
 			break;
 		}
 	}
+}
 
-	hc_get_clipboard(opcode, signature, args);
+void wayland_append_wl_data_source_add_listener(void* dataSrc, void* dataSrcListener, void* udata)
+{
+	if (gsWaylandCore.wlDataSource[0]) {
+		for (int i = sizeof(gsWaylandCore.wlDataSource) / sizeof(gsWaylandCore.wlDataSource[0]) - 1; i >= 1; --i) {
+			gsWaylandCore.wlDataSource[i] = gsWaylandCore.wlDataSource[i - 1];
+			gsWaylandCore.wlDataSourceListener[i] = gsWaylandCore.wlDataSourceListener[i - 1];
+			gsWaylandCore.wlDataSourceListenerData[i] = gsWaylandCore.wlDataSourceListenerData[i - 1];
+		}
+	}
+
+	gsWaylandCore.wlDataSource[0] = dataSrc;
+	gsWaylandCore.wlDataSourceListenerData[0] = udata;
+	gsWaylandCore.wlDataSourceListener[0] = dataSrcListener;
 }
 
 static void hc_update_title(uint32_t opcode, const char* signature, const char* str)
@@ -277,12 +271,11 @@ static void hc_update_title(uint32_t opcode, const char* signature, const char* 
 				hc_update_gedit_title(str);
 			}
 		}
-		else {
-			//logi("%s", str ? str : "null");
-		}
 	} while (0);
 
 	c_free(procPath);
+
+	logi("opcode: %d, signature: %s, data: %s", opcode, signature, str ? str : "null");
 }
 
 static char* get_program_full_path ()
@@ -421,7 +414,7 @@ static void* c_realloc (void* ptr, uint64_t size)
             return ret;
         }
         else {
-            fprintf(stderr, "realloc failed\n");
+            logi("realloc failed");
         }
     }
 
@@ -499,11 +492,36 @@ static void hc_update_gedit_title (const char* str)
 }
 
 
-static void hc_get_clipboard(uint32_t opcode, const char* signature, union wl_argument *args)
+static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature, const char* str)
 {
-	c_return_if_fail(signature && args);
+	c_return_if_fail(signature && str);
 
-	if (opcode == 0) {
-		//logi("signature: %s", signature);
+	if (opcode == 0 && signature[0] == 's') {
+		if (c_str_has_prefix(str, "text/plain;charset=")) {
+			if (gsWaylandCore.curWlDataSource != proxy) {
+				for (int i = 0; i < sizeof(gsWaylandCore.wlDataSource) / sizeof(gsWaylandCore.wlDataSource[0]); ++i) {
+					if (gsWaylandCore.wlDataSource[i] == proxy) {
+						gsWaylandCore.curWlDataSource = gsWaylandCore.wlDataSource[i];
+						gsWaylandCore.curWlDataSourceListener = gsWaylandCore.wlDataSourceListener[i];
+						gsWaylandCore.curWlDataSourceListenerData = gsWaylandCore.wlDataSourceListenerData[i];
+
+						// 此处替换为自己的回调函数
+						//logi("proxy: %p, listener: %p, udata: %p", gsWaylandCore.curWlDataSource, gsWaylandCore.curWlDataSourceListener, gsWaylandCore.curWlDataSourceListenerData);
+						struct wl_data_source_listener* wdsl = (struct wl_data_source_listener*) gsWaylandCore.curWlDataSourceListener;
+						gsWaylandCore.wlDataSourceSendFunc = (void*) wdsl->send;
+
+						common_set_mem_write (wdsl);
+						wdsl->send = hc_wayland_clipboard_send;
+						common_set_mem_readonly (wdsl);
+						break;
+					}
+				}
+			}
+		}
 	}
+}
+
+static void hc_wayland_clipboard_send(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd)
+{
+	logi("===========>send, fd: %d, mimeType: %s", fd, mimeType);
 }

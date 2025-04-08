@@ -13,6 +13,8 @@
 #include <syslog.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/mman.h>
+
 
 #ifndef RTLD_NEXT
 #define RTLD_NEXT (void*) -1
@@ -27,16 +29,24 @@
 #define logi(x)
 #endif
 
-#define HOOK_FUNC(ret, func, ...) \
-	extern ret func (__VA_ARGS__); \
 
 static inline void* get_function_ptr(const char* funcName)
 {
 	return dlsym(RTLD_NEXT, funcName);
 }
 
-bool	wayland_check_is_set_title			(uint32_t opcode);
-void*	wayland_default_proxy_marshal_flags	(void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, va_list ap);
+typedef struct _WaylandCore WaylandCore;
+
+void    wayland_get_proxy							(void* dsp);
+bool	wayland_check_is_set_title					(uint32_t opcode);
+void    wayland_init_clipboard						(WaylandCore* dsp);
+void	wayland_append_wl_data_source_add_listener	(void* dataSrc, void* dataSrcListener, void* udata);
+void*	wayland_default_proxy_marshal_flags			(void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, va_list ap);
+
+void    common_set_mem_write						(void* mem);
+void    common_set_mem_readonly						(void* mem);
+
+void    debug_fd_info								(int fd);
 
 
 #endif
