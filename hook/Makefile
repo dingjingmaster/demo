@@ -12,6 +12,8 @@ target += $(target2)
 
 all:$(target)
 
+hook-common.so:
+	@echo ""
 
 wayland-hook.so:wayland-hook.c hook-common.c
 	@gcc -fpic -shared -Wall -o $@ $^ -lwayland-client

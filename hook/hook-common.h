@@ -37,11 +37,17 @@ static inline void* get_function_ptr(const char* funcName)
 
 typedef struct _WaylandCore WaylandCore;
 
-void    wayland_get_proxy							(void* dsp);
-bool	wayland_check_is_set_title					(uint32_t opcode);
-void    wayland_init_clipboard						(WaylandCore* dsp);
-void	wayland_append_wl_data_source_add_listener	(void* dataSrc, void* dataSrcListener, void* udata);
-void*	wayland_default_proxy_marshal_flags			(void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, va_list ap);
+void		wayland_get_proxy							(void* dsp);
+bool		wayland_check_is_set_title					(uint32_t opcode);
+void		wayland_init_clipboard						(WaylandCore* dsp);
+void		wayland_append_wl_data_source_add_listener	(void* dataSrc, void* dataSrcListener, void* udata);
+void*		wayland_default_proxy_marshal_flags			(void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, va_list ap);
+uint32_t	wayland_get_send_fd							();
+uint32_t	wayland_get_recv_fd							();
+
+bool        hook_check_is_pipe							(uint32_t fd);
+void		hook_pipe_fds								(uint32_t fd1, uint32_t fd2);
+void		hook_close_fd								(int fd);
 
 void    common_set_mem_write						(void* mem);
 void    common_set_mem_readonly						(void* mem);

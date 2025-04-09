@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <syslog.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
 
@@ -62,12 +63,30 @@ int wl_proxy_add_listener(void* proxy, void (**implementation)(void), void *data
 	}
 
 	wayland_append_wl_data_source_add_listener(proxy, implementation, data);
-	//logi("wl_proxy_add_listener -- %p, %p", proxy, implementation);
 
 	return listener(proxy, implementation, data);
 }
 
-#if 0
+typedef void* (*WlShmBufferGetData) (void* buffer);
+void* wl_shm_buffer_get_data (void* buffer)
+{
+	WlShmBufferGetData shm = get_function_ptr("wl_shm_buffer_get_data");
+	if (!shm) {
+		logi("wl_shm_buffer_get_data error!");
+		return NULL;
+	}
+
+	void* data = shm(buffer);
+	if (data) {
+		logi("SHM=> %s", (char*) data);
+	}
+
+	return data;
+}
+
+#if 1
+static const char* gsClipboard = "\0andsec\0";
+static const int gsClipboardLen = 9;
 typedef ssize_t (*Write) (int fd, const void* buf, size_t count);
 ssize_t write (int fd, const void* buf, size_t count)
 {
@@ -77,9 +96,38 @@ ssize_t write (int fd, const void* buf, size_t count)
 		return 0;
 	}
 
-	logi("[%d]: %s", fd, (char*) buf);
-	debug_fd_info (fd);
+	ssize_t ret = 0;
+	uint32_t sfd = wayland_get_send_fd ();
+	if (fd == sfd) {
+		if (0 != memcmp(buf, gsClipboard, gsClipboardLen)) {
+			ret = w(fd, gsClipboard, gsClipboardLen);
+		}
+		logi("[%d] [SEND]: %s", fd, (char*) buf);
+	}
 
-	return w (fd, buf, count);
+
+	ret += w (fd, buf, count);
+
+	return ret;
+}
+
+typedef ssize_t (*Read) (int fd, void* buf, size_t count);
+ssize_t read (int fd, void* buf, size_t count)
+{
+	Read r = (Read) get_function_ptr("read");
+	if (!r) {
+		logi("read error!");
+		return 0;
+	}
+
+	ssize_t ret = r (fd, buf, count - 1);
+	if (hook_check_is_pipe(fd) && ret > gsClipboardLen && 0 == memcmp(buf, gsClipboard, gsClipboardLen)) {
+		memmove(buf, buf + gsClipboardLen, ret - gsClipboardLen);
+		memset(buf + ret - gsClipboardLen + 1, 0, 1);
+		ret -= gsClipboardLen;
+		logi("[%d] [RECV]: %s", fd, (char*)buf + gsClipboardLen);
+	}
+
+	return ret;
 }
 #endif

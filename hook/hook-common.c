@@ -9,6 +9,7 @@
 #include <pwd.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
@@ -40,7 +41,9 @@ struct wl_proxy
 	struct wl_list queue_link; /**< in struct wl_event_queue::proxy_list */
 };
 
+typedef void (*WaylandClipboardSendCanceled)(void* data, struct wl_data_source*);
 typedef void (*WaylandClipboardSend)(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd);
+typedef void (*WaylandClipboardRecv)(void* data, struct wl_data_offer* wl_data_offer, const char* mime_type);
 
 struct _WaylandCore 
 {
@@ -53,15 +56,29 @@ struct _WaylandCore
 	void*							curWlDataSource;
 	void*							curWlDataSourceListener;
 	void*							curWlDataSourceListenerData;
+
+	void*							curWlDataTarget;
+	void*							curWlDataTargetListener;
+	void*							curWlDataTargetListenerData;
+
 	void*							wlDataSource[10];
 	void*							wlDataSourceListener[10];
 	void*							wlDataSourceListenerData[10];
 
 	// static void send_handler(void *data, struct type *proxy, const char *mime_type, int fd);
 	WaylandClipboardSend			wlDataSourceSendFunc;
+	WaylandClipboardSendCanceled	wlDataSourceSendFuncCanceled;
+	WaylandClipboardRecv			wlDataSourceRecvFunc;
+	uint32_t						wlDataSourceSendFd;
+	uint32_t						wlDataSourceRecvFd;
 	// end
+	
+	bool							readFinished;
+	uint32_t						pipePaire[1024];
+	uint32_t						fdIndex[1024];
 } gsWaylandCore = {
-0
+	0,
+	.pipePaire = {-1, -1},
 };
 
 WaylandCore* gsWaylandCorePtr = &gsWaylandCore;
@@ -79,6 +96,10 @@ static int c_vasprintf (char** str, char const* format, va_list args);
 static void hc_update_gedit_title (const char* str);
 static void hc_update_title(uint32_t opcode, const char* signature, const char* str);
 static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature, const char* str);
+static void hc_get_clipboard_recv(void* proxy, uint32_t opcode, const char* signature, int32_t paramNum, uint32_t fd);
+static void hc_wayland_clipboard_recv(void* data, struct wl_data_offer* wl_data_offer, const char* mimeType);
+
+static void hc_wayland_clipboard_send_canceled(void* data, struct wl_data_source* wl_data_source);
 static void hc_wayland_clipboard_send(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd);
 
 static const char* my_get_next_argument(const char *signature, struct argument_details *details);
@@ -101,7 +122,7 @@ void* wayland_default_proxy_marshal_flags (void* proxy, uint32_t opcode, const v
 
 	my_wl_argument_from_va_list(opcode, proxy, proxyT->object.interface->methods[opcode].signature, args, 20, ap);
 
-	//logi("proxy: %p", proxy);
+	//
 
 	return wl_proxy_marshal_array_flags(proxy, opcode, interface, version, flags, args);
 }
@@ -141,23 +162,78 @@ void common_set_mem_readonly (void* mem)
 	}
 }
 
+uint32_t wayland_get_send_fd ()
+{
+	return (hook_check_is_pipe(gsWaylandCore.wlDataSourceSendFd) ? gsWaylandCore.wlDataSourceSendFd : -1);
+}
+
+uint32_t wayland_get_recv_fd ()
+{
+	if (gsWaylandCore.wlDataSourceRecvFd < 0) {
+		return -1;
+	}
+
+	return (hook_check_is_pipe(gsWaylandCore.wlDataSourceRecvFd) ? gsWaylandCore.wlDataSourceRecvFd : -1);
+}
+
+bool hook_check_is_pipe (uint32_t fd)
+{
+	bool isOK = false;
+	char fileBuf[256] = {0};
+	char fileTarget[32] = {0};
+	snprintf(fileBuf, sizeof(fileBuf) - 1, "/proc/%d/fd/%d", getpid(), fd);
+	readlink(fileBuf, fileTarget, sizeof(fileTarget) - 1);
+	if (0 == memcmp(fileTarget, "pipe", 4)) {
+		isOK = true;
+		//logi("fd: %d is pipe", fd);
+	}
+
+	return isOK;
+}
+
 void debug_fd_info (int fd)
 {
 	char* pp = c_strdup_printf ("/proc/%d/fd/%d", getpid (), fd); 
 	if (pp) {
 		char* ff = c_file_read_link (pp); 
 		if (ff) {
-			if (c_str_has_prefix(ff, "pipe"))
-			logi("==>ff: %s", ff);
+			//if (c_str_has_prefix(ff, "pipe"))
+			//logi("==>ff: %s", ff);
 			c_free(ff);
 		}
 		c_free(pp);
 	}
 }
 
+void hook_close_fd (int fd)
+{
+	int num = sizeof(gsWaylandCore.pipePaire) / sizeof(gsWaylandCore.pipePaire[0]);
+	if (fd >= num) {
+		return;
+	}
 
+	gsWaylandCore.fdIndex[fd]--;
+	if (gsWaylandCore.fdIndex[fd] <= 0) {
+		gsWaylandCore.fdIndex[fd] = 0;
+		gsWaylandCore.pipePaire[fd] = -1;
+	}
+}
 
+void hook_pipe_fds (uint32_t fd1, uint32_t fd2)
+{
+	int num = sizeof(gsWaylandCore.pipePaire) / sizeof(gsWaylandCore.pipePaire[0]);
+	if (fd1 >= num || fd2 >= num) {
+		return;
+	}
 
+	gsWaylandCore.pipePaire[fd1] = fd2;
+	gsWaylandCore.pipePaire[fd2] = fd1;
+
+	gsWaylandCore.fdIndex[fd1] = 2;
+	gsWaylandCore.fdIndex[fd2] = 2;
+
+	//logi("%d == %d", fd1, fd2);
+}
 
 
 static const char* my_get_next_argument(const char *signature, struct argument_details *details)
@@ -188,6 +264,8 @@ static const char* my_get_next_argument(const char *signature, struct argument_d
 static void my_wl_argument_from_va_list(uint32_t opcode, void* proxy, const char *signature, union wl_argument *args, int count, va_list ap)
 {
 	int i;
+	uint32_t recvFd = -1;
+	int paramNum = 0;
 	const char *sig_iter;
 	struct argument_details arg;
 
@@ -197,32 +275,54 @@ static void my_wl_argument_from_va_list(uint32_t opcode, void* proxy, const char
 
 		switch(arg.type) {
 		case WL_ARG_INT:
+			++paramNum;
 			args[i].i = va_arg(ap, int32_t);
 			break;
 		case WL_ARG_UINT:
+			++paramNum;
 			args[i].u = va_arg(ap, uint32_t);
 			break;
 		case WL_ARG_FIXED:
+			++paramNum;
 			args[i].f = va_arg(ap, wl_fixed_t);
 			break;
 		case WL_ARG_STRING:
+			++paramNum;
 			args[i].s = va_arg(ap, const char *);
 			hc_update_title(opcode, signature, args[i].s);
 			hc_get_clipboard(proxy, opcode, signature, args[i].s);
 			break;
 		case WL_ARG_OBJECT:
+			++paramNum;
 			args[i].o = va_arg(ap, struct wl_object *);
 			break;
 		case WL_ARG_NEW_ID:
+			++paramNum;
 			args[i].o = va_arg(ap, struct wl_object *);
 			break;
 		case WL_ARG_ARRAY:
+			++paramNum;
 			args[i].a = va_arg(ap, struct wl_array *);
 			break;
 		case WL_ARG_FD:
+			++paramNum;
 			args[i].h = va_arg(ap, int32_t);
+			recvFd = args[i].h;
 			break;
 		}
+	}
+
+	//hc_get_clipboard_recv(proxy, opcode, signature, paramNum, recvFd);
+
+	if (paramNum == 2 && WL_DATA_DEVICE_MANAGER_GET_DATA_DEVICE == opcode) {
+
+		//logi("WL_DATA_DEVICE_MANAGER_GET_DATA_DEVICE, proxy: %p, signature: %s", proxy, signature);
+	}
+
+	if (opcode == WL_DATA_OFFER_RECEIVE && recvFd >= 0 && recvFd != -1 && strcmp(signature, "sh") && paramNum == 2) {
+		gsWaylandCore.readFinished = false;
+		gsWaylandCore.wlDataSourceRecvFd = gsWaylandCore.pipePaire[recvFd];
+		//logi("WL_DATA_OFFER_RECEIVE, proxy: %p, signature: %s, fd: %d", proxy, signature, recvFd);
 	}
 }
 
@@ -279,7 +379,7 @@ static void hc_update_title(uint32_t opcode, const char* signature, const char* 
 
 	c_free(procPath);
 
-	logi("opcode: %d, signature: %s, data: %s", opcode, signature, str ? str : "null");
+	//logi("opcode: %d, signature: %s, data: %s", opcode, signature, str ? str : "null");
 }
 
 static char* get_program_full_path ()
@@ -495,13 +595,44 @@ static void hc_update_gedit_title (const char* str)
 	logi("title: %s", gsCurrentTitle);
 }
 
+static void hc_get_clipboard_recv(void* proxy, uint32_t opcode, const char* signature, int32_t paramNum, uint32_t fd)
+{
+	if (opcode != WL_DATA_OFFER_RECEIVE || fd < 0 || strcmp(signature, "sh") || paramNum != 2) {
+		return;
+	}
+
+	if (gsWaylandCore.curWlDataTarget != proxy) {
+		for (int i = 0; i < sizeof(gsWaylandCore.wlDataSource) / sizeof(gsWaylandCore.wlDataSource[0]); ++i) {
+			if (gsWaylandCore.wlDataSource[i] == proxy) {
+				gsWaylandCore.curWlDataTarget = gsWaylandCore.wlDataSource[i];
+				gsWaylandCore.curWlDataTargetListener = gsWaylandCore.wlDataSourceListener[i];
+				gsWaylandCore.curWlDataTargetListenerData = gsWaylandCore.wlDataSourceListenerData[i];
+
+				gsWaylandCore.wlDataSourceRecvFd = fd;
+
+				struct wl_data_offer_listener* wdsl = (struct wl_data_offer_listener*) gsWaylandCore.curWlDataTargetListener;
+				if (gsWaylandCore.wlDataSourceRecvFunc != wdsl->offer && hc_wayland_clipboard_recv != wdsl->offer) {
+					gsWaylandCore.wlDataSourceRecvFunc = wdsl->offer;
+				}
+
+				common_set_mem_write (wdsl);
+				wdsl->offer = hc_wayland_clipboard_recv;
+				common_set_mem_readonly (wdsl);
+				break;
+			}
+		}
+	}
+
+		//logi("===>proxy: %p, signature: %s, i: %d, recvFd: %d", proxy, signature, paramNum, fd);
+		gsWaylandCore.wlDataSourceRecvFd = fd;
+}
 
 static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature, const char* str)
 {
 	c_return_if_fail(signature && str);
 
 	if (opcode == 0 && signature[0] == 's') {
-		logi("opcode: %d, signature: %s, str: %s", opcode, signature, str);
+		//logi("opcode: %d, signature: %s, str: %s", opcode, signature, str);
 		if (0 == strcmp(str, "text/plain;charset=utf-8")) {
 			if (gsWaylandCore.curWlDataSource != proxy) {
 				for (int i = 0; i < sizeof(gsWaylandCore.wlDataSource) / sizeof(gsWaylandCore.wlDataSource[0]); ++i) {
@@ -517,8 +648,13 @@ static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature
 							gsWaylandCore.wlDataSourceSendFunc = (void*) wdsl->send;
 						}
 
+						if (gsWaylandCore.wlDataSourceSendFuncCanceled != wdsl->cancelled && hc_wayland_clipboard_send_canceled != wdsl->cancelled) {
+							gsWaylandCore.wlDataSourceSendFuncCanceled = (void*) wdsl->cancelled;
+						}
+
 						common_set_mem_write (wdsl);
 						wdsl->send = hc_wayland_clipboard_send;
+						wdsl->cancelled = hc_wayland_clipboard_send_canceled;
 						common_set_mem_readonly (wdsl);
 						break;
 					}
@@ -530,18 +666,35 @@ static void hc_get_clipboard(void* proxy, uint32_t opcode, const char* signature
 
 static void hc_wayland_clipboard_send(void* data, struct wl_data_source* wl_data_source, const char* mimeType, int32_t fd)
 {
-//	static pthread_mutex_t locker = PTHREAD_MUTEX_INITIALIZER;
-
-//	c_return_if_fail(0 == pthread_mutex_trylock(&locker));
-
-	logi("===========>send, fd: %d, mimeType: %s", fd, mimeType);
+	gsWaylandCore.wlDataSourceSendFd = fd;
+	//logi("===========>send, fd: %d, mimeType: %s", fd, mimeType);
 
 	if (gsWaylandCore.wlDataSourceSendFunc) {
 		gsWaylandCore.wlDataSourceSendFunc(data, wl_data_source, mimeType, fd);
 	}
 	else {
-		logi("err!");
+		logi("clipboard send err!");
 	}
+}
 
-//	pthread_mutex_unlock(&locker);
+static void hc_wayland_clipboard_send_canceled(void* data, struct wl_data_source* wl_data_source)
+{
+	gsWaylandCore.wlDataSourceSendFd = -1;
+	//logi("===========>send cancelled");
+
+	if (gsWaylandCore.wlDataSourceSendFuncCanceled) {
+		gsWaylandCore.wlDataSourceSendFuncCanceled(data, wl_data_source);
+	}
+	else {
+		logi("cancelled err!");
+	}
+}
+
+static void hc_wayland_clipboard_recv(void* data, struct wl_data_offer* wl_data_offer, const char* mimeType)
+{
+	//logi("===========>recv, mimeType: %s", mimeType);
+
+	if (gsWaylandCore.wlDataSourceRecvFunc) {
+		gsWaylandCore.wlDataSourceRecvFunc(data, wl_data_offer, mimeType);
+	}
 }
