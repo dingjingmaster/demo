@@ -7,7 +7,7 @@ netMarkSrc 		= ./net-mark.c
 all=net-mark.run net-mark.bpf.o \
 	#cgroup-filter.run cgroup-filter.bpf.o
 
-all:all
+all:$(all)
 
 net-mark.run:$(netMarkSrc)
 	gcc -o $@ $^ -lbpf
