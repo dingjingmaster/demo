@@ -17,6 +17,8 @@ obj-m = \
 	sched-spin.o \
 	hello-world.o \
 
+#do-mmap.o \
+
 
 CFLAGS_MODULE := -std=gnu99
 KERNEL_BUILD := /lib/modules/$(shell uname -r)/build
