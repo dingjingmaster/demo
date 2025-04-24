@@ -114,6 +114,7 @@ bool wayland_check_is_set_title(uint32_t opcode)
 	return opcode == WL_SHELL_SURFACE_SET_TITLE;
 }
 
+
 void* wayland_default_proxy_marshal_flags (void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, va_list ap)
 {
 	union wl_argument args[20];
@@ -315,7 +316,6 @@ static void my_wl_argument_from_va_list(uint32_t opcode, void* proxy, const char
 	//hc_get_clipboard_recv(proxy, opcode, signature, paramNum, recvFd);
 
 	if (paramNum == 2 && WL_DATA_DEVICE_MANAGER_GET_DATA_DEVICE == opcode) {
-
 		//logi("WL_DATA_DEVICE_MANAGER_GET_DATA_DEVICE, proxy: %p, signature: %s", proxy, signature);
 	}
 

@@ -17,6 +17,7 @@
 
 extern WaylandCore* gsWaylandCorePtr;
 
+
 // struct wl_proxy* wl_proxy_marshal_flags(struct wl_proxy *proxy, uint32_t opcode, const struct wl_interface *interface, uint32_t version, uint32_t flags, ...);
 typedef void* (*WlProxyMarshalFlags) (void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, ...);
 void* wl_proxy_marshal_flags(void* proxy, uint32_t opcode, const void* interface, uint32_t version, uint32_t flags, ...)
