@@ -15,8 +15,16 @@ all:$(target)
 hook-common.so:
 	@echo ""
 
+libhook-cups-utils.so:
+	@echo ""
+
+hook-cups.so:hook-cups.c
+	@gcc -fpic -shared -Wall hook-cups-utils.c -Wl,--no-as-needed -lcups -ldl -o libhook-cups-utils.so
+	@gcc -fpic -shared -Wall $^ -ldl -o $@
+	@echo -e "\n\n LD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
+
 wayland-hook.so:wayland-hook.c hook-common.c
-	@gcc -fpic -shared -Wall -o $@ $^ -lwayland-client
+	@gcc -fpic -shared -Wall -o $@ $^ -lwayland-client -ldl
 	@echo -e "\n\n LD_PRELOAD=$(my_libc_path)/$@ && export LD_PRELOAD\n\n"
 
 hook-qstyle.so : hook-qstyle.cpp
