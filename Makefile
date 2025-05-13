@@ -18,7 +18,7 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		pam pcre polkit protobuf python-c-api python \
 		qt qt-demo qt-tools \
 		rust \
-		sl sqlite\
+		sl sqlite seccomp \
 		str \
 		vala vte \
 		x xcb x-drag-drop \

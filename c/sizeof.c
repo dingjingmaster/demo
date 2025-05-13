@@ -9,8 +9,10 @@
 
 int main (int argc, char* argv[])
 {
-    printf ("unsigned long  : %d\n", sizeof(unsigned long));
-    printf ("uint32_t       : %d\n", sizeof(uint32_t));
+    printf ("void*                  : %d\n", sizeof(void*));
+    printf ("unsigned long          : %d\n", sizeof(unsigned long));
+    printf ("unsigned long long     : %d\n", sizeof(unsigned long long));
+    printf ("uint32_t               : %d\n", sizeof(uint32_t));
 
     return 0;
 }
