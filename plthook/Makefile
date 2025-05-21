@@ -9,7 +9,7 @@ libtest.so:libtest.c
 	gcc -shared -fPIC -o $@ $^ 
 
 main.run:main.c ./plthook/plthook_elf.c
-	gcc -fplt -L . -ltest -ldl -Wl,-rpath=$(cur) $^ -o $@
+	gcc -ldl $^ -o $@
 
 main1.run:main1.c
 	gcc -L . -ltest -Wl,-rpath=$(cur) $^ -o $@

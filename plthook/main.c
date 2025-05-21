@@ -5,24 +5,39 @@
 > Created Time: 2025年05月21日 星期三 17时17分25秒
  ************************************************************************/
 #include <stdio.h>
+#include <dlfcn.h>
 #include "./plthook/plthook.h"
 
-extern int test_libc(int a, int b);
 
 int main (int argc, char* argv[])
 {
-    plthook_t *plthook;
+    if (argc != 3) {
+        printf ("Usage: %s <so path> <func>\n", argv[0]);
+        return 1;
+    }
+
     unsigned int pos = 0; /* This must be initialized with zero. */
-    const char *name;
-    void **addr;
+    void **addr = NULL;
+    void* handle = NULL;
+    void* address = NULL;
+    const char *name = NULL;
+    plthook_t *plthook = NULL;
 
-    void* tmp = test_libc;
+    handle = dlopen(argv[1], RTLD_LAZY);
+    if (!handle) {
+        printf ("dlopen error: %s\n", dlerror());
+        return 1;
+    }
 
-    printf("%p\n", tmp);
+    address = dlsym(handle, argv[2]);
+    if (NULL == address) {
+        printf ("dlsym error: %s\n", dlerror());
+        return 2;
+    }
 
-    if (plthook_open(&plthook, "libtest.so") != 0) {
+    if (0 != plthook_open_by_address(&plthook, address)) {
         printf("plthook_open error: %s\n", plthook_error());
-        return -1;
+        return 3;
     }
 
     while (plthook_enum(plthook, &pos, &name, &addr) == 0) {
