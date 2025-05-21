@@ -1,0 +1,3 @@
+[submodule "plthook/plthook"]
+	path = plthook/plthook
+	url = git@github.com:dingjingmaster/plthook.git
