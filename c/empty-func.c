@@ -8,8 +8,8 @@
 
 extern void empty_func();
 
-//void empty_func()
-//{}
+void empty_func()
+{}
 
 int main (void)
 {
