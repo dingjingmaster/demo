@@ -1,20 +1,11 @@
 /*************************************************************************
-> FileName: empty-func.c
+> FileName: empty.c
 > Author  : DingJing
 > Mail    : dingjing@live.cn
-> Created Time: Sun Jun  2 10:13:57 2024
+> Created Time: 2025年05月22日 星期四 10时25分01秒
  ************************************************************************/
-#include <stdio.h>
 
-extern void empty_func();
-
-void empty_func()
+int main (int argc, char* argv[])
 {
-}
-
-int main (void)
-{
-    empty_func();
-
     return 0;
 }
