@@ -1,3 +1,6 @@
 [submodule "plthook/plthook"]
 	path = plthook/plthook
 	url = git@github.com:dingjingmaster/plthook.git
+[submodule "funchook/funchook"]
+	path = funchook/funchook
+	url = git@github.com:dingjingmaster/funchook.git
