@@ -21,7 +21,8 @@ int main (void)
 	struct AES_ctx ctx;
 	AES_init_ctx_iv(&ctx, (unsigned char*)key, (unsigned char*)key);
 
-	aes_cbc_encrypt(encStr, key, dataLen, key);
+	//aes_cbc_encrypt(encStr, key, dataLen, key);
+	AES_CBC_encrypt_buffer(&ctx, encStr, dataLen);
 	printf ("encStr: %s\n", encStr);
 
 	AES_init_ctx_iv(&ctx, (unsigned char*)key, (unsigned char*)key);
