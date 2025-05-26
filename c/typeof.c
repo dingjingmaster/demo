@@ -9,7 +9,7 @@
 
 int main ()
 {
-    printf ("char: %d\n", char == typeof(char));
+    //printf ("char: %d\n", char == typeof(char));
 
     return 0;
 }
