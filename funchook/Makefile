@@ -5,7 +5,7 @@ all:funchook main1.run
 
 
 main1.run:main1.c funchook
-	gcc -L funchook/build -Wl,-rpath=$(shell pwd)/funchook/build -lpthread -lfunchook $< -o $@
+	gcc $< -L funchook/build -Wl,-rpath=$(shell pwd)/funchook/build -lpthread $(shell pwd)/funchook/build/libfunchook.a -o $@
 
 
 funchook:
