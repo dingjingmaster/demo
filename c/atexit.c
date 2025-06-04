@@ -7,6 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief
+ * atexit 注册的退出函数是在进程正常退出时候调用，
+ * 收到信号而导致程序退出，atexit注册的退出函数则不会被调用。
+ */
+
 static void cb1 (void)
 {
     printf("callback1\n");
