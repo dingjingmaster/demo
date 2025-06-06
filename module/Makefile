@@ -15,6 +15,7 @@ obj-m = \
 	list-full.o \
 	list-sync.o \
 	sysfs.o \
+	simplefs.o \
 	sched-spin.o \
 	hello-world.o \
 
