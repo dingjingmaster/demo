@@ -11,14 +11,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <syslog.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-#include "c-log.h"
-#include "c-log.c"
 
 #ifndef RTLD_NEXT
 #define RTLD_NEXT (void*)-1
@@ -26,15 +24,13 @@
 
 typedef void* (*GtkFileChooserGetFileNames) (void* chooser);
 
-#if 1
 void* gtk_file_chooser_get_filenames (void* chooser)
 {
-    log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
     GtkFileChooserGetFileNames old = (GtkFileChooserGetFileNames) dlsym (RTLD_NEXT, "gtk_file_chooser_get_filenames");
     if (old == NULL) {
         return NULL;
     }
-    loge("OK1 files");
+    syslog(LOG_ERR, "OK1 files");
 
     sleep (10);
     return old(chooser);
@@ -42,15 +38,23 @@ void* gtk_file_chooser_get_filenames (void* chooser)
 
 void* gtk_file_chooser_get_filename (void* chooser)
 {
-    log_init(LOG_TYPE_FILE, LOG_DEBUG, LOG_ROTATE_FALSE, 2<<30, "/tmp/", "hook", "log"); 
     GtkFileChooserGetFileNames old = (GtkFileChooserGetFileNames) dlsym (RTLD_NEXT, "gtk_file_chooser_get_filename");
     if (old == NULL) {
         return NULL;
     }
-    loge("OK1 file");
+    syslog(LOG_ERR, "OK1 file");
     sleep (10);
     return old(chooser);
 }
-#endif 
 
-// no
+void* gtk_file_chooser_get_file (void* chooser)
+{
+    GtkFileChooserGetFileNames old = (GtkFileChooserGetFileNames) dlsym (RTLD_NEXT, "gtk_file_chooser_get_file");
+    if (old == NULL) {
+        return NULL;
+    }
+    syslog(LOG_ERR, "OK1 file 000");
+
+    return old(chooser);
+}
+
