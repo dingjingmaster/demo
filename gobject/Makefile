@@ -30,6 +30,9 @@ demo9_obj = $(patsubst %.c, %.o, $(demo9_src))
 demo10_src = $(wildcard demo10/*.c)
 demo10_obj = $(patsubst %.c, %.o, $(demo10_src))
 
+demo12_src = demo12.c ./demo12/demo12.c
+demo12_obj = $(patsubst %.c, %.o, $(demo12_src))
+
 gobject_target = \
 	demo9.run \
 	demo8.run \
@@ -39,7 +42,8 @@ gobject_target = \
 	demo3.run \
 	demo2.run \
 	demo1.run \
-	demo11 
+	demo11  \
+	demo12.run
 
 
 target = $(gobject_target)
@@ -54,13 +58,15 @@ demo11:
 	# 编辑 libfoo.la <我已编辑>
 	g-ir-scanner --namespace=Foo --nsversion=1.0 --library=libfoo.la demo11/foo.h demo11/foo.c -o Foo-1.0.gir
 	g-ir-compiler --includedir=. -o Foo-1.0.typelib Foo-1.0.gir
-	sudo cp libfoo.so /lib64/
-	sudo cp Foo-1.0.gir /usr/share/gir-1.0/
-	sudo cp Foo-1.0.typelib /usr/lib64/girepository-1.0/
+	#sudo cp libfoo.so /lib64/
+	#sudo cp Foo-1.0.gir /usr/share/gir-1.0/
+	#sudo cp Foo-1.0.typelib /usr/lib64/girepository-1.0/
 	@echo -e "\n\n\n\n"
 	gjs ./demo11/test.js
 
 
+demo12.run:$(demo12_obj)
+	cc -o $@ $^ $(cflag) -I demo12/ `pkg-config --cflags --libs gobject-2.0`
 	
 demo10:demo10/demo10.run
 	g-ir-scanner --namespace=Kb --nsversion=1.0\
