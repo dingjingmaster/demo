@@ -14,6 +14,7 @@
 
 #include <X11/Xlib.h>
 
+#include "xevent-type.h"
 #include "square-state.h"
 
 #define XDND_PROTOCOL_VERSION       5
