@@ -1,12 +1,15 @@
-all = test-html-tooltip.run
+targets = test-html-tooltip.run test-update-policy.run
 
-.PHONY:$(all) clean
+.PHONY:all clean
 
-$(all):
+all:$(targets)
 
 
-test-html-tooltip.run:test-html-tooltip.c ipc.c
+%.run:%.c ipc.c
 	gcc -o $@ $^ `pkg-config --cflags --libs gio-2.0`
+
+#test-update-policy.run:test-update-policy.c ipc.c
+#	gcc -o $@ $^ `pkg-config --cflags --libs gio-2.0`
 
 clean:
 	@rm -f *.run
