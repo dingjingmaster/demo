@@ -3,37 +3,17 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -pedantic -O2
 DEBUG_FLAGS = -g -DDEBUG
-TARGET = utf8_example
-LIB_TARGET = libutf8validator.a
-SOURCES = utf8_validator.c
-HEADERS = utf8_validator.h
-EXAMPLE_SOURCE = utf8_example.c
-OBJECTS = $(SOURCES:.c=.o)
+TARGET = filter.run validator.run
 
 # 默认目标
-all: $(TARGET) $(LIB_TARGET)
+all: $(TARGET) 
 
-# 编译可执行文件
-$(TARGET): $(EXAMPLE_SOURCE) $(LIB_TARGET)
-	$(CC) $(CFLAGS) -o $@ $(EXAMPLE_SOURCE) -L. -lutf8validator
+validator.run:validator.c validator/*.c
+	$(CC) -o $@ $^
 
-# 编译静态库
-$(LIB_TARGET): $(OBJECTS)
-	ar rcs $@ $^
+filter.run:filter.c filter/*.c validator/*.c
+	$(CC) -Ifilter -Ivalidator -o $@ $^ -Ivalidator
 
-# 编译目标文件
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# 调试版本
-debug: CFLAGS += $(DEBUG_FLAGS)
-debug: $(TARGET)
-
-# 运行示例
-run: $(TARGET)
-	./$(TARGET)
-
-# 运行内存检查（需要安装 valgrind）
 memcheck: $(TARGET)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
 
