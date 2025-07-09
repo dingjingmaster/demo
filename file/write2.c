@@ -13,6 +13,8 @@ int main (int argc, char* argv[])
 
     for (int i = 0; i < 9999000000; ++i) {
         write (fd, "bb\n", 4);
-        syncfs (fd);
+        sync();
+        //syncfs (fd);
     }
+    close(fd);
 }
