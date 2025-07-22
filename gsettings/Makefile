@@ -7,8 +7,10 @@ demo1_src = \
 
 gobject_target =\
 	graceful-log.run \
+	gsettings-demo1.run \
 	gsettings-demo2.run \
-	gsettings-demo1.run 
+	gsettings-demo3.run \
+	gsettings-demo4.run 
 
 target = $(gobject_target)
 

@@ -6,6 +6,7 @@
  ************************************************************************/
 
 #include <glib.h>
+#include <stdio.h>
 #include <gio/gio.h>
 
 static void change (GSettings* s, char* key, gpointer udata)
@@ -24,7 +25,7 @@ int main (int argc, char* argv[])
         if (schema) {
             GSettings* gs = g_settings_new_full (schema, NULL, NULL);
             if (gs) {
-                g_signal_connect (gs, "changed", change, NULL);
+                g_signal_connect (gs, "changed", (void*) change, NULL);
             }
         }
     }

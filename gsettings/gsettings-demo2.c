@@ -4,6 +4,7 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2019年12月30日 星期一 23时21分00秒
  ************************************************************************/
+#include <stdio.h>
 #include <gio/gio.h>
 
 int main (int argc, char* argv)
