@@ -17,7 +17,7 @@ int main ()
 	//QRegularExpression regex ("*\\.java");
     //qInfo() << "str: " << str << ", contains: " << regex.match(str).hasMatch();
 
-	QRegExp regex ("*.java", Qt::CaseInsensitive);
+	QRegExp regex ("*.java$", Qt::CaseInsensitive);
     regex.setPatternSyntax(QRegExp::Wildcard);
     qInfo() << "str: " << str << ", contains: " << regex.exactMatch(str);
 
