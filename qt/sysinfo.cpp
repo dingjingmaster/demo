@@ -14,18 +14,18 @@ int main (int argc, char* argv[])
 {
     QSysInfo info;
 
-    qDebug() << info.buildAbi();
-    qDebug() << info.buildCpuArchitecture();
-    qDebug() << info.currentCpuArchitecture();
-    qDebug() << info.kernelType();
-    qDebug() << info.kernelVersion();
-    qDebug() << info.machineHostName();
-    qDebug() << info.machineUniqueId();
-    qDebug() << info.prettyProductName();
-    qDebug() << info.productType();
-    qDebug() << info.productVersion();
+    qInfo() << info.buildAbi();
+    qInfo() << info.buildCpuArchitecture();
+    qInfo() << info.currentCpuArchitecture();
+    qInfo() << info.kernelType();
+    qInfo() << info.kernelVersion();
+    qInfo() << info.machineHostName();
+    //qInfo() << info.machineUniqueId();
+    qInfo() << info.prettyProductName();
+    qInfo() << info.productType();
+    qInfo() << info.productVersion();
 
-    qDebug() << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    qInfo() << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     return 0;
 }
