@@ -4,13 +4,17 @@
 > Mail    : dingjing@live.cn
 > Created Time: 2025年08月20日 星期三 17时46分54秒
  ************************************************************************/
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
 #include <dlfcn.h>
 #include <stdio.h>
-//#include <fcntl.h>
+#include <fcntl.h>
 #include <syslog.h>
 #include <unistd.h>
 
 
+#if 0
 int open (const char* pathName, int flags, int mode)
 {
     static int (*realOpen) (const char*, int, int) = NULL;
@@ -22,6 +26,7 @@ int open (const char* pathName, int flags, int mode)
 
     return realOpen(pathName, flags, mode);
 }
+#endif
 
 int dup2 (int oldFd, int newFd)
 {
