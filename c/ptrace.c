@@ -8,6 +8,7 @@
 #define _POSIX_C_SOURCE 200809L
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
 
 #include <errno.h>
 #include <stdio.h>
@@ -29,4 +30,5 @@ int main (int argc, char* argv[])
 {
     return 0;
 }
+
 
