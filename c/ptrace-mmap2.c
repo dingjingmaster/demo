@@ -18,12 +18,13 @@
 
 int main(int argc, char *argv[]) 
 {
-    if (argc != 2) {
-        printf("Usage: %s <pid>\n", argv[0]);
+    if (argc != 3) {
+        printf("Usage: %s <pid> <hook>\n", argv[0]);
         return -1;
     }
 
     pid_t pid = atoi(argv[1]);
+    const char *hook = argv[2];
     if (ptrace(PTRACE_ATTACH, pid, NULL, NULL) == -1) {
         perror("PTRACE_ATTACH");
         return -1;
@@ -59,11 +60,10 @@ int main(int argc, char *argv[])
     // 恢复原来的指令
     ptrace(PTRACE_POKETEXT, pid, saved_regs.rip, orig_code);
 
-    // 写入 AAABBB
-    const char *data = "AAABBB";
-    for (size_t i = 0; i < strlen(data); i += sizeof(long)) {
+    // 写入 
+    for (size_t i = 0; i < strlen(hook); i += sizeof(long)) {
         long val = 0;
-        memcpy(&val, data + i, sizeof(long));
+        memcpy(&val, hook + i, sizeof(long));
         ptrace(PTRACE_POKETEXT, pid, mmap_addr + i, val);
     }
 
