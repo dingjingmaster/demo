@@ -11,6 +11,7 @@
 int main (void)
 {
     printf("INT32_MAX ptr: %s\n", g_format_size(INT32_MAX * sizeof(void*)));
+    printf("MAX_FD ptr: %s\n", g_format_size(524288 * sizeof(void*)));
 
     return 0;
 }
