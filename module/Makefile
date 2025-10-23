@@ -1,4 +1,4 @@
-obj-m = \
+#obj-m = \
 	io.o \
 	kbd.o \
 	list1.o \
@@ -18,6 +18,10 @@ obj-m = \
 	simplefs.o \
 	sched-spin.o \
 	hello-world.o \
+	work-queue.o \
+
+obj-m = \
+	work-queue.o \
 
 #do-mmap.o \
 
