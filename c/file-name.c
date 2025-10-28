@@ -24,10 +24,6 @@ int main (int argc, char* argv[])
         name = filePath;
     }
 
-    if (name == '/') {
-        name += 1;
-    }
-
     printf ("name: %s\n", name);
 
     return 0;
