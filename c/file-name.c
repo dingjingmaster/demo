@@ -16,6 +16,7 @@ int main (int argc, char* argv[])
     }
 
     char* name = NULL;
+    char fileDir[4096] = {0};
     const char* filePath = argv[1];
     int nameLen = strlen(filePath);
 
@@ -24,7 +25,10 @@ int main (int argc, char* argv[])
         name = filePath;
     }
 
+    for (int i = 0; ((filePath + i < name)); fileDir[i] = filePath[i], ++i);
+
     printf ("name: %s\n", name);
+    printf ("dir: %s\n", fileDir);
 
     return 0;
 }
