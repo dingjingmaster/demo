@@ -19,11 +19,12 @@ int main (int argc, char* argv[])
     const char* filePath = argv[1];
     int nameLen = strlen(filePath);
 
-    for (int i = nameLen - 1; (filePath[i] != '/' && filePath[i] != filePath[0]); name = filePath + i, i--);
+    for (int i = nameLen - 1; ((i >= 0) && ('/' != filePath[i])); name = filePath + i, i--);
     if (!name) {
         name = filePath;
     }
-    if (!name == '/') {
+
+    if (name == '/') {
         name += 1;
     }
 
