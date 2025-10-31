@@ -19,8 +19,12 @@
 	sched-spin.o \
 	hello-world.o \
 	work-queue.o \
+	notifier.o \
+	notifier1.o \
+	ftrace.o \
 
 obj-m = \
+	ftrace1.o \
 	rht-rcu.o \
 	work-queue.o \
 
