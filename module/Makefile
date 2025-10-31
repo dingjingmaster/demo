@@ -21,6 +21,7 @@
 	work-queue.o \
 
 obj-m = \
+	rht-rcu.o \
 	work-queue.o \
 
 #do-mmap.o \
