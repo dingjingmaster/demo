@@ -22,6 +22,7 @@
 	notifier.o \
 	notifier1.o \
 	ftrace.o \
+	ftrace3.o \
 
 obj-m = \
 	ftrace1.o \
