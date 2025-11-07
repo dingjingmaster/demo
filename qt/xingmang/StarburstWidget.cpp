@@ -6,28 +6,55 @@
  ************************************************************************/
 
 #include "StarburstWidget.h"
+
+#include <QDebug>
+#include <QTimer>
 #include <QPainter>
 #include <QFileDialog>
 #include <QGuiApplication>
 #include <cmath>
 
+static float start = 0;
+static float step = 1;
+
 StarburstWidget::StarburstWidget(QWidget *parent)
     : QWidget(parent)
 {
     setMinimumSize(40, 40);
+
+    QTimer* tm = new QTimer(this);
+    tm->connect(tm, &QTimer::timeout, [&] () {
+        if (start >= 0 && start < (360 - step)) {
+            start += step;
+        }
+        else {
+            start = 0;
+            if (step < (350 - step)) {
+                step += 1;
+            }
+            else {
+                start = 0;
+                step = 1;
+            }
+        }
+        qInfo() << "update -- start: " << start << ", step: " << step;
+        update(); 
+    });
+    tm->setInterval(10);
+    tm->start();
 }
 
 QImage StarburstWidget::generateStarburst(int size, int petals, double sigma)
 {
-    QImage img(size, size, QImage::Format_RGB888);
-    img.fill(Qt::black);
+    QImage img(size, size, QImage::Format_ARGB32);
+    img.fill(Qt::transparent);
 
     const double centerX = size * 0.5;
     const double centerY = size * 0.5;
     const double scale = size * 0.1;  // 控制图案大小
 
     for (int py = 0; py < size; ++py) {
-        uchar* line = img.scanLine(py);
+        QRgb* line = (QRgb*) img.scanLine(py);
         for (int px = 0; px < size; ++px) {
             double x = (px - centerX) / scale;
             double y = (py - centerY) / scale;
@@ -42,17 +69,10 @@ QImage StarburstWidget::generateStarburst(int size, int petals, double sigma)
             // 提升亮度 + 底噪
             intensity = qBound(0.0, intensity * 1.3 + 0.05, 1.0);
 
-            // 写入像素（灰度）
-            // uchar val = static_cast<uchar>(intensity * 255);
-            // line[px * 3 + 0] = val;
-            // line[px * 3 + 1] = val;
-            // line[px * 3 + 2] = val;
             QColor c;
-            float sx = 45 + intensity * 225 * 10 / 225;
+            float sx = start + intensity * 225 * (360 - start)/ 225;
             c.setHsvF(sx / 360.0, 1.0, 1.0);
-            line[px * 3 + 0] = c.red();
-            line[px * 3 + 1] = c.green();
-            line[px * 3 + 2] = c.blue();
+            line[px] = qRgba(c.red(), c.green(), c.blue(), c.alpha());
         }
     }
     return img;
@@ -64,7 +84,7 @@ void StarburstWidget::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::Antialiasing);
 
     int size = qMin(width(), height());
-    QImage star = generateStarburst(size, 6, 3.0);
+    QImage star = generateStarburst(size, 3, 3.0);
 
     painter.drawImage((width() - size)/2, (height() - size)/2, star);
 }
