@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     StarburstWidget w;
     w.setWindowTitle("2D 星芒图案 - Qt C++");
-    w.resize(800, 800);
+    w.resize(80, 80);
     w.show();
 
     return app.exec();

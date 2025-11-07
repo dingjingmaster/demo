@@ -14,7 +14,7 @@
 StarburstWidget::StarburstWidget(QWidget *parent)
     : QWidget(parent)
 {
-    setMinimumSize(400, 400);
+    setMinimumSize(40, 40);
 }
 
 QImage StarburstWidget::generateStarburst(int size, int petals, double sigma)
@@ -43,10 +43,16 @@ QImage StarburstWidget::generateStarburst(int size, int petals, double sigma)
             intensity = qBound(0.0, intensity * 1.3 + 0.05, 1.0);
 
             // 写入像素（灰度）
-            uchar val = static_cast<uchar>(intensity * 255);
-            line[px * 3 + 0] = val;
-            line[px * 3 + 1] = val;
-            line[px * 3 + 2] = val;
+            // uchar val = static_cast<uchar>(intensity * 255);
+            // line[px * 3 + 0] = val;
+            // line[px * 3 + 1] = val;
+            // line[px * 3 + 2] = val;
+            QColor c;
+            float sx = 45 + intensity * 225 * 10 / 225;
+            c.setHsvF(sx / 360.0, 1.0, 1.0);
+            line[px * 3 + 0] = c.red();
+            line[px * 3 + 1] = c.green();
+            line[px * 3 + 2] = c.blue();
         }
     }
     return img;
@@ -58,13 +64,7 @@ void StarburstWidget::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::Antialiasing);
 
     int size = qMin(width(), height());
-    QImage star = generateStarburst(size, 5, 3.0);
+    QImage star = generateStarburst(size, 6, 3.0);
 
     painter.drawImage((width() - size)/2, (height() - size)/2, star);
-
-    // 右键保存
-    if (QGuiApplication::mouseButtons() & Qt::RightButton) {
-        QString path = QFileDialog::getSaveFileName(this, "保存星芒", "starburst.png", "PNG Images (*.png)");
-        if (!path.isEmpty()) star.save(path);
-    }
 }
