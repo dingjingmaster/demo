@@ -67,7 +67,6 @@ int main (int argc, char* argv[])
                         XSetSelectionOwner (dsp, selLen, None, CurrentTime);
                         memset (selBuf, 0, selLen);
                     }
- 
                     free (selBuf);
                 }
             }
