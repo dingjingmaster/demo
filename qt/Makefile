@@ -20,8 +20,12 @@ all:$(target1) $(target2)
 	#make -C drag-drop1
 	#make -C drag-drop2
 
+xingmang.run:xingmang.cpp xingmang/StarburstWidget.cpp xingmang/StarburstWidget.moc.cpp
+	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets` -o $@ $^ $(cflag) 
+	@echo CC -o $@
+
 ss.run : ss.cpp server-header.moc.cpp
-	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network Qt5WebSockets` -o $@ $^ $(cflag) 
+	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network Qt5WebSockets` -o $@ $^ $(cflag) 
 	@echo CC -o $@
 
 
@@ -40,7 +44,7 @@ header.run:header.cpp header/header-button.cpp header/main-header.cpp
 	@echo $@
 
 %.run:%.cpp 
-	g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network Qt5WebSockets gio-2.0` -o $@ $< $(cflag) 
+	@g++ -std=c++11 `pkg-config --cflags --libs Qt5Core Qt5Gui Qt5Widgets Qt5Network Qt5WebSockets gio-2.0` -o $@ $< $(cflag) 
 	@echo "CC -o $@ $<"
 
 %.o:%.cpp

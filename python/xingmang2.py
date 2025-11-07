@@ -18,7 +18,7 @@ r = np.sqrt(X**2 + Y**2)
 theta = np.arctan2(Y, X)
 
 # 2D 星芒函数
-img = np.abs(np.cos(8 * theta)) * np.exp(-r**2 / (2 * sigma**2))
+img = np.abs(np.cos(6 * theta)) * np.exp(-r**2 / (2 * sigma**2))
 img = img / img.max()       # 归一化到 [0,1]
 img = np.clip(img + 0.05, 0, 1)  # 轻微底噪防纯黑
 
