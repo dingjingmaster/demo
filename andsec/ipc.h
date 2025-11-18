@@ -10,8 +10,8 @@
 #include <string.h>
 
 
-#define IPC_CLIENT_SOCKET_PATH              "/usr/local/andsec/start/andsec_status.sock"
-#define IPC_DAEMON_SOCKET_PATH              "/usr/local/andsec/start/sec_daemon.sock"
+#define IPC_CLIENT_SOCKET_PATH              "/usr/local/andsec/config/andsec_status.sock"
+#define IPC_DAEMON_SOCKET_PATH              "/usr/local/andsec/config/sec_daemon.sock"
 
 typedef enum
 {

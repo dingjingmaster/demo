@@ -23,11 +23,14 @@
 	notifier1.o \
 	ftrace.o \
 	ftrace3.o \
-
-obj-m = \
 	ftrace1.o \
 	rht-rcu.o \
 	work-queue.o \
+	udev.o \
+	udev1.o
+
+obj-m = \
+	udev2.o
 
 #do-mmap.o \
 
