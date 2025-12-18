@@ -27,10 +27,11 @@
 	rht-rcu.o \
 	work-queue.o \
 	udev.o \
+	udev2.o \
 	udev1.o
 
 obj-m = \
-	udev2.o
+	arm-openat.o
 
 #do-mmap.o \
 
