@@ -28,10 +28,11 @@
 	work-queue.o \
 	udev.o \
 	udev2.o \
+	arm-openat.o \
 	udev1.o
 
 obj-m = \
-	arm-openat.o
+	arm64-hook1.o \
 
 #do-mmap.o \
 
