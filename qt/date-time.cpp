@@ -25,6 +25,7 @@ int main (int argc, char* argv[])
     qDebug() << "             m: " << tm.toString("m");
     qDebug() << "             s: " << tm.toString("s");
     //QLocale::setDefault(src);
+    qDebug() << "date: " << tm.toString("yyyyMMddhhmmsszzz");
 
     return 0;
 }
