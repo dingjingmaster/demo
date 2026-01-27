@@ -32,7 +32,7 @@
 	udev1.o
 
 obj-m = \
-	arm64-hook1.o \
+	lsm-hook-open.o \
 
 #do-mmap.o \
 
