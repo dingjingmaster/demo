@@ -29,10 +29,11 @@
 	udev.o \
 	udev2.o \
 	arm-openat.o \
-	udev1.o
+	udev1.o \
+	lsm-hook-open.o \
 
 obj-m = \
-	lsm-hook-open.o \
+	netfilter1.o \
 
 #do-mmap.o \
 
