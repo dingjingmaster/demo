@@ -50,7 +50,9 @@ void format_path (char* filePath)
 	if (!filePath) { return; }
 
 	int i = 0;
-	int fLen = (int) strlen (filePath);
+	int fLen = 0;
+
+    for (i = 0; '\0' != filePath[i]; ++i);
 	for (i = 0; filePath[i]; ++i) {
 		while (filePath[i] && '/' == filePath[i] && '/' == filePath[i + 1]) {
 			for (int j = i; filePath[j] || j < fLen; filePath[j] = filePath[j + 1], ++j);
