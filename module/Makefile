@@ -32,10 +32,10 @@
 	udev1.o \
 	netfilter1.o \
 	lsm-hook-open.o \
-
-obj-m = \
 	list-mount-point.o \
 
+obj-m = \
+	str-hashtable.o
 #do-mmap.o \
 
 
