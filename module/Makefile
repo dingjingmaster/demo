@@ -30,10 +30,11 @@
 	udev2.o \
 	arm-openat.o \
 	udev1.o \
+	netfilter1.o \
 	lsm-hook-open.o \
 
 obj-m = \
-	netfilter1.o \
+	list-mount-point.o \
 
 #do-mmap.o \
 
