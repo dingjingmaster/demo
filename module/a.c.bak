@@ -1,0 +1,59 @@
+/*************************************************************************
+> FileName: list-mount-point.c
+> Author  : DingJing
+> Mail    : dingjing@live.cn
+> Created Time: 2026年03月02日 星期一 10时12分28秒
+ ************************************************************************/
+// 文件名: list_mounts_proc.c
+#include <linux/fs.h>
+#include <linux/init.h>
+#include <linux/slab.h>
+#include <linux/sched.h>
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/nsproxy.h>
+#include <linux/uaccess.h>
+
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Alex Ding");
+MODULE_DESCRIPTION("List all mounts in 5.4 via /proc/mounts");
+
+
+static int __init list_mounts_init(void)
+{
+    struct nsproxy* nproxy = current->nsproxy;
+    if (!nproxy) {
+        pr_info("ok1\n");
+        return 0;
+    }
+
+    struct mnt_namespace* ns = nproxy->mnt_ns;
+    if (!ns) {
+        pr_info("ok2\n");
+        return 0;
+    }
+
+    struct mount* mnt = NULL;
+    list_for_each_entry(mnt, &ns->list, mnt_list) {
+        struct dentry *mnt_point = mnt->mnt_mountpoint;
+        struct vfsmount *vfsmnt = &mnt->mnt;
+
+        printk(KERN_ERR "%s %s %s %s 0 0\n",
+            mnt->mnt_devname,             // source
+            mnt_point->d_name.name,       // target
+            vfsmnt->mnt_sb->s_type->name, // fstype
+            mnt->mnt.mnt_flags_text);     // mount options
+    }
+
+
+    return 0;
+}
+
+static void __exit list_mounts_exit(void)
+{
+    pr_info("=== Module unloaded ===\n");
+}
+
+module_init(list_mounts_init);
+module_exit(list_mounts_exit);
