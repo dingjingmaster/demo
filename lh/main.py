@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
-import tkinter as tk
-from tkinter import ttk, scrolledtext
-import requests
-import numpy as np
-import threading
 import time
 import random
+import requests
+import threading
+import numpy as np
+import pandas as pd # E: Library stubs not installed for "pandas"  [import-untyped]
+import tkinter as tk
+import MetaTrader5 as mt5 # E: Cannot find implementation or library stub for module named "MetaTrader5"  [import-not-found]
 import matplotlib.pyplot as plt
+from tkinter import ttk, scrolledtext
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # 实时金价
