@@ -161,7 +161,8 @@ class GoldAIProMax:
 
     def ai_analysis(self):
         if len(self.price_history) < 30:
-            self.lb_signal.config(text="数据收集中...", fg="#00d8ff")
+            #self.lb_signal.config(text="数据收集中...", fg="#00d8ff")
+            self.lb_signal.config(text="数据收集中...")
             return
 
         ma10 = np.mean(self.price_history[-10:])
