@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
+import sys
 import time
+import math
 import random
 import requests
 import threading
@@ -8,8 +10,20 @@ import numpy as np
 import tkinter as tk
 import MetaTrader5 as mt5 # E: Cannot find implementation or library stub for module named "MetaTrader5"  [import-not-found]
 import matplotlib.pyplot as plt
+
+from enum import Enum
 from tkinter import ttk, scrolledtext
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+
+# MT5 配置
+account  = "104290350"
+password = "V^5mPuHr"
+server   = "MetaQuotes-Demo"
+
+if not mt5.initialize():
+    print (mt5.last_error())
+    quit()
 
 # 实时金价
 def get_real_gold_price():
@@ -21,6 +35,77 @@ def get_real_gold_price():
     except:
         return None
 
+class OrderType(Enum):
+    BUY = 1
+    SELL = 2
+
+# MT5
+class MT5Server:
+    def __init__(self):
+        self._symbolStr = "XAUUSD"
+    def login(self, account, password, server) -> bool:
+        self._auth  = mt5.login(account, password=password, server=server)
+        return self._auth
+    def place_order(self, orderType: OrderType, money) -> bool:
+        ot = None
+        symbolInfo  = mt5.symbol_info(self._symbolStr)
+        if symbolInfo is None:
+            print("Symbol error!")
+            return False
+        if not symbolInfo.visible:
+            mt5.symbol_select(self._symbolStr, True)
+        if not symbolInfo.visible:
+            print("{self._symbolStr}不可见,检查是否写错.")
+            return False
+
+        tick = mt5.symbol_info_tick(self._symbolStr)
+        if tick is None:
+            print (f"获取 {self._symbolStr} tick 数据失败")
+            return False
+
+        if orderType == OrderType.BUY:
+            ot = mt5.ORDER_TYPE_BUY
+        else:
+            ot = mt5.ORDER_TYPE_SELL
+        
+        price = tick.ask if ot == mt5.ORDER_TYPE_BUY else tick.bid
+        # 最小手数
+        minVolume = symbolInfo.volume_min
+        # 步长
+        volumeStep = symbolInfo.volume_step
+        # 最大手数
+        maxVolume = symbolInfo.volume_max
+        print(f"{self._symbolStr} 最小手数: {minVolume}, 步长: {volumeStep}, 最大手数: {maxVolume}")
+        myVolume = float(money) / price
+
+        volume = math.floor(myVolume / volumeStep) * volumeStep
+        volume = max(volume, minVolume)
+        volume = min(volume, maxVolume)
+
+        print(f"{self._symbolStr} 下单价格: {price}, 购买 {volume} 手, 花费: {price * volume}.")
+        request = {
+            "action": mt5.TRADE_ACTION_DEAL,
+            "symbol": self._symbolStr,
+            "volume": volume,
+            "type": ot,
+            "price": price,
+            "deviation": 10,
+            "magic": 123456998866,
+            "comment": "Python auto trade",
+            "type_filling": mt5.ORDER_FILLING_IOC
+        }
+        result = mt5.order_send(request)
+        if None is result:
+            print("下单失败, 服务器没有响应.")
+            return False
+        if result.retcode != mt5.TRADE_RETCODE_DONE:
+            if 10027 == result.retcode:
+                print(f"订单被服务器拒绝, 客户端没有打开允许算法交易开关")
+                return False
+            print("下单失败, 原因: {result.comment}")
+            return False
+        return True;
+
 # 主程序
 class GoldAIProMax:
     def __init__(self, root):
@@ -29,6 +114,9 @@ class GoldAIProMax:
         self.root.geometry("900x950")
         self.root.resizable(False, False)
         self.root.configure(bg="#121418")
+
+        # mt5
+        self._mt5 = MT5Server()
 
         # 数据
         self.price = 0.0
@@ -60,6 +148,13 @@ class GoldAIProMax:
 
         self.init_style()
         self.create_ui()
+
+    # 登录
+    def loginMT5(self, account, password, server) -> bool:
+        if not self._mt5.login(account, password, server):
+            print("login error: ", mt5.last_error());
+        return True
+
 
     # 深色主题
     def init_style(self):
@@ -224,6 +319,10 @@ class GoldAIProMax:
         self.profit -= self.price
         self.cost = self.price
         self.log(f"买入：{self.price:.2f}")
+        if self._mt5.place_order(OrderType.BUY, self.price):
+            self.log(f"买入成功")
+        else:
+            self.log(f"买入失败")
 
     def sell(self):
         if self.price <= 0: return
@@ -231,6 +330,10 @@ class GoldAIProMax:
         self.profit += self.price
         self.cost = self.price
         self.log(f"卖出：{self.price:.2f}")
+        if self._mt5.place_order(OrderType.SELL, self.price):
+            self.log(f"卖出成功")
+        else:
+            self.log(f"卖出失败")
 
     def close_all(self):
         if self.position ==0: return
@@ -238,6 +341,7 @@ class GoldAIProMax:
         self.log(f"一键平仓 | 盈亏：${self.position*self.price:.2f}")
         self.position = 0
         self.cost = 0
+        self.log("没实现 ...")
 
     def gen_strategy(self):
         s = random.choice([
@@ -283,5 +387,8 @@ class GoldAIProMax:
 if __name__ == "__main__":
     root = tk.Tk()
     app = GoldAIProMax(root)
+    if not app.loginMT5(account, password, server):
+        print("登录MT5失败!")
+        sys.exit(1)
     root.mainloop()
 
