@@ -28,7 +28,10 @@ int main (void)
                 continue;
             }
             else {
-                printf ("%s\n", buf);
+                char* pos = NULL;
+                if (pos = strstr(buf, sym)) {
+                    printf ("%s\n", buf);
+                }
                 memset(buf, 0, sizeof(buf));
                 idx = 0;
             }

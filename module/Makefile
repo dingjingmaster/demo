@@ -33,9 +33,11 @@
 	netfilter1.o \
 	lsm-hook-open.o \
 	list-mount-point.o \
+	str-hashtable.o \
+
 
 obj-m = \
-	str-hashtable.o
+	rename_hook.o
 #do-mmap.o \
 
 
