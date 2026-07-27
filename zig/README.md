@@ -185,3 +185,145 @@ pub fn main() !void {
 - switch (err)：对错误类型进行匹配，分别处理不同的错误情形。
 - else => return err：对未预期的错误直接向上传播，不静默忽略。
 - 如果 readFile 执行成功（没有触发 catch），则继续执行后面的打印语句。
+
+## 项目管理文件
+
+|文件|说明|
+|:---|:---|
+|build.zig|定义如何构建项目|
+|build.zig.zon|定义项目是什么、依赖有哪些|
+
+### build.zig
+
+是一个真正的zig程序，定义执行 `zig build` 时候，zig首先会编译并运行 `build.zig`，由它决定：
+- 编译哪些源文件
+- 生成哪些可执行程序
+- 是否生成动态库/静态库
+- 是否运行测试
+- 是否安装
+- 是否链接 libc
+- 是否链接第三方库
+- 是否执行自定义步骤
+
+```zig
+const std = @import("std");
+
+pub fn build(b: *std.Build) void {
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+
+    const exe = b.addExecutable(.{
+        .name = "hello",
+        .root_source_file = b.path("src/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    b.installArtifact(exe);
+}
+```
+执行
+
+```Zig
+zig build
+```
+生成：`zig-out/bin/hello`
+
+### 它能做什么
+
+由于它本身是 Zig 程序，因此几乎可以做任何事情，例如：
+- 读取文件
+- 扫描目录
+- 生成代码
+- 执行外部程序
+- 下载资源
+- 生成版本号
+- 根据平台选择源码
+- 生成 config.h
+- 生成 version.zig
+- 扫描 plugins/
+
+例如：
+```
+if (target.result.os.tag == .linux) {
+    // Linux
+} else if (target.result.os.tag == .windows) {
+    // Windows
+}
+```
+
+## build.zig.zon
+
+这是 Zig 的项目清单（Manifest）。
+
+它采用 Zig Object Notation（ZON）格式，语法类似 Zig 字面量。
+
+例如：
+```
+.{
+    .name = "myproject",
+    .version = "0.1.0",
+
+    .dependencies = .{
+        .foo = .{
+            .url = "https://github.com/xxx/foo/archive/main.tar.gz",
+            .hash = "...",
+        },
+    },
+}
+```
+
+主要描述：
+- 项目名称
+- 项目版本
+- 最低 Zig 版本
+- 第三方依赖
+- 包信息
+
+它不会告诉 Zig 如何编译。
+
+`.zon` 是 Zig Object Notation。
+
+### 二者如何配合
+
+假设项目：
+
+```
+myapp/
+
+├── build.zig
+├── build.zig.zon
+├── src/
+│   └── main.zig
+└── zig-cache/
+```
+
+执行：
+
+```
+zig build
+```
+
+流程大致如下：
+
+```
+读取 build.zig.zon
+        │
+        ▼
+下载依赖（如果需要）
+        │
+        ▼
+运行 build.zig
+        │
+        ▼
+编译源码
+        │
+        ▼
+生成 zig-out/
+```
+
+因此：
+build.zig.zon 提供项目和依赖信息。
+build.zig 根据这些信息组织实际的构建过程。
+
+> 注意：可以没有 `build.zig.zon`，甚至也可以没有 `build.zig`。只有当需要：包管理、第三方依赖、发布项目时候才添加`build.zig.zon`
