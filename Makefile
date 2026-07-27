@@ -22,7 +22,8 @@ else ifeq ($(shell uname -o), GNU/Linux)
 		str \
 		vala vte \
 		x xcb x-drag-drop \
-		syscall
+		syscall \
+		zig
 endif
 
 
