@@ -33,4 +33,22 @@ fn main() {
     Struct { m, .. } = Struct{ m: 5};
     // 1, 2, 1, 4, 5
     println!("h = {}, j = {}, k = {}, l = {}, m = {}", h, j, k, l, m);
+
+    // 常量
+    const _MAX_POINTS : u32 = 100_000;
+
+    // 变量遮蔽
+    let mm = 5;
+    let mm = mm + 1;
+    {
+        let mm = mm * 2;
+        println!("mm = {}", mm);
+    }
+    println!("mm = {}", mm);
+
+    // 用 let 可以遮蔽, 第二个不用 let 就报错了
+    let spaces = "AAAAAAAABBBBBBBBCCCCCCCC";
+    println!("spaces = {}", spaces);
+    let spaces = spaces.len();
+    println!("spaces = {}", spaces);
 }
