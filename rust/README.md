@@ -251,7 +251,87 @@ fn dangle() -> &String {
 - 同一时刻，你只能拥有要么一个可变引用，要么任意多个不可变引用
 - 引用必须总是有效的
 
-## 复合类型
+## 复合类型 -- 字符串与切片
+
+来个简单代码，会报错：
+
+```
+fn main() {
+    let my_name = "Pascal";
+    greet(my_name);
+}
+
+fn greet(name: String) {
+    println!("Hello, {}!", name);
+}
+```
+
+greet 函数需要一个 `String` 类型的字符串，却传入了一个 `&str` 类型的字符串
+
+### 切片
+
+切片允许你引用集合中部分连续的元素序列，而不是引用整个集合
+
+对于字符串而言，切片就是对 String 类型中某一部分的引用，它看起来像这样：
+```
+let s = String::from("hello world");
+
+let hello = &s[0..5];
+let world = &s[6..11];
+```
+
+这就是创建切片的语法，使用方括号包括的一个序列：[开始索引..终止索引]。
+
+其中开始索引是切片中第一个元素的索引位置，而终止索引是最后一个元素后面的索引位置。换句话说，这是一个 右半开区间（或称为左闭右开区间）
+
+以下代码等效
+```
+let s = String::from("hello");
+
+let slice = &s[0..2];
+let slice = &s[..2];
+
+// 包含最后一个字节
+let s = String::from("hello");
+let len = s.len();
+let slice = &s[4..len];
+let slice = &s[4..];
+
+// 完整截取
+let s = String::from("hello");
+let len = s.len();
+let slice = &s[0..len];
+let slice = &s[..];
+```
+
+在对字符串使用切片语法时需要格外小心，切片的索引必须落在字符之间的边界位置，也就是 UTF-8 字符的边界，例如中文在 UTF-8 中占用三个字节，下面的代码就会崩溃：
+
+```
+ let s = "中国人";
+ let a = &s[0..2];
+ println!("{}",a);
+```
+
+> 因为我们只取 s 字符串的前两个字节，但是本例中每个汉字占用三个字节，因此没有落在边界处，也就是连 中 字都取不完整，此时程序会直接崩溃退出，如果改成 &s[0..3]，则可以正常通过编译。 因此，当你需要对字符串做切片索引操作时，需要格外小心这一点
+
+字符串切片的类型标识是 &str，因此我们可以这样声明一个函数，输入 String 类型，返回它的切片：fn first_word(s: &String) -> &str 。
+
+```
+fn main() {
+    let mut s = String::from("hello world");
+
+    let word = first_word(&s);
+
+    // s 被借用走了
+    s.clear(); // error!
+
+    println!("the first word is: {}", word);
+}
+fn first_word(s: &String) -> &str {
+    &s[..1]
+}
+```
+
 
 
 
