@@ -3,9 +3,8 @@ fn main() {
 
     let word = first_word(&mut s);
 
-    //s.clear(); // error!
-
     println!("the first word is: {}", word);
+    s.clear(); // error!
 }
 fn first_word(s: &mut String) -> &str {
     &(*s)[..1]
