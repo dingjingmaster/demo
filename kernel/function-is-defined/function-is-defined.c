@@ -4,7 +4,7 @@
 #include <linux/module.h> /* Needed by all modules */
 #include <linux/printk.h> /* Needed for pr_info() */
 
-int init_module(void)
+static int __init f_init(void)
 {
     pr_info("Hello world 1.\n");
 
@@ -18,9 +18,11 @@ int init_module(void)
     return 0;
 }
 
-void cleanup_module(void)
+static void __exit f_cleanup(void)
 {
     pr_info("Goodbye world 1.\n");
 }
 
 MODULE_LICENSE("GPL");
+module_init(f_init);
+module_exit(f_cleanup);
